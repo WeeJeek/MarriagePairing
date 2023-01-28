@@ -1,0 +1,26 @@
+{
+  "name": "marriagepairing",
+  "version": "1.0.0",
+  "description": "this is a mini program running on wechat platform to help couples to determine their potential to have a good marriage in the future.",
+  "main": "app.js",
+  "directories": {
+    "example": "example",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WeeJeek/MarriagePairing.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WeeJeek/MarriagePairing/issues"
+  },
+  "homepage": "https://github.com/WeeJeek/MarriagePairing#readme",
+  "devDependencies": {
+    "jest": "^29.3.1"
+  }
+}
