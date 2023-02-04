@@ -1,8 +1,14 @@
 <!--pages/index/index.wxml-->
 <view wx:if="{{has_test_progress}}">
-  <button>返回历史进度</button>
-  <button>从头开始测试</button>
+  <button class = 'button' bindtap = 'back_to_progress'>
+    返回历史进度
+  </button>
+  <button class = 'button' bindtap = 'restart_test'>
+    从头开始测试
+  </button>
 </view>
 <view wx:else>
-  <button>开始测试</button>
+  <button class = 'button' bindtap = 'restart_test'>
+    开始测试
+  </button>
 </view>

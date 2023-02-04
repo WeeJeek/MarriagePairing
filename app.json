@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/authorization/authorization"
+    "pages/authorization/authorization",
+    "pages/testing/testing"
   ]
 }
