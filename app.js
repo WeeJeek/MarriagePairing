@@ -1,4 +1,4 @@
-import { TestManager } from "./utils/TestManager";
+import { TestManager } from "./utils/TestProgressManager";
 
 App({
   global_data: {

@@ -1,16 +1,15 @@
-import {TestManager} from "../../utils/TestManager"
+import {TestManager, TestProgressManager} from "../../utils/TestProgressManager"
 
 const app = getApp()
 
 Page({
     data: {
-      test_manager: new TestManager(),
-      has_test_progress: '',
-      
+      test_progress_manager:"",
+      has_test_progress:""
     },
     onLoad(res) {
-      //this.test_manager =
-      //has_test_progress = this.test_manager.has_test_progress() 
+      this.test_progress_manager = new TestProgressManager()
+      this.has_test_progress = this.test_progress_manager.has_test_progress()
     },
     back_to_progress(res){
       console.log("user starts testing from previous progress.")
