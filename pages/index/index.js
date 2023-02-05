@@ -1,6 +1,5 @@
-// pages/index/index.js
-import {UserManager} from "../../utils/UserManager"
 import {TestManager} from "../../utils/TestManager"
+
 const app = getApp()
 
 Page({
