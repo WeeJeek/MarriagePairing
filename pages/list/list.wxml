@@ -1,0 +1,22 @@
+<view>
+  <view class = "desc">
+    <text>
+      test title<!--{{test_title}}-->
+    </text>
+    <text>
+      test rule: filsdjlf <!--test_rule-->
+    </text>
+    <text>
+      bla bla bla bla bla<!--{{test_description}}-->
+    </text>
+  </view>
+  <view class = "list" style = "display: flex; flex-direction:column">
+    <view class = 'item' wx:for="{{question_list}}" wx:key="{{index}}" style="display: flex; flex-direction:column;" bindtouchstart="delItem">
+      <view>{{item.desc}}</view>
+      <button>{{item.choice[0].desc}}</button>
+      <button>{{item.choice[1].decs}}</button>
+      <button>{{item.choice[2].decs}}</button>
+      <button>{{item.choice[3].decs}}</button>
+    </view>
+  </view>
+</view>

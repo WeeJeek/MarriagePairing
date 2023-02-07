@@ -1,30 +1,19 @@
-// pages/testing/testing.js
+// pages/list/list.js
 
 const app = getApp()
 
 Page({
-  data: {
-    is_entry_page: true,
-    current_test:""
-  },
-  initialize_data(){
-    //current_test = app.global_data.test_progress_manager.get_current_test()
-  },
-  start_test(){
-    console.log("the test is started")
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
-    this.setData({
-      current_test: app.test_progress_manager.get_current_test()
-    })
-  },
 
   /**
-   * 生命周期函数--监听页面初次渲染完成
+   * 页面的初始数据
    */
+  data: {
+  },
+
+  onLoad(options) {
+
+  },
+
   onReady() {
 
   },

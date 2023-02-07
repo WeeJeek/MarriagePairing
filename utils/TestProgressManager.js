@@ -1,5 +1,5 @@
 import { report } from "../src/questionnaires_related/report";
-import {questionnaires} from "../src/questionnaires_related/questionnaire"
+import {questionnaires} from "../src/questionnaires_related/questionnaires"
 
 export class TestProgressManager{
   _report = {};
@@ -47,5 +47,16 @@ export class TestProgressManager{
 
   has_test_progress(){
     return this._has_test_progress;
+  }
+
+  get_current_test()
+  {
+    return {"test_title": "q"}
+    //TODO think about a way to do
+  }
+
+  get_current_test_set()
+  {
+
   }
 }

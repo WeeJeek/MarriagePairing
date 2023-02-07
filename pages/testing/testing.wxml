@@ -1,2 +1,12 @@
 <!--pages/testing/testing.wxml-->
-<text>pages/testing/testing.wxml</text>
+<view wx:if="{{is_entry_page}}">
+<text>{{current_test['test_title']}}</text>
+<view>{{current_test}}</view>
+<view>{{current_test}}</view>
+<view>{{current_test}}</view>
+<button class = "button" bindtap="start_test"> start test </button>
+</view>
+<view wx:else>
+  <text>i am a progress bar. </text>
+</view>
+
