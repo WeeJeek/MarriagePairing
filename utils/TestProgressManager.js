@@ -1,15 +1,15 @@
-import { report } from "../src/questionnaires_related/report";
-import {questionnaires} from "../src/questionnaires_related/questionnaires"
+import {report} from "../src/tests_related/report";
+import {tests} from "../src/tests_related/tests"
 
 export class TestProgressManager{
   _report = {};
-  _questionnaires = {}
+  _tests = {}
   _has_test_progress = false;
 
   constructor()
   {
     this.load_report();
-    this._questionnaires = questionnaires;
+    this._tests = tests;
   }
 
   save_report(){
@@ -51,7 +51,7 @@ export class TestProgressManager{
 
   get_current_test()
   {
-    return {"test_title": "q"}
+    return this.tests
     //TODO think about a way to do
   }
 
