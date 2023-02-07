@@ -1,6 +1,6 @@
-{
+var report = {
   "user_info":{
-    "name": "",
+    "name": "dasd",
     "wx_id": "",
     "account_id": "",
     "gender": ""
@@ -28,3 +28,5 @@
     "happy_marriage_assessment":{}
   }
 }
+
+export {report}
