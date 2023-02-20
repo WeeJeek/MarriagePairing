@@ -3,8 +3,10 @@ import {tests} from "../src/tests_related/tests"
 
 export class TestProgressManager{
   _report = {};
-  _tests = {}
+  _tests = {};
   _has_test_progress = false;
+  _cur_test_index = 0;
+  _test_category_index = 0;
 
   constructor()
   {
@@ -45,14 +47,16 @@ export class TestProgressManager{
     })
   }
 
+  
+
   has_test_progress(){
     return this._has_test_progress;
   }
 
   get_current_test()
   {
-    return this.tests
-    //TODO think about a way to do
+    return this._tests['MBTI']['questions'][this._cur_test_index]
+    //TODO make an enum for test category
   }
 
   get_current_test_set()

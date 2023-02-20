@@ -1,0 +1,44 @@
+我第一次开发小程序，也是第一次用js，可能问的问题会太基础。
+
+我在开发一个问卷调查的小程序，所以建了一个TestProgressManager 的class来管理相关的数据和操作。 因为很多的js的文件都需要用到这个test progress manager，我在index.js里初始化它的时候，我把它存到了global_data
+
+onst app = getApp()
+
+Page({
+    data: {
+      test_progress_manager:"",
+      ...
+    },
+    onLoad(res) {
+      this.test_progress_manager = new TestProgressManager()
+      app.global_data.test_progress_manager = this.test_progress_manager
+      ...
+    },
+...
+
+
+之后在testing.js中，我需要获取test_progress_manager的current test
+
+
+const app = getApp()
+
+Page({
+  data: {
+    current_test:{},
+    ...
+  },
+  onLoad(options) {
+    this.setData({
+      current_test: app.test_progress_manager.get_current_test()
+    })
+    console.log("test is" + this.current_test)
+  }
+...
+
+
+但是在console中打印出来的时候，this.current_test是undefined。可是，一旦我把console中的this.current_test换成app.test_progress_manager.get_current_test()， 打印出来的就是 “test is[object Object]”。
+
+所以：
+
+为什么setData之后，数据没有办法打印出来？它到底成功赋值了吗？
+为什么两次打印出来的结果不一样？

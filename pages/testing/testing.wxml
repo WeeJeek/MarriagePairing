@@ -1,12 +1,17 @@
 <!--pages/testing/testing.wxml-->
 <view wx:if="{{is_entry_page}}">
-<text>{{current_test['test_title']}}</text>
-<view>{{current_test}}</view>
-<view>{{current_test}}</view>
-<view>{{current_test}}</view>
-<button class = "button" bindtap="start_test"> start test </button>
+  <button class = "button" bindtap="start_test"> start test </button>
 </view>
 <view wx:else>
-  <text>i am a progress bar. </text>
+  <!--<view class="progress-box">
+    <progress >I am a progress bar</progress>
+  </view>-->
+ <checkbox-group bindchange="checkboxChange">
+  <label wx:for="{{current_test['options']}}" ><!--wx:key-->
+    <view>
+      <!--<checkbox value="{{item.value}}" checked="{{item.checked}}"/>-->
+    </view>
+  </label>
+ </checkbox-group>
 </view>
 

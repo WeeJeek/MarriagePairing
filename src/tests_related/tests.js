@@ -1,4 +1,4 @@
-var questionnaires = {
+var tests = {
   "MBTI": {
     "title": "MBTI",
     "rule": "每一对中那些得分较高的字母代表你四种最强的偏好，当它们合并起来时，将决定你的性格典型。例如说，你也许是 (ENFP)，或是 (ISTJ)，或是个性典型十六类型中的任何一类，完全看那四个字母的组合。如果在你所偏好的字母上之得分是四，那表示这个偏好是中度的。得五分或六分表示渐强的偏好。而七分则代表非常强烈的偏好。",
@@ -502,4 +502,4 @@ var questionnaires = {
     }
 }
 
-export {questionnaires}
+export {tests}
