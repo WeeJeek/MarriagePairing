@@ -1,6 +1,7 @@
-import TestManager from "../utils/TestManager.js"
+import TestManager from "../utils/TestFacade.js"
 import TestRecordManager from "../utils/TestRecordManager.js"
 import TestCategories from "../utils/TestCategories.js"
+import TestFacade from "../utils/TestFacade.js";
 
 describe("unit test testing for Test Manager class", () =>{
   let _sut;
@@ -16,7 +17,7 @@ describe("unit test testing for Test Manager class", () =>{
 
   beforeEach(() => {
     console.log("before test start");
-    _sut = new TestManager();
+    _sut = new TestFacade();
     _setup_test_record_manager_mock();
   })
   
