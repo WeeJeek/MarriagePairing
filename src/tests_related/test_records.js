@@ -1,4 +1,4 @@
-var report = {
+var test_records = {
   "user_info":{
     "name": "dasd",
     "wx_id": "",
@@ -29,4 +29,4 @@ var report = {
   }
 }
 
-export {report}
+export {test_records}

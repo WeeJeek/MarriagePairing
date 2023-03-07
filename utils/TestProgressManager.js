@@ -1,4 +1,4 @@
-import {report} from "../src/tests_related/report";
+import {report} from "../src/tests_related/test_records";
 import {MBTI} from "../src/tests_related/mbti"
 
 export class TestProgressManager{
@@ -16,8 +16,8 @@ export class TestProgressManager{
 
   save_report(){
     wx.setStorage({
-      key: "report",
-      data: report,
+      key: "test_records",
+      data: test_records,
       success: res =>{
         console.log('report is successfully saved');
       },
@@ -29,7 +29,7 @@ export class TestProgressManager{
   
   load_report(){
     wx.getStorage({
-      key: "report",
+      key: "test_records",
       success: res => {
         this._report = res.data;
         if(this._report["report_info"]["created_date"] != ""){
