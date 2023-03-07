@@ -1,5 +1,5 @@
 import {report} from "../src/tests_related/report";
-import {tests} from "../src/tests_related/tests"
+import {MBTI} from "../src/tests_related/mbti"
 
 export class TestProgressManager{
   _report = {};
@@ -11,7 +11,7 @@ export class TestProgressManager{
   constructor()
   {
     this.load_report();
-    this._tests = tests;
+    this._tests = MBTI;
   }
 
   save_report(){
