@@ -1,7 +1,8 @@
-import TestManager from "../utils/TestFacade.js"
+import TestManager from "../utils/TestManager.js"
 import TestRecordManager from "../utils/TestRecordManager.js"
 import TestCategories from "../utils/TestCategories.js"
-import TestFacade from "../utils/TestFacade.js";
+import TestFacade from "../utils/TestManager.js";
+import TestStatus from "../utils/TestStatus.js"
 
 describe("unit test testing for Test Manager class", () =>{
   let _sut;
@@ -37,6 +38,31 @@ describe("unit test testing for Test Manager class", () =>{
 
     expect(_get_test_index_mock).toHaveBeenCalledTimes(1);
     expect(result).toEqual(expected_test_index);
+  })
+
+  it("a test manager should return test progress exist if user did test before", ()=>
+  {
+    let expected_result = true;
+
+    let result = _sut.check_test_record_exist();
+
+    expect(result).toEqual(expected_result);
+  })
+
+  it("a test manager should return test progress not exist if user never did test before", ()=>
+  {
+    let expected_result = false;
+    
+    _sut['#test_record'] = {
+      "test_progress":{
+        "mbti":{
+          "status": TestStatus.IN_PROGRESS
+        }
+      }
+    };
+    let result = _sut.check_test_record_exist();
+
+    expect(result).toEqual(expected_result);
   })
 
   afterEach(()=>{
