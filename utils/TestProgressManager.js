@@ -47,8 +47,6 @@ export class TestProgressManager{
     })
   }
 
-  
-
   has_test_progress(){
     return this._has_test_progress;
   }

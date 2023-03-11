@@ -1,3 +1,5 @@
+import TestStatus from "../../utils/TestStatus"
+
 var test_records = {
   "user_info":{
     "name": "dasd",
@@ -11,21 +13,29 @@ var test_records = {
   },
   "test_progress":{
     "mbti":{
-      "status": "undone",
+      "status": TestStatus.UNTOUCHED,
+      "answers":[
+        /*{
+          "index":1,
+          "answer": ""
+        }*/]
+    },
+    "familiy_adaptability_test":{
+      "status": TestStatus.UNTOUCHED,
+      "answers":[]
+    },
+    "life_pressure_analysis":{
+      "status": TestStatus.UNTOUCHED,
       "answers":[
         {
           "index":1,
           "answer": ""
-        },
-        {
-          "index":2,
-          "answer": ""
-        }
-      ]
+        }]
     },
-    "familiy_adaptability_test":{},
-    "life_pressure_analysis":{},
-    "happy_marriage_assessment":{}
+    "happy_marriage_assessment":{
+      "status": TestStatus.UNTOUCHED,
+      "answers":[]
+    }
   }
 }
 
