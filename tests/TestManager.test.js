@@ -17,7 +17,6 @@ describe("unit test testing for Test Manager class", () =>{
   }
 
   beforeEach(() => {
-    console.log("before test start");
     _sut = new TestFacade();
     _setup_test_record_manager_mock();
   })
@@ -44,7 +43,7 @@ describe("unit test testing for Test Manager class", () =>{
   {
     let expected_result = true;
 
-    _sut['#test_record'] = {
+    _sut.set_test_record({
       "test_progress":{
         "mbti":{
           "status": TestStatus.IN_PROGRESS
@@ -59,7 +58,7 @@ describe("unit test testing for Test Manager class", () =>{
           "status": TestStatus.IN_PROGRESS
         }
       }
-    };
+    });
 
     console.log(_sut['#test_record']);
     let result = _sut.check_test_record_exist();
@@ -67,11 +66,11 @@ describe("unit test testing for Test Manager class", () =>{
     expect(result).toEqual(expected_result);
   })
 
-  /*it("a test manager should return test progress not exist if user never did test before", ()=>
+  it("a test manager should return test progress not exist if user never did test before", ()=>
   {
     let expected_result = false;
     
-    _sut['#test_record'] = {
+    _sut.set_test_record({
       "test_progress":{
         "mbti":{
           "status": TestStatus.UNTOUCHED
@@ -86,12 +85,20 @@ describe("unit test testing for Test Manager class", () =>{
           "status": TestStatus.UNTOUCHED
         }
       }
-    };
+    });
     let result = _sut.check_test_record_exist();
 
     expect(result).toEqual(expected_result);
-  })*/
+  })
 
+  it("a test manager should able to change the test status of test progress", ()=>{
+    let expected_current_test_category = TestCategories.FAMILY_ADAPTABILITY_TEST;
+    let expected_current_test_index = 3;
+    let expected_answer = 
+
+
+
+  })
   afterEach(()=>{
     jest.restoreAllMocks()
   })
