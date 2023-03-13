@@ -1,4 +1,4 @@
-import TestStatus from "../../utils/TestStatus"
+import TestStatus from "../../enums/TestStatus"
 
 var test_records = {
   "user_info":{
@@ -12,13 +12,9 @@ var test_records = {
     "last_modified":""
   },
   "test_progress":{
-    "mbti":{
+    "MBTI":{
       "status": TestStatus.UNTOUCHED,
-      "answers":[
-        /*{
-          "index":1,
-          "answer": ""
-        }*/]
+      "answers":[]
     },
     "familiy_adaptability_test":{
       "status": TestStatus.UNTOUCHED,
@@ -26,11 +22,7 @@ var test_records = {
     },
     "life_pressure_analysis":{
       "status": TestStatus.UNTOUCHED,
-      "answers":[
-        {
-          "index":1,
-          "answer": ""
-        }]
+      "answers":[]
     },
     "happy_marriage_assessment":{
       "status": TestStatus.UNTOUCHED,

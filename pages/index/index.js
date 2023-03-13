@@ -1,4 +1,4 @@
-import TestManager from "../../utils/TestManager";
+import TestManager from "../../classes/TestManager";
 const app = getApp()
 
 Page({

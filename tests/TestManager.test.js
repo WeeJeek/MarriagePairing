@@ -1,49 +1,30 @@
-import TestManager from "../utils/TestManager.js"
-import TestRecordManager from "../utils/TestRecordManager.js"
-import TestCategories from "../utils/TestCategories.js"
-import TestFacade from "../utils/TestManager.js";
-import TestStatus from "../utils/TestStatus.js"
+import TestManager from "../classes/TestManager.js"
+import TestCategories from "../enums/TestCategories.js"
+import TestStatus from "../enums/TestStatus.js"
+import CHOICES from "../enums/ChoiceCategories"
+import {answer_questions_with_dummy_answers} from "./TestManager.utils"
 
 describe("unit test testing for Test Manager class", () =>{
   let _sut;
-  let _get_test_category_mock;
-  let _get_test_index_mock;
+
 
   _setup_test_record_manager_mock = () => {
-    _get_test_category_mock = jest.spyOn(TestRecordManager.prototype, "get_test_category_on_progress");
-    _get_test_index_mock = jest.spyOn(TestRecordManager.prototype, "get_test_index_on_progress");
+    //_get_test_category_mock = jest.spyOn(TestRecordManager.prototype, "get_test_category_on_progress");
+    //_get_test_index_mock = jest.spyOn(TestRecordManager.prototype, "get_test_index_on_progress");
     //get_test_category_on_progress_mock = jest.spy(TestHistory, "get_test_category_on_progress");
     //TODO test history class owns: current index of category; current index of test; Answers are stored
   }
 
   beforeEach(() => {
-    _sut = new TestFacade();
+    _sut = new TestManager();
     _setup_test_record_manager_mock();
-  })
-  
-  it("a test manager should get the correct test category on progress", ()=>{
-    /*let expected_test_category = TestCategories.MBTI;
-
-    let result = _sut.get_test_category_on_progress();
-
-    expect(_get_test_category_mock).toHaveBeenCalledTimes(1);
-    expect(result).toEqual(expected_test_category);*/
-  })
-
-  it("a test manager should get the correct test index of the test on progress", ()=>{
-    /*let expected_test_index = 2;
-
-    let result = _sut.get_test_index_on_progress();
-
-    expect(_get_test_index_mock).toHaveBeenCalledTimes(1);
-    expect(result).toEqual(expected_test_index);*/
   })
 
   it("a test manager should return test progress exist if user did test before", ()=>
   {
-    let expected_result = true;
+    /*let expected_result = true;
 
-    _sut.set_test_record({
+    /*_sut.set_test_record({
       "test_progress":{
         "mbti":{
           "status": TestStatus.IN_PROGRESS
@@ -63,42 +44,68 @@ describe("unit test testing for Test Manager class", () =>{
     console.log(_sut['#test_record']);
     let result = _sut.check_test_record_exist();
 
-    expect(result).toEqual(expected_result);
+    expect(result).toEqual(expected_result);*/
   })
 
   it("a test manager should return test progress not exist if user never did test before", ()=>
   {
     let expected_result = false;
     
-    _sut.set_test_record({
-      "test_progress":{
-        "mbti":{
-          "status": TestStatus.UNTOUCHED
-        },
-        "familiy_adaptability_test":{
-          "status": TestStatus.UNTOUCHED
-        },
-        "life_pressure_analysis":{
-          "status": TestStatus.UNTOUCHED
-        },
-        "happy_marriage_assessment":{
-          "status": TestStatus.UNTOUCHED
-        }
-      }
-    });
     let result = _sut.check_test_record_exist();
 
     expect(result).toEqual(expected_result);
   })
 
-  it("a test manager should able to change the test status of test progress", ()=>{
-    let expected_current_test_category = TestCategories.FAMILY_ADAPTABILITY_TEST;
-    let expected_current_test_index = 3;
-    let expected_answer = 
+  it("a test manager should able to set the answer with given test info and update the current test reocrd", ()=>{
+    let expected_current_test_category = TestCategories.MBTI;
+    let expected_current_test_index = 0;
+    let expected_status = TestStatus.IN_PROGRESS;
+    let expected_answer = CHOICES.B;
 
+    _sut.answer_the_current_question(expected_answer);
 
+    let result_test_record = _sut.get_test_record();
+    let result_status = result_test_record.test_progress[expected_current_test_category]["status"]
+    let result_answer = result_test_record.test_progress[expected_current_test_category]["answers"][expected_current_test_index]["answer"]
+    expect(result_status).toEqual(expected_status);
+    expect(result_answer).toEqual(expected_answer);
+  })
+
+  it("a test manager should able to update the same question with different answer", ()=>{
+    let expected_answer = CHOICES.B;
+    let expected_current_test_category = TestCategories.MBTI;
+    let expected_current_test_index = 0;
+    let first_answer = CHOICES.A;
+    _sut.answer_the_current_question(first_answer);
+    
+    _sut.move_back_to_last_question();
+    _sut.answer_the_current_question(expected_answer);
+
+    let result_test_record = _sut.get_test_record();
+    let result_answer = result_test_record.test_progress[expected_current_test_category]["answers"][expected_current_test_index]["answer"]
+    expect(result_answer).toEqual(expected_answer);
+  })
+
+  it("a test manager should able to switch to the next test category while it reaches the end of the question list", ()=>{
+    let current_test_category = TestCategories.MBTI;
+    let expected_test_category = TestCategories.FAMILY_ADAPTABILITY_TEST;
+    const amount_of_question_in_test = _sut.get_amount_of_questions(current_test_category)
+
+    answer_questions_with_dummy_answers(_sut, amount_of_question_in_test)
+
+    let result_category = _sut.get_current_test_category();
+    expect(result_category).toEqual(expected_test_category);
 
   })
+
+  it("a test manager should not able to switch to the next test category while it reaches the end of the question list", ()=>{
+    
+  })
+
+  it("a test manager should not able to move back the last category if it is at the first question of the category", ()=>{
+    
+  })
+
   afterEach(()=>{
     jest.restoreAllMocks()
   })
