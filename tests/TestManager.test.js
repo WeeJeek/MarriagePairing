@@ -99,6 +99,15 @@ describe("unit test testing for Test Manager class", () =>{
     expect(expected_test_status).toEqual(result_test_status)
   })
 
+  it("a test manager should say it not all questions are answered if it really doens't", ()=>{
+    let expected_all_finished = false;
+    let amount_of_question_to_be_answered = 2;
+    
+    answer_questions_with_dummy_answers(_sut, amount_of_question_to_be_answered);
+
+    expect(expected_all_finished).toEqual(_sut.are_all_tests_finished());
+  })
+
   it("a test manager should show all tests are finished when all tests are answered", ()=>{
     let expected_all_finished = true;
     let sum = get_amount_of_all_questions();
@@ -111,12 +120,20 @@ describe("unit test testing for Test Manager class", () =>{
   })
 
   it("a test manager should not able to move back the last category if it is at the first question of the category", ()=>{
-    
+    /*let current_test_category = TestCategories.MBTI;
+    let expected_test_category = TestCategories.FAMILY_ADAPTABILITY_TEST;
+    let expected_test_status = TestStatus.FINISHED;
+    const amount_of_question_in_test = _sut.get_amount_of_questions(current_test_category)
+
+    answer_questions_with_dummy_answers(_sut, amount_of_question_in_test)
+
+    let result_category = _sut.get_current_test_category();
+    let result_test_status = _sut.get_status_of_category(current_test_category);
+    expect(result_category).toEqual(expected_test_category);
+    expect(expected_test_status).toEqual(result_test_status)*/
   })
 
-  it("a test manager should say it if all questions are answered", ()=>{
-    
-  })
+ 
 
   afterEach(()=>{
     jest.restoreAllMocks()
