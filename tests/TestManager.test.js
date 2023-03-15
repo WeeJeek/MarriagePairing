@@ -2,11 +2,10 @@ import TestManager from "../classes/TestManager.js"
 import TestCategories from "../enums/TestCategories.js"
 import TestStatus from "../enums/TestStatus.js"
 import CHOICES from "../enums/ChoiceCategories"
-import {answer_questions_with_dummy_answers} from "./TestManager.utils"
+import {answer_questions_with_dummy_answers, get_amount_of_all_questions} from "./TestManager.utils"
 
 describe("unit test testing for Test Manager class", () =>{
   let _sut;
-
 
   _setup_test_record_manager_mock = () => {
     //_get_test_category_mock = jest.spyOn(TestRecordManager.prototype, "get_test_category_on_progress");
@@ -86,23 +85,36 @@ describe("unit test testing for Test Manager class", () =>{
     expect(result_answer).toEqual(expected_answer);
   })
 
-  it("a test manager should able to switch to the next test category while it reaches the end of the question list", ()=>{
+  it("a test manager should able to switch to the next test category while it reaches the end of the question list and test status will be changed", ()=>{
     let current_test_category = TestCategories.MBTI;
     let expected_test_category = TestCategories.FAMILY_ADAPTABILITY_TEST;
+    let expected_test_status = TestStatus.FINISHED;
     const amount_of_question_in_test = _sut.get_amount_of_questions(current_test_category)
 
     answer_questions_with_dummy_answers(_sut, amount_of_question_in_test)
 
     let result_category = _sut.get_current_test_category();
+    let result_test_status = _sut.get_status_of_category(current_test_category);
     expect(result_category).toEqual(expected_test_category);
-
+    expect(expected_test_status).toEqual(result_test_status)
   })
 
-  it("a test manager should not able to switch to the next test category while it reaches the end of the question list", ()=>{
+  it("a test manager should show all tests are finished when all tests are answered", ()=>{
+    let expected_all_finished = true;
+    let sum = get_amount_of_all_questions();
+    console.log(sum)
     
+    answer_questions_with_dummy_answers(_sut, sum);
+    console.log(_sut.get_test_record())
+
+    expect(expected_all_finished).toEqual(_sut.are_all_tests_finished());
   })
 
   it("a test manager should not able to move back the last category if it is at the first question of the category", ()=>{
+    
+  })
+
+  it("a test manager should say it if all questions are answered", ()=>{
     
   })
 

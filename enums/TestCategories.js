@@ -1,8 +1,8 @@
 const TestCategories = Object.freeze({
   MBTI: "MBTI",
-  FAMILY_ADAPTABILITY_TEST: "family_adaptability_test",
-  LIFE_PRESSURE_ANALYSIS: "life_pressure_analysis",
-  HAPPY_MARRIAGE_ASSESSMENT: "happy_marriage_assessment"
+  FAMILY_ADAPTABILITY_TEST: "FAMIL_ADAPTABILITY_TEST",
+  LIFE_PRESSURE_ANALYSIS: "LIFE_PRESSURE_ANALYSIS",
+  HAPPY_MARRIAGE_ASSESSMENT: "HAPPY_MARRIAGE_ASSESSMENT"
 })
 
 export default TestCategories;

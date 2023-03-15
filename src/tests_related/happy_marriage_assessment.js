@@ -1,4 +1,4 @@
-var FAMILY_ADAPTABILITY_TEST = {
+var HAPPY_MARRIAGE_ASSESSMENT = {
   "title": "",
   "rule": "",
   "description": "",
@@ -21,4 +21,4 @@ var FAMILY_ADAPTABILITY_TEST = {
   }]
   }
 
-export {FAMILY_ADAPTABILITY_TEST}
+export {HAPPY_MARRIAGE_ASSESSMENT}
