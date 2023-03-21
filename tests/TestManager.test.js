@@ -19,33 +19,6 @@ describe("unit test testing for Test Manager class", () =>{
     _setup_test_record_manager_mock();
   })
 
-  it("a test manager should return test progress exist if user did test before", ()=>
-  {
-    /*let expected_result = true;
-
-    /*_sut.set_test_record({
-      "test_progress":{
-        "mbti":{
-          "status": TestStatus.IN_PROGRESS
-        },
-        "familiy_adaptability_test":{
-          "status": TestStatus.FINISHED
-        },
-        "life_pressure_analysis":{
-          "status": TestStatus.FINISHED
-        },
-        "happy_marriage_assessment":{
-          "status": TestStatus.IN_PROGRESS
-        }
-      }
-    });
-
-    console.log(_sut['#test_record']);
-    let result = _sut.check_test_record_exist();
-
-    expect(result).toEqual(expected_result);*/
-  })
-
   it("a test manager should return test progress not exist if user never did test before", ()=>
   {
     let expected_result = false;

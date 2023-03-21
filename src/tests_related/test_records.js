@@ -16,15 +16,15 @@ var test_records = {
       "status": TestStatus.UNTOUCHED,
       "answers":[]
     },
-    "familiy_adaptability_test":{
+    "FAMIL_ADAPTABILITY_TEST":{
       "status": TestStatus.UNTOUCHED,
       "answers":[]
     },
-    "life_pressure_analysis":{
+    "LIFE_PRESSURE_ANALYSIS":{
       "status": TestStatus.UNTOUCHED,
       "answers":[]
     },
-    "happy_marriage_assessment":{
+    "HAPPY_MARRIAGE_ASSESSMENT":{
       "status": TestStatus.UNTOUCHED,
       "answers":[]
     }

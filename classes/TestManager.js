@@ -38,7 +38,7 @@ export default class TestManager{
     const test_category_values = Object.values(TestCategories);
     let all_finished = true;
     for (let i = 0; i < test_category_values.length; i++) {
-      let cur_test_list = TEST_LIST[test_category_values[i]]
+      let cur_test_list = this.#test_record["test_progress"][test_category_values[i]]
       if(cur_test_list["status"] != TestStatus.FINISHED){
         all_finished = false;
         break;
