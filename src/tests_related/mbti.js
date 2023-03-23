@@ -345,23 +345,6 @@ var MBTI = {
             ]
         },
         {
-          "ID": 20,
-          "description": "认识你的人倾向形容你为： ",
-          "choices": 
-            [
-              {
-                "index": 1,
-                "category": ["F"],
-                "description": "热情和敏感"
-              },
-              {
-                "index": 2,
-                "category": ["T"],
-                "description": "逻辑和明确。"
-              }
-            ]
-        },
-        {
           "ID": 21,
           "description": "你把大部分和别人的相遇视为：",
           "choices": 

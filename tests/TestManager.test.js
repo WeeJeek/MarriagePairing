@@ -49,9 +49,11 @@ describe("unit test testing for Test Manager class", () =>{
     let expected_current_test_index = 0;
     let first_answer = CHOICES.A;
     _sut.answer_the_current_question(first_answer);
+    console.log("the first time answered: " + _sut.get_test_record().test_progress[expected_current_test_category]["answers"][expected_current_test_index]["answer"])
     
     _sut.move_back_to_last_question();
     _sut.answer_the_current_question(expected_answer);
+    console.log("the second time answered: " + _sut.get_test_record().test_progress[expected_current_test_category]["answers"][expected_current_test_index]["answer"])
 
     let result_test_record = _sut.get_test_record();
     let result_answer = result_test_record.test_progress[expected_current_test_category]["answers"][expected_current_test_index]["answer"]
@@ -62,7 +64,7 @@ describe("unit test testing for Test Manager class", () =>{
     let current_test_category = TestCategories.MBTI;
     let expected_test_category = TestCategories.FAMILY_ADAPTABILITY_TEST;
     let expected_test_status = TestStatus.FINISHED;
-    const amount_of_question_in_test = _sut.get_amount_of_questions(current_test_category)
+    const amount_of_question_in_test = _sut.get_amount_of_questions_of_current_test_category()
 
     answer_questions_with_dummy_answers(_sut, amount_of_question_in_test)
 
@@ -84,29 +86,30 @@ describe("unit test testing for Test Manager class", () =>{
   it("a test manager should show all tests are finished when all tests are answered", ()=>{
     let expected_all_finished = true;
     let sum = get_amount_of_all_questions();
-    console.log(sum)
     
     answer_questions_with_dummy_answers(_sut, sum);
-    console.log(_sut.get_test_record())
 
     expect(expected_all_finished).toEqual(_sut.are_all_tests_finished());
   })
 
   it("a test manager should not able to move back the last category if it is at the first question of the category", ()=>{
-    /*let current_test_category = TestCategories.MBTI;
+    let previous_test_category = TestCategories.MBTI;
     let expected_test_category = TestCategories.FAMILY_ADAPTABILITY_TEST;
-    let expected_test_status = TestStatus.FINISHED;
-    const amount_of_question_in_test = _sut.get_amount_of_questions(current_test_category)
+    let expected_previous_test_status = TestStatus.FINISHED;
+    let expected_updated_test_status = TestStatus.UNTOUCHED;
+    const amount_of_question_in_test = _sut.get_amount_of_questions_of_current_test_category();
 
-    answer_questions_with_dummy_answers(_sut, amount_of_question_in_test)
+    answer_questions_with_dummy_answers(_sut, amount_of_question_in_test);
+    _sut.move_back_to_last_question();
 
     let result_category = _sut.get_current_test_category();
-    let result_test_status = _sut.get_status_of_category(current_test_category);
-    expect(result_category).toEqual(expected_test_category);
-    expect(expected_test_status).toEqual(result_test_status)*/
-  })
-
+    let previous_result_test_status = _sut.get_status_of_category(previous_test_category);
+    let updated_result_test_status = _sut.get_status_of_category(expected_test_category);
  
+    expect(result_category).toEqual(expected_test_category);
+    expect(previous_result_test_status).toEqual(expected_previous_test_status)
+    expect(updated_result_test_status).toEqual(expected_updated_test_status)
+  })
 
   afterEach(()=>{
     jest.restoreAllMocks()

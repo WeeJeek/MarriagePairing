@@ -9,7 +9,7 @@ export default class TestManager{
   #current_selected_test_index;
 
   constructor(){
-    this.#test_record = test_records;
+    this.#test_record = JSON.parse(JSON.stringify(test_records));
     this.#current_test_category = TestCategories.MBTI;
     this.#current_selected_test_index = 0;
   }
@@ -55,6 +55,11 @@ export default class TestManager{
     return this.#current_test_category;
   }
 
+  get_amount_of_questions_of_current_test_category(){
+    let cur_test_list = TEST_LIST[this.#current_test_category]
+    return cur_test_list['questions'].length;
+  }
+
   _move_to_the_next_test_category(){
     const test_category_values = Object.values(TestCategories);
     const index = test_category_values.indexOf(this.#current_test_category);
@@ -67,16 +72,11 @@ export default class TestManager{
   }
 
   _is_end_of_a_test_list(){
-    let amount_test = this.get_amount_of_questions()
+    let amount_test = this.get_amount_of_questions_of_current_test_category()
     if(this.#current_selected_test_index == amount_test - 1){
       return true;
     }
     return false;
-  }
-
-  get_amount_of_questions(){
-    let cur_test_list = TEST_LIST[this.#current_test_category]
-    return cur_test_list['questions'].length;
   }
 
   _insert_new_answer(choice)
