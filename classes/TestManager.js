@@ -9,7 +9,7 @@ export default class TestManager{
   #current_selected_test_index;
 
   constructor(){
-    this.#test_record = JSON.parse(JSON.stringify(test_records));
+    this.reset_test_record();
     this.#current_test_category = TestCategories.MBTI;
     this.#current_selected_test_index = 0;
   }
@@ -45,6 +45,10 @@ export default class TestManager{
       }
     }
     return all_finished;
+  }
+
+  reset_test_record(){
+    this.#test_record = JSON.parse(JSON.stringify(test_records));
   }
 
   move_back_to_last_question(){

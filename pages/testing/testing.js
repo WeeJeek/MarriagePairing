@@ -1,21 +1,23 @@
 // pages/testing/testing.js
 
+import TestManager from "../../classes/TestManager";
+
 const app = getApp()
 
 Page({
   data: {
-    is_entry_page: true,
+    has_test_progress: true,
+    is_tests_all_finished: false,
     current_test: {},
     test_index: 0,
     progress: 0.7
   },
   start_test(){
     this.is_entry_page = false;
-    this.current_test = app.test_progress_manager.get_current_test()
     console.log("in start test: " + this.current_test)
   },
   onLoad(options) {
-  
+    app.test_manager = new TestManager()
   },
   onReady() {
 

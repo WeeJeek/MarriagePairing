@@ -1,14 +1,13 @@
 <!--pages/index/index.wxml-->
 <view wx:if="{{has_test_progress}}">
-  <button class = 'button' bindtap = 'back_to_progress'>
-    返回历史进度
-  </button>
-  <button class = 'button' bindtap = 'restart_test'>
-    从头开始测试
-  </button>
+  <view wx:if="{{is_tests_all_finished}}">
+    <button class = "button" bindtap="payment"> 付款以查看结果 </button>
+  </view>
+  <view wx:else>
+    <button class = "button" bindtap="start_from_history"> 从历史进度继续测试 </button>
+    <button class = "button" bindtap="restart_test"> 重新开始测试 </button>
+  </view>
 </view>
 <view wx:else>
-  <button class = 'button' bindtap = 'restart_test'>
-    开始测试
-  </button>
+  <button class = "button" bindtap="start_test"> 开始测试 </button>
 </view>

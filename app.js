@@ -1,5 +1,6 @@
 App({
   global_data: {
-    user_info: ""
+    user_info: "",
+    test_manager: null
   }  
 });

@@ -1,17 +1,17 @@
 <!--pages/testing/testing.wxml-->
-<view wx:if="{{is_entry_page}}">
-  <button class = "button" bindtap="start_test"> start test </button>
+<view wx:if="{{has_test_progress}}">
+  <view wx:if="{{is_tests_all_finished}}">
+    <button class = "button" bindtap="payment"> 付款以看结果 </button>
+  </view>
+  <view wx:else>
+    <button class = "button" bindtap="start_from_history"> 从历史进度继续测试 </button>
+    <button class = "button" bindtap="restart_test"> 重新开始测试 </button>
+  </view>
 </view>
 <view wx:else>
   <!--<view class="progress-box">
     <progress >I am a progress bar</progress>
   </view>-->
- <checkbox-group bindchange="checkboxChange">
-  <label wx:for="{{current_test['options']}}" ><!--wx:key-->
-    <view>
-      <!--<checkbox value="{{item.value}}" checked="{{item.checked}}"/>-->
-    </view>
-  </label>
- </checkbox-group>
+  <button class = "button" bindtap="start_test"> 开始测试 </button>
 </view>
 
