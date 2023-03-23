@@ -83,7 +83,7 @@ export default class TestManager{
   {
     let answers = this.#test_record.test_progress[this.#current_test_category]["answers"].sort((a, b)=> a.index - b.index)
     const new_answer = {index: this.#current_selected_test_index, answer: choice}
-    let insert_index = answers.length;
+    let insert_index = answers.length - 1;
 
     for (let i = 0; i < answers.length; i++) {
       if (this.#current_selected_test_index < answers[i].index) {
