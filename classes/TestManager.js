@@ -15,14 +15,14 @@ export default class TestManager{
   }
 
   answer_the_current_question(choice){
-    this._insert_new_answer(choice);
+    this.#insert_new_answer(choice);
     this.#test_record.test_progress[this.#current_test_category]["status"] = TestStatus.IN_PROGRESS;
-    if(this._is_end_of_a_test_list()){
+    if(this.#is_end_of_a_test_list()){
       this.#current_selected_test_index = 0;
       this.#test_record["test_progress"][this.#current_test_category]["status"] = TestStatus.FINISHED;
       if(!this.are_all_tests_finished())
       {
-        this._move_to_the_next_test_category()//TODO do something if at the end of list
+        this.#move_to_the_next_test_category()//TODO do something if at the end of list
       }
     }
     else{
@@ -60,41 +60,6 @@ export default class TestManager{
     return cur_test_list['questions'].length;
   }
 
-  _move_to_the_next_test_category(){
-    const test_category_values = Object.values(TestCategories);
-    const index = test_category_values.indexOf(this.#current_test_category);
-    if(index != test_category_values.length - 1){
-      const next_index = (index + 1) % test_category_values.length;
-      this.#current_test_category = test_category_values[next_index];
-      return true;
-    }
-    return false;
-  }
-
-  _is_end_of_a_test_list(){
-    let amount_test = this.get_amount_of_questions_of_current_test_category()
-    if(this.#current_selected_test_index == amount_test - 1){
-      return true;
-    }
-    return false;
-  }
-
-  _insert_new_answer(choice)
-  {
-    let answers = this.#test_record.test_progress[this.#current_test_category]["answers"].sort((a, b)=> a.index - b.index)
-    const new_answer = {index: this.#current_selected_test_index, answer: choice}
-    let insert_index = answers.length - 1;
-
-    for (let i = 0; i < answers.length; i++) {
-      if (this.#current_selected_test_index < answers[i].index) {
-        insert_index = i;
-        break;
-      }
-    }
-
-    answers.splice(insert_index, 0, new_answer);
-  }
-
   get_test_record(){
     return this.#test_record;
   }
@@ -115,4 +80,40 @@ export default class TestManager{
     }
     return result;
   }
+
+  #move_to_the_next_test_category(){
+    const test_category_values = Object.values(TestCategories);
+    const index = test_category_values.indexOf(this.#current_test_category);
+    if(index != test_category_values.length - 1){
+      const next_index = (index + 1) % test_category_values.length;
+      this.#current_test_category = test_category_values[next_index];
+      return true;
+    }
+    return false;
+  }
+
+  #is_end_of_a_test_list(){
+    let amount_test = this.get_amount_of_questions_of_current_test_category()
+    if(this.#current_selected_test_index == amount_test - 1){
+      return true;
+    }
+    return false;
+  }
+
+  #insert_new_answer(choice)
+  {
+    let answers = this.#test_record.test_progress[this.#current_test_category]["answers"].sort((a, b)=> a.index - b.index)
+    const new_answer = {index: this.#current_selected_test_index, answer: choice}
+    let insert_index = answers.length - 1;
+
+    for (let i = 0; i < answers.length; i++) {
+      if (this.#current_selected_test_index < answers[i].index) {
+        insert_index = i;
+        break;
+      }
+    }
+
+    answers.splice(insert_index, 0, new_answer);
+  }
+
 }

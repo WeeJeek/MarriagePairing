@@ -7,16 +7,8 @@ import {answer_questions_with_dummy_answers, get_amount_of_all_questions} from "
 describe("unit test testing for Test Manager class", () =>{
   let _sut;
 
-  _setup_test_record_manager_mock = () => {
-    //_get_test_category_mock = jest.spyOn(TestRecordManager.prototype, "get_test_category_on_progress");
-    //_get_test_index_mock = jest.spyOn(TestRecordManager.prototype, "get_test_index_on_progress");
-    //get_test_category_on_progress_mock = jest.spy(TestHistory, "get_test_category_on_progress");
-    //TODO test history class owns: current index of category; current index of test; Answers are stored
-  }
-
   beforeEach(() => {
     _sut = new TestManager();
-    _setup_test_record_manager_mock();
   })
 
   it("a test manager should return test progress not exist if user never did test before", ()=>
