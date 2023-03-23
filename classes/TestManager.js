@@ -81,6 +81,10 @@ export default class TestManager{
     return result;
   }
 
+  get_current_test_index(){
+    return this.#current_selected_test_index;
+  }
+
   #move_to_the_next_test_category(){
     const test_category_values = Object.values(TestCategories);
     const index = test_category_values.indexOf(this.#current_test_category);

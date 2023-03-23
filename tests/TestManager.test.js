@@ -29,8 +29,8 @@ describe("unit test testing for Test Manager class", () =>{
     _sut.answer_the_current_question(expected_answer);
 
     let result_test_record = _sut.get_test_record();
-    let result_status = result_test_record.test_progress[expected_current_test_category]["status"]
-    let result_answer = result_test_record.test_progress[expected_current_test_category]["answers"][expected_current_test_index]["answer"]
+    let result_status = result_test_record.test_progress[expected_current_test_category]["status"];
+    let result_answer = result_test_record.test_progress[expected_current_test_category]["answers"][expected_current_test_index]["answer"];
     expect(result_status).toEqual(expected_status);
     expect(result_answer).toEqual(expected_answer);
   })
@@ -41,7 +41,7 @@ describe("unit test testing for Test Manager class", () =>{
     let expected_current_test_index = 0;
     let first_answer = CHOICES.A;
     _sut.answer_the_current_question(first_answer);
-    console.log("the first time answered: " + _sut.get_test_record().test_progress[expected_current_test_category]["answers"][expected_current_test_index]["answer"])
+    console.log("the first time answered: " + _sut.get_test_record().test_progress[expected_current_test_category]["answers"][expected_current_test_index]["answer"]);
     
     _sut.move_back_to_last_question();
     _sut.answer_the_current_question(expected_answer);
@@ -56,14 +56,17 @@ describe("unit test testing for Test Manager class", () =>{
     let current_test_category = TestCategories.MBTI;
     let expected_test_category = TestCategories.FAMILY_ADAPTABILITY_TEST;
     let expected_test_status = TestStatus.FINISHED;
+    let expected_test_index = 0;
     const amount_of_question_in_test = _sut.get_amount_of_questions_of_current_test_category()
 
     answer_questions_with_dummy_answers(_sut, amount_of_question_in_test)
 
     let result_category = _sut.get_current_test_category();
     let result_test_status = _sut.get_status_of_category(current_test_category);
+    let result_test_index = _sut.get_current_test_index()
     expect(result_category).toEqual(expected_test_category);
-    expect(expected_test_status).toEqual(result_test_status)
+    expect(result_test_status).toEqual(expected_test_status);
+    expect(result_test_index).toEqual(expected_test_index);
   })
 
   it("a test manager should say it not all questions are answered if it really doens't", ()=>{
