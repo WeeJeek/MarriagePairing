@@ -41,11 +41,9 @@ describe("unit test testing for Test Manager class", () =>{
     let expected_current_test_index = 0;
     let first_answer = CHOICES.A;
     _sut.answer_the_current_question(first_answer);
-    console.log("the first time answered: " + _sut.get_test_record().test_progress[expected_current_test_category]["answers"][expected_current_test_index]["answer"]);
     
     _sut.move_back_to_last_question();
     _sut.answer_the_current_question(expected_answer);
-    console.log("the second time answered: " + _sut.get_test_record().test_progress[expected_current_test_category]["answers"][expected_current_test_index]["answer"])
 
     let result_test_record = _sut.get_test_record();
     let result_answer = result_test_record.test_progress[expected_current_test_category]["answers"][expected_current_test_index]["answer"]
@@ -143,6 +141,17 @@ describe("unit test testing for Test Manager class", () =>{
 
     let result_test_record = _sut.get_test_record()
     expect(result_test_record).toEqual(expected_test_record)
+  })
+
+  it("test manager shall return current test with correct content", ()=>{
+    let expected_current_test_id = 6;
+
+    answer_questions_with_dummy_answers(_sut, 5);
+    let result_current_test = _sut.get_current_test();
+    console.log(result_current_test)
+    console.log(_sut.get_test_record())
+
+    expect(result_current_test.ID).toEqual(expected_current_test_id);
   })
 
   afterEach(()=>{
