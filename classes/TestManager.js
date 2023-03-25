@@ -45,6 +45,14 @@ export default class TestManager{
     return result;
   }
 
+  is_the_first_question(){
+    return this.#current_selected_test_index == 0;
+  }
+
+  is_the_last_question(){
+    return this.#is_end_of_a_test_list();
+  }
+
   get_status_of_category(category){
     return this.#test_record["test_progress"][category]["status"];
   }

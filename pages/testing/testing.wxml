@@ -5,14 +5,14 @@
   <view class="choices-container">
     <radio-group class="choice-item" name="choices_radio" bindchange="on_radio_change">
       <block wx:for="{{current_question.choices}}" wx:key="item">
-          <radio value="{{item}}"></radio>
+          <radio value="{{item.index}}" checked="{{item.index === selected_choice}}"></radio>
           <text>{{item.description}}</text>
       </block>
     </radio-group>
   </view>
 </view>
 <view class="navigation-buttons">
-    <button class="previous-button" bindtap="on_previous_question">Previous</button>
+    <button wx:if="{{!is_the_first_question}}"  class="previous-button show-me" bindtap="on_previous_question">Previous</button>
     <button class="next-button" bindtap="on_next_question">Next</button>
   </view>
 </ScrollView>

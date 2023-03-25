@@ -17,7 +17,7 @@ Page({
     },
     process_to_payment:res=>{},
     start_from_history:res =>{
-      console.log("user starts testing from previous progress.")
+      console.log("user starts testing from previous progress.");
     },
     restart_test:res=>{
       app.global_data.test_manager.reset_test_record();

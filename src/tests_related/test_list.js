@@ -3,6 +3,7 @@ import {FAMILY_ADAPTABILITY_TEST} from "../../src/tests_related/family_adaptabil
 import {HAPPY_MARRIAGE_ASSESSMENT} from "../../src/tests_related/happy_marriage_assessment"
 import { LIFE_PRESSURE_ANALYSIS } from "./life_pressure_analysis"
 
+
 var TEST_LIST = {
   "MBTI":  MBTI,
   "FAMIL_ADAPTABILITY_TEST": FAMILY_ADAPTABILITY_TEST,

@@ -1,1 +1,15 @@
 /* pages/testing/testing.wxss */
+.show-me {
+  background-color: yellow !important;
+}
+.choices-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.choice-container {
+  display: flex;
+  align-items: center;
+  margin-right: 16rpx; /* adjust this value to adjust the spacing between the choices */
+}
