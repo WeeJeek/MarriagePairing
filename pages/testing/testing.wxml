@@ -4,10 +4,10 @@
   <text class="question-text">{{current_question.description}}</text>
   <view class="choices-container">
     <block wx:for="{{current_question.choices}}" wx:key="item">
-      <radio-group class="choice-item" bindchange="on_radio_change">
+      <radio-group class="choice-item" name="choices_radio" bindchange="on_radio_change">
           <radio value="{{item}}"></radio>
           <text>{{item.description}}</text>
-        </radio-group>
+      </radio-group>
     </block>
   </view>
 </view>
