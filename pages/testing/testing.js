@@ -10,15 +10,12 @@ Page({
   },
   start_test(){
     this.is_entry_page = false;
-    console.log("in start test: " + this.current_question)
   },
   on_radio_change: function(event) {
-    console.log("on_radio_change called");
-//radio 没法只选一个
     this.setData({
       selected_choice: event.detail.value
     });
-    console.log(this.data.selected_choice);
+    console.dir(this.data.selected_choice);
   },
   on_previous_question(){
 
@@ -28,7 +25,7 @@ Page({
   },
   onLoad(options) {
     this.setData({
-      current_question: app.test_manager.get_current_test()
+      current_question: app.global_data.test_manager.get_current_test()
     });
     this.on_radio_change = this.on_radio_change.bind(this);
   }
