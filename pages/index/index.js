@@ -28,6 +28,6 @@ Page({
       wx.navigateTo({
         url: '../testing/testing'
       });
-      console.log("from index to testing")
     }
+    
 })
