@@ -50,7 +50,7 @@ describe("unit test testing for Test Manager class", () =>{
     expect(result_answer).toEqual(expected_answer);
   })
 
-  it("a test manager should able to switch to the next test category while it reaches the end of the question list and test status will be changed", ()=>{
+  it("a test manager should not be able to switch to the next test category while it reaches the end of the question list and test status will be changed", ()=>{
     let current_test_category = TestCategories.MBTI;
     let expected_test_category = TestCategories.FAMILY_ADAPTABILITY_TEST;
     let expected_test_status = TestStatus.FINISHED;
@@ -61,7 +61,7 @@ describe("unit test testing for Test Manager class", () =>{
 
     let result_category = _sut.get_current_test_category();
     let result_test_status = _sut.get_status_of_category(current_test_category);
-    let result_test_index = _sut.get_current_test_index()
+    let result_test_index = _sut.get_current_question_index()
     expect(result_category).toEqual(expected_test_category);
     expect(result_test_status).toEqual(expected_test_status);
     expect(result_test_index).toEqual(expected_test_index);
@@ -147,9 +147,7 @@ describe("unit test testing for Test Manager class", () =>{
     let expected_current_test_id = 6;
 
     answer_questions_with_dummy_answers(_sut, 5);
-    let result_current_test = _sut.get_current_test();
-    console.log(result_current_test)
-    console.log(_sut.get_test_record())
+    let result_current_test = _sut.get_current_question();
 
     expect(result_current_test.ID).toEqual(expected_current_test_id);
   })

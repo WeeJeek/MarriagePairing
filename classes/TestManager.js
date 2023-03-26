@@ -50,14 +50,14 @@ export default class TestManager{
   }
 
   is_the_last_question(){
-    return this.#is_end_of_a_test_list();
+    return this.are_all_tests_finished();
   }
 
   get_status_of_category(category){
     return this.#test_record["test_progress"][category]["status"];
   }
 
-  get_current_test(){
+  get_current_question(){
     return TEST_LIST[this.#current_test_category]["questions"][this.#current_selected_test_index];
   }
 
@@ -90,7 +90,7 @@ export default class TestManager{
     }
   }
 
-  get_current_test_index(){
+  get_current_question_index(){
     return this.#current_selected_test_index;
   }
 

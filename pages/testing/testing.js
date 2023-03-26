@@ -16,7 +16,6 @@ Page({
     this.selected_choice = event.detail.value;
   },
   on_previous_question: function(event){
-    //don't show if the first question
     if(selected_choice){
       app.global_data.test_manager.move_back_to_last_question()
       const previous_question = app.global_data.test_manager.get_current_test();
@@ -24,7 +23,7 @@ Page({
         current_question: previous_question,
         selected_choice: null,
         is_the_first_question: app.global_data.test_manager.is_the_first_question(),
-        is_the_last_question: app.global_data.test_manager.is_the_last_question()
+        is_the_last_question: app.global_data.test_manager.are_all_tests_finished()
       });
     }
   },
@@ -35,13 +34,14 @@ Page({
       app.global_data.test_manager.store_test_record();
 
       // Get the next question from your question list and update the current_question property
-      const next_question = app.global_data.test_manager.get_current_test();
-      if (next_question) {
+      const next_question = app.global_data.test_manager.get_current_question();
+      debugger
+      if (next_question.ID == 1) {
         this.setData({
           current_question: next_question,
           selected_choice: null,
           is_the_first_question: app.global_data.test_manager.is_the_first_question(),
-          is_the_last_question: app.global_data.test_manager.is_the_last_question()
+          is_the_last_question: app.global_data.test_manager.are_all_tests_finished()
         });
       } else {
         // No more questions, TODO
@@ -50,7 +50,7 @@ Page({
   },
   onLoad(options) {
     this.setData({
-      current_question: app.global_data.test_manager.get_current_test()
+      current_question: app.global_data.test_manager.get_current_question()
     });
     this.on_previous_question = this.on_previous_question.bind(this);
     this.on_next_question = this.on_next_question.bind(this);

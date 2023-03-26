@@ -24,7 +24,7 @@ var MBTI = {
               }
             ]
         },
-        {
+      {
           "ID": 2,
           "description": "当你参加一个社交聚会时，你会：",
           "choices": 
@@ -40,7 +40,7 @@ var MBTI = {
                 "description": "在夜晚刚开始的时候，我就疲倦了并且想回家"
               }
             ]
-        },
+        }/*
         {
           "ID": 3,
           "description": "下列哪一件事听起来比较吸引你？",
@@ -482,7 +482,7 @@ var MBTI = {
                 "description": "享受同时进行好几件事情。"
               }
             ]
-        }
+        }*/
       ]
     }
 

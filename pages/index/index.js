@@ -9,7 +9,6 @@ Page({
     },
     onLoad(res) {
       app.global_data.test_manager = new TestManager();
-      console.log(app.global_data.test_manager)
       this.setData({
         has_test_progress: app.global_data.test_manager.check_test_record_exist(),
         are_tests_all_finished: app.global_data.test_manager.are_all_tests_finished()
@@ -29,6 +28,5 @@ Page({
       wx.navigateTo({
         url: '../testing/testing'
       });
-    }
-    
+    }  
 })
