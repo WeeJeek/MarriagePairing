@@ -35,8 +35,7 @@ Page({
 
       // Get the next question from your question list and update the current_question property
       const next_question = app.global_data.test_manager.get_current_question();
-      debugger
-      if (next_question.ID == 1) {
+      if (next_question.ID != 1) {
         this.setData({
           current_question: next_question,
           selected_choice: null,
@@ -44,7 +43,9 @@ Page({
           is_the_last_question: app.global_data.test_manager.are_all_tests_finished()
         });
       } else {
-        // No more questions, TODO
+        wx.navigateTo({
+          url: '../test_description/test_description'
+        });
       }
     }
   },

@@ -1,5 +1,5 @@
 import CHOICES from "../../enums/ChoiceCategories"
-import MBTICategories from "../../enums/MBTICategories"
+import MBTICategories from "../../enums/MBTICategoty"
 
 var MBTI = {
     "title": "MBTI",

@@ -21,12 +21,12 @@ Page({
     restart_test:res=>{
       app.global_data.test_manager.reset_test_record();
       wx.navigateTo({
-        url: '../testing/testing'
+        url: '../test_description/test_description'
       });
     },
     start_test: res=>{
       wx.navigateTo({
-        url: '../testing/testing'
+        url: '../test_description/test_description'
       });
     }  
 })

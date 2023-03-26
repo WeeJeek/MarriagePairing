@@ -2,6 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/authorization/authorization",
-    "pages/testing/testing"
+    "pages/testing/testing",
+    "pages/test_description/test_description"
   ]
 }

@@ -1,21 +1,21 @@
 var HAPPY_MARRIAGE_ASSESSMENT = {
-  "title": "",
-  "rule": "",
-  "description": "",
+  "title": "幸福婚姻评测",
+  "rule": "这是幸福婚姻评测的规则",
+  "description": "这是幸福婚姻评测的描述",
   "questions": [{
     "ID": 1,
-    "description": "你倾向从何处得到力量:",
+    "description": "FAKE happiness:",
     "choices": 
       [
         {
           "index": 1,
           "category": ["E"],
-          "description": "与人交流"
+          "description": "Happiness 1"
         },
         {
           "index": 2,
           "category": ["I"],
-          "description": "自己的想法"
+          "description": "Happiness 2"
         }
       ]
   }]

@@ -65,6 +65,18 @@ export default class TestManager{
     return this.#current_test_category;
   }
 
+  get_title_of_current_test_category(){
+    return TEST_LIST[this.#current_test_category]["title"];
+  }
+
+  get_description_of_current_test_category(){
+    return TEST_LIST[this.#current_test_category]["description"];
+  }
+
+  get_rule_of_current_test_category(){
+    return TEST_LIST[this.#current_test_category]["rule"];
+  }
+
   get_amount_of_questions_of_current_test_category(){
     let cur_test_list = TEST_LIST[this.#current_test_category]
     return cur_test_list['questions'].length;

@@ -1,21 +1,21 @@
 var LIFE_PRESSURE_ANALYSIS = {
-  "title": "",
-  "rule": "",
-  "description": "",
+  "title": "生活压力分析",
+  "rule": "这是生活压力分析的规则",
+  "description": "这是生活压力分析的描述",
   "questions": [{
     "ID": 1,
-    "description": "你倾向从何处得到力量:",
+    "description": "Fake Life pressure:",
     "choices": 
       [
         {
           "index": 1,
           "category": ["E"],
-          "description": "与人交流"
+          "description": "Life pressure 1"
         },
         {
           "index": 2,
           "category": ["I"],
-          "description": "自己的想法"
+          "description": "Life pressure 2"
         }
       ]
   }]
