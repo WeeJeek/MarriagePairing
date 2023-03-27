@@ -1,7 +1,11 @@
+import TestReportCalculator from "./classes/TestReportGenerator"
+import TestReportGenerator from "./classes/TestReportGenerator"
+
 App({
   global_data: {
     user_info: "",
-    test_manager: null
+    test_manager: null,
+    report_generator: new TestReportGenerator()
   },
   onHide: function(){
     if(global_data.test_manager){

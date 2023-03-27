@@ -1,20 +1,24 @@
 // pages/payment/payment.js
+import PaymentProcessor from "../../classes/PaymentProcessor"
+
+const app = getApp()
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    is_paid: false,
+    payment_processor: new PaymentProcessor(),
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad(options) {
-
+    this.on_generate_report = this.on_generate_report.bind(this);
   },
-
+  on_generate_report: res=>{
+    console.log("user pressed to generate report");
+    // the implementation depends on how the payment is done
+    wx.redirectTo({
+      url: '../report/report'
+    }); 
+    console.log("frdf")
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

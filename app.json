@@ -3,6 +3,8 @@
     "pages/index/index",
     "pages/authorization/authorization",
     "pages/testing/testing",
-    "pages/test_description/test_description"
+    "pages/test_description/test_description",
+    "pages/payment/payment",
+    "pages/report/report"
   ]
 }

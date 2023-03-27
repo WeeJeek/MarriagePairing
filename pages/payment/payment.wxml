@@ -1,2 +1,8 @@
 <!--pages/payment/payment.wxml-->
-<text>pages/payment/payment.wxml</text>
+<view>0xxxx0</view>
+<view>xxxxxx</view>
+<view>0xxxxx</view>
+
+<text>请扫码支付</text>
+<!--<button wx:if="{{is_paid}}"   class="button" bindtap="on_generate_report">生成报告并匹配</button>-->
+<button class="button" bindtap="on_generate_report">生成报告并匹配</button>
