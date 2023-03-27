@@ -152,6 +152,10 @@ describe("unit test testing for Test Manager class", () =>{
     expect(result_current_test.ID).toEqual(expected_current_test_id);
   })
 
+  it("TODO a test case for result calculation", ()=>{
+    
+  })
+
   afterEach(()=>{
     jest.restoreAllMocks()
   })

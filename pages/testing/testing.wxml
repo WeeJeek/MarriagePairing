@@ -11,7 +11,7 @@
     </radio-group>
   </view>
 </view>
-<view class="navigation-buttons">
+<view wx:if="{{!all_tests_finished}}" class="navigation-buttons">
     <button wx:if="{{!is_the_first_question}}"  class="previous-button show-me" bindtap="on_previous_question">Previous</button>
     <button wx:if="{{!is_the_last_question}}"   class="next-button" bindtap="on_next_question">Next</button>
   </view>

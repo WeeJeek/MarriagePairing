@@ -7,7 +7,8 @@ Page({
     selected_choice: null,
     progress: 0.7,
     is_the_first_question: true,
-    is_the_last_question: false
+    is_the_last_question: false,
+    all_tests_finished: false
   },
   start_test(){
     this.is_entry_page = false;
@@ -28,12 +29,10 @@ Page({
     }
   },
   on_next_question: function(event){
-    //TODO: if is the end of a test, switch to the next one
     if (this.selected_choice) {
       app.global_data.test_manager.answer_the_current_question(this.selected_choice);
       app.global_data.test_manager.store_test_record();
 
-      // Get the next question from your question list and update the current_question property
       const next_question = app.global_data.test_manager.get_current_question();
       if (next_question.ID != 1) {
         this.setData({
@@ -43,9 +42,15 @@ Page({
           is_the_last_question: app.global_data.test_manager.are_all_tests_finished()
         });
       } else {
-        wx.navigateTo({
-          url: '../test_description/test_description'
-        });
+        if(!app.global_data.test_manager.are_all_tests_finished()){
+          wx.navigateTo({
+            url: '../test_description/test_description'
+          });
+        }
+        else{
+          console.log("User has reached the last question of all questions.")
+          //TODO this shall not shown, or switch to payment
+        }
       }
     }
   },
