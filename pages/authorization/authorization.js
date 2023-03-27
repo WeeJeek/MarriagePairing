@@ -1,3 +1,5 @@
+import DataStoreKeys from "../../enums/DataStoreKeys"
+
 const app = getApp();
 
 Page({
@@ -5,7 +7,7 @@ Page({
     is_authed: false
   },
   onLoad(){
-    var user_info = wx.getStorageSync('user_info')
+    var user_info = wx.getStorageSync(DataStoreKeys.USER_INFO)
     /*this.setData({
       is_authed: true //TODO 会造成渲染空白页面
     })*/
@@ -40,7 +42,6 @@ Page({
     });
   }, 
   save_to_cache: res => {
-    wx.setStorageSync('user_info', app.global_data.user_info)
-    console.log("user info is cached")
+    wx.setStorageSync(DataStoreKeys.USER_INFO, app.global_data.user_info)
   }
 })
