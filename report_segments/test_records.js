@@ -1,17 +1,6 @@
-import TestStatus from "../../enums/TestStatus"
+import TestStatus from "../enums/TestStatus"
 
 var test_records = {
-  "user_info":{
-    "name": "dasd",
-    "wx_id": "",
-    "account_id": "",
-    "gender": ""
-  },
-  "report_info":{
-    "created_date":"",
-    "last_modified":""
-  },
-  "test_progress":{
     "MBTI":{
       "status": TestStatus.UNTOUCHED,
       "answers":[]
@@ -28,7 +17,6 @@ var test_records = {
       "status": TestStatus.UNTOUCHED,
       "answers":[]
     }
-  }
 }
 
 export {test_records}
