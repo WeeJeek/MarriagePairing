@@ -9,6 +9,7 @@ describe("unit test testing for Test Manager class", () =>{
 
   beforeEach(() => {
     _sut = new TestManager();
+    
   })
 
   it("a test manager should return test progress not exist if user never did test before", ()=>
@@ -29,8 +30,8 @@ describe("unit test testing for Test Manager class", () =>{
     _sut.answer_the_current_question(expected_answer);
 
     let result_test_record = _sut.get_test_record();
-    let result_status = result_test_record.test_progress[expected_current_test_category]["status"];
-    let result_answer = result_test_record.test_progress[expected_current_test_category]["answers"][expected_current_test_index]["answer"];
+    let result_status = result_test_record[expected_current_test_category]["status"];
+    let result_answer = result_test_record[expected_current_test_category]["answers"][expected_current_test_index]["answer"];
     expect(result_status).toEqual(expected_status);
     expect(result_answer).toEqual(expected_answer);
   })
@@ -46,7 +47,7 @@ describe("unit test testing for Test Manager class", () =>{
     _sut.answer_the_current_question(expected_answer);
 
     let result_test_record = _sut.get_test_record();
-    let result_answer = result_test_record.test_progress[expected_current_test_category]["answers"][expected_current_test_index]["answer"]
+    let result_answer = result_test_record[expected_current_test_category]["answers"][expected_current_test_index]["answer"]
     expect(result_answer).toEqual(expected_answer);
   })
 
@@ -106,33 +107,21 @@ describe("unit test testing for Test Manager class", () =>{
 
   it("test manager shall clean everything in its test record if it reset it", ()=>{
     let expected_test_record = {
-      "user_info":{
-        "name": "dasd",
-        "wx_id": "",
-        "account_id": "",
-        "gender": ""
+      "MBTI":{
+        "status": TestStatus.UNTOUCHED,
+        "answers":[]
       },
-      "report_info":{
-        "created_date":"",
-        "last_modified":""
+      "FAMIL_ADAPTABILITY_TEST":{
+        "status": TestStatus.UNTOUCHED,
+        "answers":[]
       },
-      "test_progress":{
-        "MBTI":{
-          "status": TestStatus.UNTOUCHED,
-          "answers":[]
-        },
-        "FAMIL_ADAPTABILITY_TEST":{
-          "status": TestStatus.UNTOUCHED,
-          "answers":[]
-        },
-        "LIFE_PRESSURE_ANALYSIS":{
-          "status": TestStatus.UNTOUCHED,
-          "answers":[]
-        },
-        "HAPPY_MARRIAGE_ASSESSMENT":{
-          "status": TestStatus.UNTOUCHED,
-          "answers":[]
-        }
+      "LIFE_PRESSURE_ANALYSIS":{
+        "status": TestStatus.UNTOUCHED,
+        "answers":[]
+      },
+      "HAPPY_MARRIAGE_ASSESSMENT":{
+        "status": TestStatus.UNTOUCHED,
+        "answers":[]
       }
     }
 
@@ -152,8 +141,18 @@ describe("unit test testing for Test Manager class", () =>{
     expect(result_current_test.ID).toEqual(expected_current_test_id);
   })
 
+  it("while test manager is started, it should know a test record exist if there is one", ()=>{
+    _test_record_save_spy = jest.spyOn(TestManager.prototype, "store_test_record");
+    expect(_test_record_save_spy).toHaveBeenCalledTimes(2);
+  })
+
   it("TODO a test case for result calculation", ()=>{
-    
+    let given_test_record = null;
+    let expected_result_test_report = {};
+
+    let result_test_report = _sut.generate_test_report(given_test_record);
+
+    expect(result_test_report).toEqual(!expected_result_test_report);
   })
 
   afterEach(()=>{

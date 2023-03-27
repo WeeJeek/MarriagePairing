@@ -1,25 +1,38 @@
-import {test_records} from "../src/tests_related/test_records"
+import {test_records} from "../report_segments/test_records"
 import TestStatus from "../enums/TestStatus"
 import TestCategories from "../enums/TestCategories"
 import TEST_LIST from "../src/tests_related/test_list"
 import DataStoreKeys from "../enums/DataStoreKeys"
+import TestReportGenerator from "./TestReportGenerator"
+
+//import wx from '../../weixin-app-sdk';
+
 
 export default class TestManager{
   #test_record;
   #current_test_category;
   #current_selected_test_index;
+  #test_report_generator;
 
   constructor(){
-    this.reset_test_record();
-    this.#current_test_category = TestCategories.MBTI;
-    this.#current_selected_test_index = 0;
+    //let data_storage = this.read_test_record();
+
+    //if(!data_storage){
+      this.reset_test_record();
+      this.#current_test_category = TestCategories.MBTI;
+      this.#current_selected_test_index = 0;
+      this.#test_report_generator = new TestReportGenerator();
+    //}
+    //else{
+      //this.#test_record = data_storage;
+    //}
   }
 
   are_all_tests_finished(){
     const test_category_values = Object.values(TestCategories);
     let all_finished = true;
     for (let i = 0; i < test_category_values.length; i++) {
-      let cur_test_list = this.#test_record["test_progress"][test_category_values[i]]
+      let cur_test_list = this.#test_record[test_category_values[i]]
       if(cur_test_list["status"] != TestStatus.FINISHED){
         all_finished = false;
         break;
@@ -30,11 +43,11 @@ export default class TestManager{
 
   check_test_record_exist(){
     let result = false;
-    let test_names = Object.keys(this.#test_record.test_progress);
+    let test_names = Object.keys(this.#test_record);
 
     for(let i = 0; i < test_names.length; i++){
       const test_name = test_names[i];
-      const test = this.#test_record.test_progress[test_name];
+      const test = this.#test_record[test_name];
 
       if(test.status !== TestStatus.UNTOUCHED)
       {
@@ -54,7 +67,7 @@ export default class TestManager{
   }
 
   get_status_of_category(category){
-    return this.#test_record["test_progress"][category]["status"];
+    return this.#test_record[category]["status"];
   }
 
   get_current_question(){
@@ -88,10 +101,10 @@ export default class TestManager{
 
   answer_the_current_question(choice){
     this.#insert_new_answer(choice);
-    this.#test_record.test_progress[this.#current_test_category]["status"] = TestStatus.IN_PROGRESS;
+    this.#test_record[this.#current_test_category]["status"] = TestStatus.IN_PROGRESS;
     if(this.#is_end_of_a_test_list()){
       this.#current_selected_test_index = 0;
-      this.#test_record["test_progress"][this.#current_test_category]["status"] = TestStatus.FINISHED;
+      this.#test_record[this.#current_test_category]["status"] = TestStatus.FINISHED;
       if(!this.are_all_tests_finished())
       {
         this.#move_to_the_next_test_category()//TODO do something if at the end of list
@@ -126,8 +139,12 @@ export default class TestManager{
     try {
       var value = wx.getStorageSync(DataStoreKeys.HISTORY_TEST_RECORD)
     } catch (e) {
-      throw new Error("读取测试记录时发生错误");
+      throw new Error("读取测试记录时发生错误" + e);
     }
+  }
+
+  generate_test_report(){
+    return this.#test_report_generator.generate_test_report()
   }
 
   #move_to_the_next_test_category(){
@@ -151,7 +168,7 @@ export default class TestManager{
 
   #insert_new_answer(choice)
   {
-    let answers = this.#test_record.test_progress[this.#current_test_category]["answers"].sort((a, b)=> a.index - b.index)
+    let answers = this.#test_record[this.#current_test_category]["answers"].sort((a, b)=> a.index - b.index)
     const new_answer = {index: this.#current_selected_test_index, answer: choice}
     let insert_index = answers.length - 1;
 
