@@ -5,9 +5,6 @@ import TEST_LIST from "../src/tests_related/test_list"
 import DataStoreKeys from "../enums/DataStoreKeys"
 import TestReportGenerator from "./TestReportGenerator"
 
-//import wx from '../../weixin-app-sdk';
-
-
 export default class TestManager{
   #test_record;
   #current_test_category;
