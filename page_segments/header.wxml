@@ -1,4 +1,0 @@
-<style src="./header.wxss"></style>
-<view class="header">
-    <text class="header-text">Marriage Survey</text>
-</view>

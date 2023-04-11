@@ -1,5 +1,17 @@
 <!--pages/test_description/test_description.wxml-->
-<view>{{test_title}}</view>
-<view>{{test_description}}</view>
-<view>{{test_rule}}</view>
-<button class = "button" bindtap="start_tests"> 开始测试 </button>
+<view>
+  <view class="header">
+    <text class="header-text">Marriage Survey</text>
+  </view>
+  <view class="header-title">
+    {{test_title}}
+  </view>
+  <view class="test-description">
+    {{test_description}}
+  </view>
+  <view class="test_rule">
+    {{test_rule}}
+  </view>
+  <button class = "button" bindtap="start_tests"> 开始测试 </button>
+
+</view>

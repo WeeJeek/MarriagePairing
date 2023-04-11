@@ -50,6 +50,9 @@ Page({
         else{
           console.log("User has reached the last question of all questions.")
           //TODO this shall not shown, or switch to payment
+          wx.navigateTo({
+            url: '../payment/payment'
+          });
         }
       }
     }

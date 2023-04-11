@@ -1,20 +1,27 @@
 <!--pages/testing/testing.wxml-->
-<ScrollView scroll-y="true" class="scroll-view">
-  <view class="question-container">
-  <text class="question-text">{{current_question.description}}</text>
-  <view class="choices-container">
-    <radio-group class="choice-item" name="choices_radio" bindchange="on_radio_change">
-      <block wx:for="{{current_question.choices}}" wx:key="item">
-          <radio value="{{item.index}}" checked="{{item.index === selected_choice}}"></radio>
-          <text>{{item.description}}</text>
-      </block>
-    </radio-group>
+<view class="page">
+  <view class="header">
+   <!--<view class="progress-bar" style="width:{{progress}}%"></view>-->
+   <view class="progress-bar" style="width:5%"></view>
+    <text class="header-text">Marriage Survey</text>
   </view>
+  <scroll-view scroll-y="true" class="scroll-view">
+    <view class="question-container">
+      <text class="question-text">{{current_question.description}}</text>
+      <view class="choices-container">
+        <radio-group class="choice-item" name="choices_radio" bindchange="on_radio_change">
+          <block wx:for="{{current_question.choices}}" wx:key="item">
+            <view class="radio-item">
+              <radio value="{{item.index}}" checked="{{item.index === selected_choice}}"></radio>
+              <text class="choice-description">{{item.description}}</text>
+            </view>
+          </block>
+        </radio-group>
+      </view>
+    </view>
+    <view wx:if="{{!all_tests_finished}}" class="navigation-buttons">
+      <button wx:if="{{!is_the_first_question}}" class="button previous-button show-me" bindtap="on_previous_question">Previous</button>
+      <button wx:if="{{!is_the_last_question}}" class="button next-button" bindtap="on_next_question">Next</button>
+    </view>
+  </scroll-view>
 </view>
-<view wx:if="{{!all_tests_finished}}" class="navigation-buttons">
-    <button wx:if="{{!is_the_first_question}}"  class="previous-button show-me" bindtap="on_previous_question">Previous</button>
-    <button wx:if="{{!is_the_last_question}}"   class="next-button" bindtap="on_next_question">Next</button>
-  </view>
-</ScrollView>
-
-
