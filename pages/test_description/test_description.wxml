@@ -1,17 +1,21 @@
 <!--pages/test_description/test_description.wxml-->
 <view>
   <view class="header">
-    <text class="header-text">Marriage Survey</text>
+      <text class="header-text">Marriage Survey</text>
+    </view>
+  <view class = "card">
+    <view class="header-title">
+      <p class = "title-text">{{test_title}}</p>
+    </view>
+    <view id = "test-description" class="test-intro">
+      {{test_description}}
+    </view>
+    <view id = "test rule" class="test-intro">
+      {{test_rule}}
+    </view>
   </view>
-  <view class="header-title">
-    {{test_title}}
-  </view>
-  <view class="test-description">
-    {{test_description}}
-  </view>
-  <view class="test_rule">
-    {{test_rule}}
-  </view>
-  <button class = "button" bindtap="start_tests"> 开始测试 </button>
 
+  <view>
+      <button  class = "button" bindtap="start_tests"> 开始测试 </button>
+    </view>
 </view>
