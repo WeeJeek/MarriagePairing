@@ -1,5 +1,3 @@
-import { loadTTFFont } from "XrFrame/kanata/lib/index";
-import { test_records } from "../report_segments/test_records";
 import ITestResultCalculationStrategy from "./ITestResultCalculationStrategy"
 
 export default class MBTIResultCalculationStrategy extends ITestResultCalculationStrategy{
