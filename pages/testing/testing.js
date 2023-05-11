@@ -8,7 +8,9 @@ Page({
     progress: 0.7,
     is_the_first_question: true,
     is_the_last_question: false,
-    all_tests_finished: false
+    all_tests_finished: false,
+    current_index: 0,
+    total_amount: 0
   },
   start_test(){
     this.is_entry_page = false;
@@ -17,16 +19,18 @@ Page({
     this.selected_choice = event.detail.value;
   },
   on_previous_question: function(event){
-    if(selected_choice){
+    //if(selected_choice){
       app.global_data.test_manager.move_back_to_last_question()
-      const previous_question = app.global_data.test_manager.get_current_test();
+      const previous_question = app.global_data.test_manager.get_current_question();
       this.setData({
         current_question: previous_question,
         selected_choice: null,
         is_the_first_question: app.global_data.test_manager.is_the_first_question(),
-        is_the_last_question: app.global_data.test_manager.are_all_tests_finished()
+        is_the_last_question: app.global_data.test_manager.are_all_tests_finished(),
+        current_index: app.global_data.test_manager.get_current_question_index(),
+        total_amount: app.global_data.test_manager.get_amount_of_questions_of_current_test_category()
       });
-    }
+    //}
   },
   on_next_question: function(event){
     if (this.selected_choice) {
@@ -39,7 +43,9 @@ Page({
           current_question: next_question,
           selected_choice: null,
           is_the_first_question: app.global_data.test_manager.is_the_first_question(),
-          is_the_last_question: app.global_data.test_manager.are_all_tests_finished()
+          is_the_last_question: app.global_data.test_manager.are_all_tests_finished(),
+          current_index: app.global_data.test_manager.get_current_question_index(),
+          total_amount: app.global_data.test_manager.get_amount_of_questions_of_current_test_category()
         });
       } else {
         if(!app.global_data.test_manager.are_all_tests_finished()){
@@ -59,7 +65,8 @@ Page({
   },
   onLoad(options) {
     this.setData({
-      current_question: app.global_data.test_manager.get_current_question()
+      current_question: app.global_data.test_manager.get_current_question(),
+      total_amount: app.global_data.test_manager.get_amount_of_questions_of_current_test_category()
     });
     this.on_previous_question = this.on_previous_question.bind(this);
     this.on_next_question = this.on_next_question.bind(this);

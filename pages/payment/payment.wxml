@@ -1,8 +1,29 @@
-<!--pages/payment/payment.wxml-->
-<view>0xxxx0</view>
-<view>xxxxxx</view>
-<view>0xxxxx</view>
+<!--pages/testing/testing.wxml-->
+<view class = "page">
+  <view class="header">
+    <text class="header-text">{{"盟约吧"}}</text>
+  </view>
+  <view class = "card">
+    <view id="QRcode">
+        <view>0xxxx0</view>
+        <view>xxxxxx</view>
+        <view>0xxxxx</view>
+    </view>
+    <view id = "payment-text">
+      <text>请扫码支付</text>
+    </view>
+  </view>
+  <view >
+    <button class="button" bindtap="on_generate_report">生成报告并匹配</button>
+  </view>
+  
+</view>
 
-<text>请扫码支付</text>
+
+
+<!--pages/payment/payment.wxml-->
+
+
+
 <!--<button wx:if="{{is_paid}}"   class="button" bindtap="on_generate_report">生成报告并匹配</button>-->
-<button class="button" bindtap="on_generate_report">生成报告并匹配</button>
+

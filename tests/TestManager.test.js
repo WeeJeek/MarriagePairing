@@ -9,7 +9,6 @@ describe("unit test testing for Test Manager class", () =>{
 
   beforeEach(() => {
     _sut = new TestManager();
-    
   })
 
   it("a test manager should return test progress not exist if user never did test before", ()=>

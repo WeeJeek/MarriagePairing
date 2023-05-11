@@ -1,1 +1,40 @@
-/* pages/payment/payment.wxss */
+/* pages/testing/testing.wxss */
+.page {
+  font-family: 'Helvetica Neue', sans-serif;
+  padding-top: 50rpx;
+  box-sizing: border-box;
+}
+
+.card{
+  width: 90%;
+  height: auto;
+  margin: 3% auto;
+  justify-content: center;
+  border-radius: 10rpx;
+  box-shadow: 0 5rpx 5rpx #CEB8B1;
+  background-color:white;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50rpx;
+}
+
+.header-text {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #6B584F;
+}
+
+.button {
+  background-color: #CEB8B1;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #6B584F;
+  padding: 20rpx;
+  box-shadow: 0 5rpx 5rpx #CEB8B1;
+  margin-left: 5%;
+  margin-right: 5%;
+}

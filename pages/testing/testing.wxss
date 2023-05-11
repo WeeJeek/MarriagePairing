@@ -1,14 +1,18 @@
 /* pages/testing/testing.wxss */
 .page {
   font-family: 'Helvetica Neue', sans-serif;
-  background-color: #E4D9CE;
-  height: 100%;
   padding-top: 50rpx;
   box-sizing: border-box;
 }
 
-.scroll-view{
-  height: 100%;
+.card{
+  width: 90%;
+  height: auto;
+  margin: 3% auto;
+  justify-content: center;
+  border-radius: 10rpx;
+  box-shadow: 0 5rpx 5rpx #CEB8B1;
+  background-color:white;
 }
 
 .header {
@@ -24,32 +28,26 @@
 }
 
 .question-container {
-  background-color: #F5F2ED;
   padding: 30rpx;
   margin-bottom: 20rpx;
   border-radius: 10rpx;
-  box-shadow: 0 5rpx 5rpx #CEB8B1;
+  height: 100%;
 }
 
 .question-text {
-  font-size: 28rpx;
+  font-size: 35rpx;
   font-weight: bold;
   color: #6B584F;
   margin-bottom: 30rpx;
 }
 
-.choices-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.choice-item {
-  margin-bottom: 20rpx;
-}
-
 .choice-description {
-  font-size: 24rpx;
+  font-size: 35rpx;
   color: #6B584F;
+}
+
+.radio-item{
+  margin-top: 15rpx;
 }
 
 .navigation-buttons {
@@ -69,9 +67,34 @@
 }
 
 .previous-button {
-  margin-right: 20rpx;
+  background-color: #CEB8B1;
+  border-radius: 20rpx;
+  font-size: 35rpx;
+  font-weight: normal;
+  color: #6B584F;
+  padding: 10rpx 20rpx;
+  box-shadow: 0 5rpx 5rpx #CEB8B1;
+  width: 100%;
+  margin-right: 5%;
+  margin-left: 5%;
 }
 
 .next-button {
-  margin-left: 20rpx;
+  background-color: #CEB8B1;
+  border-radius: 20rpx;
+  font-size: 35rpx;
+  font-weight: normal;
+  color: #6B584F;
+  padding: 10rpx 20rpx;
+  box-shadow: 0 5rpx 5rpx #CEB8B1;
+  width: 100%;
+  margin-left: 5%;
+  margin-right: 5%;
 }
+
+#current_progress_bar{
+  color: #6B584F;
+  padding-top: 3%;
+  padding-left: 4%;
+}
+

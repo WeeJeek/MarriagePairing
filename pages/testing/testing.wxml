@@ -1,27 +1,30 @@
 <!--pages/testing/testing.wxml-->
-<view class="page">
+<view class = "page">
   <view class="header">
-   <!--<view class="progress-bar" style="width:{{progress}}%"></view>-->
-   <view class="progress-bar" style="width:5%"></view>
-    <text class="header-text">Marriage Survey</text>
+    <text class="header-text">{{"盟约吧"}}</text>
   </view>
-  <scroll-view scroll-y="true" class="scroll-view">
-    <view class="question-container">
-      <text class="question-text">{{current_question.description}}</text>
-      <view class="choices-container">
-        <radio-group class="choice-item" name="choices_radio" bindchange="on_radio_change">
-          <block wx:for="{{current_question.choices}}" wx:key="item">
-            <view class="radio-item">
-              <radio value="{{item.index}}" checked="{{item.index === selected_choice}}"></radio>
-              <text class="choice-description">{{item.description}}</text>
-            </view>
-          </block>
-        </radio-group>
+  <view class = "card">
+    <view id="current_progress_bar">
+      <text id="current_progress"> 当前进度： {{current_index + 1}}/{{total_amount}} </text>
+    </view>
+    <scroll-view scroll-y="true" class="scroll-view">
+      <view class="question-container">
+        <text class="question-text">{{current_question.description}}</text>
+        <view class="choices-container">
+          <radio-group class="choice-item" name="choices_radio" bindchange="on_radio_change">
+            <block wx:for="{{current_question.choices}}" wx:key="item">
+              <view class="radio-item">
+                <radio value="{{item.index}}" checked="{{item.index === selected_choice}}"></radio>
+                <text class="choice-description">{{item.description}}</text>
+              </view>
+            </block>
+          </radio-group>
+        </view>
       </view>
-    </view>
-    <view wx:if="{{!all_tests_finished}}" class="navigation-buttons">
-      <button wx:if="{{!is_the_first_question}}" class="button previous-button show-me" bindtap="on_previous_question">Previous</button>
-      <button wx:if="{{!is_the_last_question}}" class="button next-button" bindtap="on_next_question">Next</button>
-    </view>
-  </scroll-view>
+    </scroll-view>
+  </view>
+  <view wx:if="{{!all_tests_finished}}" class="navigation-buttons">
+        <button wx:if="{{!is_the_first_question}}" class="button previous-button show-me" bindtap="on_previous_question">Previous</button>
+        <button wx:if="{{!is_the_last_question}}" class="button next-button" bindtap="on_next_question">Next</button>
+      </view>
 </view>

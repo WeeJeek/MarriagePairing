@@ -1,11 +1,10 @@
 /* pages/test_description/test_description.wxss */
 .page{
-  height: 100vh;
-  background-color: lightgreen;
+  
 }
 
 .card{
-  background-color: #c8c8c8;
+  background-color: white;
   width: 90%;
   height: auto;
   margin: 3% auto;
@@ -18,13 +17,13 @@
   display: flex;
   justify-content: center;
   margin-bottom: 25rpx;
-  margin-top: 25rpx;
+  padding-top: 25rpx;
 }
 
 .header-text {
   font-size: 36rpx;
   font-weight: bold;
-  color: #6B584F;
+  color: black;
 }
 
 .button {
