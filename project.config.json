@@ -20,7 +20,8 @@
       "disablePlugins": [],
       "outputPath": ""
     },
-    "packNpmRelationList": []
+    "packNpmRelationList": [],
+    "condition": false
   },
   "condition": {},
   "editorSetting": {

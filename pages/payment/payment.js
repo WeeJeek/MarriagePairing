@@ -10,6 +10,9 @@ Page({
   },
   onLoad(options) {
     this.on_generate_report = this.on_generate_report.bind(this);
+    wx.redirectTo({
+      url: '../report/report'
+    }); 
   },
   on_generate_report: res=>{
     console.log("user pressed to generate report");

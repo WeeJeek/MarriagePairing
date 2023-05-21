@@ -7,6 +7,7 @@ import {answer_questions_with_dummy_answers, get_amount_of_all_questions} from "
 describe("unit test testing for Test Manager class", () =>{
   let _sut;
 
+
   beforeEach(() => {
     _sut = new TestManager();
   })

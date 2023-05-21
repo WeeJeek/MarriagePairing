@@ -165,8 +165,8 @@ export default class TestManager{
 
   #insert_new_answer(choice)
   {
-    let answers = this.#test_record[this.#current_test_category]["answers"].sort((a, b)=> a.index - b.index)
-    const new_answer = {index: this.#current_selected_test_index, answer: choice}
+    let answers = this.#test_record[this.#current_test_category]["answers"].sort((a, b)=> a.index - b.index);
+    const new_answer = {index: this.#current_selected_test_index, answer: choice};
     let insert_index = answers.length - 1;
 
     for (let i = 0; i < answers.length; i++) {
