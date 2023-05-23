@@ -8,6 +8,7 @@ const MBTIFeatureCategories = Object.freeze({
   J: "Judging",
   P: "Perceiving"
 });
+
 const MBTICategories = Object.freeze({
   EvI: "EvI",
   NvS: "NvS",

@@ -29,8 +29,23 @@ export default class MBTIResultCalculationStrategy extends ITestResultCalculatio
 
   #sum_scores_for_a_category(starting_index, ending_index, test_category_record, current_mbti_category){
     for(let j = starting_index; j <= ending_index; j++){
-        //TODO need to expend score for both side. maybe need to make another map from mbti_cat to mbti_feature_cat?
+      let current_answer = test_category_record[j];
+      let current_feature_category = this.#map_choice_to_feature_category(j, current_answer);
+      if(!test_category_record.hasOwnProperty(current_feature_category)){
+        test_category_record[current_feature_category] = 0;
+      }
+      test_category_record[current_feature_category] += 1;
     }
+  }
+
+  #map_choice_to_feature_category(index_of_question, choice){
+    let choices = MBTI["questions"][index_of_question][choices];
+    if(choices[0]["index"] == choice){
+      return choices[0]["category"];
+    }else{
+      return choices[1]["category"];
+    }
+
   }
 
   #find_the_end_of_the_category(current_index, starting_indexes_of_categories){
@@ -70,19 +85,6 @@ export default class MBTIResultCalculationStrategy extends ITestResultCalculatio
     if(choice_category == MBTIFeatureCategories.J || MBTIFeatureCategories.P){
       return MBTICategories.JvP;
     }
-  }
-  
-
-  #calculate_for_all_categories(categories){
-    result = {
-      "ExtraversionVSIntroversion": "",
-      "SensingVsIntuition": "",
-      "ThinkingVsFeeling": "",
-      "JudgingVsPerceiving": ""
-    }
-
-
-    return result;
   }
 
   #calculate_letter_of_a_category(answers_of_a_category){
