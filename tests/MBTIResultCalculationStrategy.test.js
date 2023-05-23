@@ -1,4 +1,5 @@
 import MBTIResultCalculationStrategy from "../classes/MBTIResultCalculationStrategy";
+import CHOICES from "../enums/ChoiceCategories";
 import MBTIFeatureCategories from "../enums/MBTICategoty"
 
 describe("testing rules of MBTI test", ()=>{
@@ -10,9 +11,9 @@ describe("testing rules of MBTI test", ()=>{
 
   beforeEach(() => {
     _sut = new MBTIResultCalculationStrategy();
-    _example_test_case_1 = {};
-    _example_test_case_2 = {};
-    _example_test_case_3 = {};
+    _example_test_case_1 = [CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A];
+    _example_test_case_2 = [CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B];
+    _example_test_case_3 = [CHOICES.B, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.B, CHOICES.A, CHOICES.B, CHOICES.A, CHOICES.B, CHOICES.A, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.A, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.A, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.A, CHOICES.B, CHOICES.B, CHOICES.B];
   })
 
   function testMBTI(testCase) {
