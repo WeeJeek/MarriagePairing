@@ -1,50 +1,52 @@
 import MBTIResultCalculationStrategy from "../classes/MBTIResultCalculationStrategy";
 import CHOICES from "../enums/ChoiceCategories";
-import MBTIFeatureCategories from "../enums/MBTICategoty"
+import { MBTIFeatureCategories, MBTICategories } from "../enums/MBTICategories"
+import TestStatus from "../enums/TestStatus"
+
+const DUMMY_TEST_CASE_1 = {
+  "status": TestStatus.FINISHED,
+  "answers": [CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A]
+};
+const DUMMY_TEST_CASE_2 = {
+  "status": TestStatus.FINISHED,
+  "answers": [CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B]
+};
+const DUMMY_TEST_CASE_3 = {
+  "status": TestStatus.FINISHED,
+  "answers": [CHOICES.B, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.B, CHOICES.A, CHOICES.B, CHOICES.A, CHOICES.B, CHOICES.A, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.A, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.A, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.A, CHOICES.B, CHOICES.B, CHOICES.B]
+};
 
 describe("testing rules of MBTI test", ()=>{
   let _sut;
-  let _example_test_case_1;
-  let _example_test_case_2;
-  let _example_test_case_3;
-  let _test_data_table;
+  const _expected_result_for_case_1 = [1,2,3];
+  const _expected_result_for_case_2 = [1,2,3];
+  const _expected_result_for_case_3 = [1,2,3];
+  const DUMMY_TEST_CASES = [
+    [
+      DUMMY_TEST_CASE_1, // given test data
+      _expected_result_for_case_1 // expected result
+    ],
+    [
+      DUMMY_TEST_CASE_2, // given test data
+      _expected_result_for_case_2 // expected result
+    ],
+    [
+      DUMMY_TEST_CASE_3, // given test data
+      _expected_result_for_case_3 // expected result
+    ]
+  ];
 
   beforeEach(() => {
     _sut = new MBTIResultCalculationStrategy();
-    _example_test_case_1 = [CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A];
-    _example_test_case_2 = [CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B];
-    _example_test_case_3 = [CHOICES.B, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.B, CHOICES.A, CHOICES.B, CHOICES.A, CHOICES.B, CHOICES.A, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.A, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.A, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.A, CHOICES.B, CHOICES.B, CHOICES.B];
+  })//before each
+
+  it.each(DUMMY_TEST_CASES)
+    ("expected result should match the actual situation", (given_test_record, expected_result) => {
+      let actual_result = _sut.calculate_test_result(given_test_record);
+      expect(actual_result).toBe(expected_result);
   })
+})//describe
 
-  function testMBTI(testCase) {
-    const input = testCase.input;
-    const expectedOutput = testCase.output;
+
+ 
   
-    // call your MBTI calculation function with the input
-    const actualOutput = calculateMBTI(input);
-  
-    // compare the actual output with the expected output
-    expect(actualOutput).toEqual(expectedOutput);
-  }
-  
-
-  it("the strategy should ", ()=>{
-    let test_cases = [
-      {
-        given_test_data: _example_test_case_1,
-        expected_EVI_score: 1,
-        expected_EVI_category: MBTIFeatureCategories.E,
-        expected_NVS_score: 1,
-        expected_NVS_category: MBTIFeatureCategories.N,
-        expected_FVT_score: 1,
-        expected_FVT_category: MBTIFeatureCategories.F,
-        expected_JVP_score: 1,
-        expected_JVP_category: MBTIFeatureCategories.J,
-      }
-    ];
-
-    it.each(_test_data_table)("the strategy should sum up number for each category", )
-
-
-  })
-})

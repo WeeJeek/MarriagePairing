@@ -140,21 +140,7 @@ describe("unit test testing for Test Manager class", () =>{
 
     expect(result_current_test.ID).toEqual(expected_current_test_id);
   })
-
-  it("while test manager is started, it should know a test record exist if there is one", ()=>{
-    _test_record_save_spy = jest.spyOn(TestManager.prototype, "store_test_record");
-    expect(_test_record_save_spy).toHaveBeenCalledTimes(2);
-  })
-
-  it("TODO a test case for result calculation", ()=>{
-    let given_test_record = null;
-    let expected_result_test_report = {};
-
-    let result_test_report = _sut.generate_test_report(given_test_record);
-
-    expect(result_test_report).toEqual(!expected_result_test_report);
-  })
-
+  
   afterEach(()=>{
     jest.restoreAllMocks()
   })

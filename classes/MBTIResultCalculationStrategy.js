@@ -62,6 +62,8 @@ export default class MBTIResultCalculationStrategy extends ITestResultCalculatio
     let current_category;
 
     for (let i = 0; i < question_list.length; i++) {
+      console.log("DEBUG: question list" + question_list)
+      console.log("DEBUG: question list [i]" + question_list[i])
       let choice_category = this.#map_mbti_feature_category_to_category(question_list[i]["choices"][0]["category"])
       if(choice_category != current_category){
         current_category = choice_category;

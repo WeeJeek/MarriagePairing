@@ -20,24 +20,29 @@ Page({
   },
   on_previous_question: function(event){
     //if(selected_choice){
+      console.log("ON PREVIOUS")
       app.global_data.test_manager.move_back_to_last_question()
+      console.log("index in test manager: " + app.global_data.test_manager.get_current_question_index())
       const previous_question = app.global_data.test_manager.get_current_question();
       this.setData({
         current_question: previous_question,
-        selected_choice: null,
         is_the_first_question: app.global_data.test_manager.is_the_first_question(),
         is_the_last_question: app.global_data.test_manager.are_all_tests_finished(),
         current_index: app.global_data.test_manager.get_current_question_index(),
-        total_amount: app.global_data.test_manager.get_amount_of_questions_of_current_test_category()
+        total_amount: app.global_data.test_manager.get_amount_of_questions_of_current_test_category(),
+        selected_choice : app.global_data.test_manager.get_selected_choice_of_question()
       });
-    //}
+      console.log("SELECTED_CHOICE: " + this.selected_choice)
   },
   on_next_question: function(event){
+    console.log("On NEXT")
+    console.log(this.selected_choice)
     if (this.selected_choice) {
       app.global_data.test_manager.answer_the_current_question(this.selected_choice);
       app.global_data.test_manager.store_test_record();
 
       const next_question = app.global_data.test_manager.get_current_question();
+      console.log(next_question.ID)
       if (next_question.ID != 1) {
         this.setData({
           current_question: next_question,
@@ -47,6 +52,8 @@ Page({
           current_index: app.global_data.test_manager.get_current_question_index(),
           total_amount: app.global_data.test_manager.get_amount_of_questions_of_current_test_category()
         });
+        this.selected_choice = null;
+        console.log(this.selected_choice)
       } else {
         if(!app.global_data.test_manager.are_all_tests_finished()){
           wx.navigateTo({

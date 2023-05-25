@@ -140,6 +140,11 @@ export default class TestManager{
     }
   }
 
+  get_selected_choice_of_question(){
+    let cur_index = this.get_current_question_index();
+    return this.#test_record[this.#current_test_category]["answers"][cur_index]["answer"];
+  }
+
   generate_test_report(){
     return this.#test_report_generator.generate_test_report()
   }
