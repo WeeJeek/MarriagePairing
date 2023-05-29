@@ -83,7 +83,7 @@ describe("unit test testing for Test Manager class", () =>{
     
     answer_questions_with_dummy_answers(_sut, sum);
 
-    expect(expected_all_finished).toEqual(_sut.are_all_tests_finished());
+    expect(true).toEqual(_sut.are_all_tests_finished());
   })
 
   it("a test manager should not able to move back the last category if it is at the first question of the category", ()=>{
@@ -139,6 +139,20 @@ describe("unit test testing for Test Manager class", () =>{
     let result_current_test = _sut.get_current_question();
 
     expect(result_current_test.ID).toEqual(expected_current_test_id);
+  })
+
+  it("the answer of a question shall remain the same if user press a button to go to the previous question", ()=>{
+    let expected_answer = CHOICES.B;
+    let answer_for_first_question = CHOICES.A;
+    let answer_for_second_question = expected_answer;
+
+    _sut.answer_the_current_question(answer_for_first_question);
+    _sut.answer_the_current_question(answer_for_second_question);
+    _sut.move_back_to_last_question();
+    _sut.answer_the_current_question(answer_for_first_question);
+
+    let received_answer = _sut.get_selected_choice_of_question();
+    expect(received_answer).toEqual(expected_answer);
   })
   
   afterEach(()=>{
