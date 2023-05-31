@@ -16,39 +16,46 @@ Page({
     this.is_entry_page = false;
   },
   on_radio_change: function(event) {
+    console.log("Radio checked: " + event.detail.value);
     this.selected_choice = event.detail.value;
   },
   on_previous_question: function(event){
-    //if(selected_choice){
-      app.global_data.test_manager.move_back_to_last_question()
-      const previous_question = app.global_data.test_manager.get_current_question();
-      this.selected_choice = app.global_data.test_manager.get_selected_choice_of_question();
-      this.setData({
-        current_question: previous_question,
-        is_the_first_question: app.global_data.test_manager.is_the_first_question(),
-        is_the_last_question: app.global_data.test_manager.are_all_tests_finished(),
-        current_index: app.global_data.test_manager.get_current_question_index(),
-        total_amount: app.global_data.test_manager.get_amount_of_questions_of_current_test_category(),
-        selected_choice: this.selected_choice
-      });
+    console.log("IN PREVIOUS button");
+    app.global_data.test_manager.move_back_to_last_question()
+    const current_question = app.global_data.test_manager.get_current_question();
+    this.selected_choice = app.global_data.test_manager.get_selected_choice_of_question();
+    this.setData({
+      current_question: current_question,
+      is_the_first_question: app.global_data.test_manager.is_the_first_question(),
+      is_the_last_question: app.global_data.test_manager.are_all_tests_finished(),
+      current_index: app.global_data.test_manager.get_current_question_index(),
+      total_amount: app.global_data.test_manager.get_amount_of_questions_of_current_test_category(),
+      selected_choice: this.selected_choice
+    });
   },
   on_next_question: function(event){
-    if (this.selected_choice) {
+    console.log("IN NEXT button");
+
+    if (this.selected_choice) {//choice is selected
       app.global_data.test_manager.answer_the_current_question(this.selected_choice);
       app.global_data.test_manager.store_test_record();
 
       const next_question = app.global_data.test_manager.get_current_question();
-      if (next_question.ID != 1) {
+      let selected_choice = app.global_data.test_manager.get_selected_choice_of_question();
+      console.log("")
+      console.log("Next button pressed, the selected choice is: " + selected_choice);
+      if (next_question.ID != 1) {//not the starting of the next test category
         this.setData({
           current_question: next_question,
-          selected_choice: null,
+          selected_choice: selected_choice,
           is_the_first_question: app.global_data.test_manager.is_the_first_question(),
           is_the_last_question: app.global_data.test_manager.are_all_tests_finished(),
           current_index: app.global_data.test_manager.get_current_question_index(),
           total_amount: app.global_data.test_manager.get_amount_of_questions_of_current_test_category()
         });
-        this.selected_choice = null;
-      } else {
+        this.selected_choice = selected_choice;
+      } 
+      else {
         if(!app.global_data.test_manager.are_all_tests_finished()){
           wx.navigateTo({
             url: '../test_description/test_description'

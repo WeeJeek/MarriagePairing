@@ -142,7 +142,14 @@ export default class TestManager{
 
   get_selected_choice_of_question(){
     let cur_index = this.get_current_question_index();
-    return this.#test_record[this.#current_test_category]["answers"][cur_index]["answer"];
+    console.log("DEBUG: current index is " + cur_index);
+    
+    if(cur_index in this.#test_record[this.#current_test_category]["answers"]){
+      console.log("DEBUG: current selected answer is " + this.#test_record[this.#current_test_category]["answers"][cur_index]["answer"]);
+      return this.#test_record[this.#current_test_category]["answers"][cur_index]["answer"];
+
+    }
+    return null;
   }
 
   generate_test_report(){
@@ -171,8 +178,10 @@ export default class TestManager{
   #insert_new_answer(choice)
   {
     let answers = this.#test_record[this.#current_test_category]["answers"].sort((a, b)=> a.index - b.index);
+    console.log("IN ANSWER INSERTION: current selected index is "  + this.#current_selected_test_index);
     const new_answer = {index: this.#current_selected_test_index, answer: choice};
     let insert_index = answers.length - 1;
+    console.log("IN ANSWER INSERTION: insert_index is "  + insert_index);
 
     for (let i = 0; i < answers.length; i++) {
       if (this.#current_selected_test_index < answers[i].index) {
