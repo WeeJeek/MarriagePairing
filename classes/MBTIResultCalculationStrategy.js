@@ -45,7 +45,6 @@ export default class MBTIResultCalculationStrategy extends ITestResultCalculatio
     }else{
       return choices[1]["category"];
     }
-
   }
 
   #find_the_end_of_the_category(current_index, starting_indexes_of_categories){
@@ -70,7 +69,6 @@ export default class MBTIResultCalculationStrategy extends ITestResultCalculatio
         category_indexes.push(i);
       }
     }
-    
     return category_indexes;
   }
 

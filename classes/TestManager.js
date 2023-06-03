@@ -97,7 +97,7 @@ export default class TestManager{
   }
 
   answer_the_current_question(choice){
-    this.#insert_new_answer(choice);
+    this.#update_answer(choice);
     this.#test_record[this.#current_test_category]["status"] = TestStatus.IN_PROGRESS;
     if(this.#is_end_of_a_test_list()){
       this.#current_selected_test_index = 0;
@@ -146,8 +146,7 @@ export default class TestManager{
     
     if(cur_index in this.#test_record[this.#current_test_category]["answers"]){
       console.log("DEBUG: current selected answer is " + this.#test_record[this.#current_test_category]["answers"][cur_index]["answer"]);
-      return this.#test_record[this.#current_test_category]["answers"][cur_index]["answer"];
-
+      return this.#test_record[this.#current_test_category]["answers"][cur_index];
     }
     return null;
   }
@@ -175,22 +174,26 @@ export default class TestManager{
     return false;
   }
 
-  #insert_new_answer(choice)
+  #update_answer(choice)
   {
-    let answers = this.#test_record[this.#current_test_category]["answers"].sort((a, b)=> a.index - b.index);
-    console.log("IN ANSWER INSERTION: current selected index is "  + this.#current_selected_test_index);
-    const new_answer = {index: this.#current_selected_test_index, answer: choice};
-    let insert_index = answers.length - 1;
-    console.log("IN ANSWER INSERTION: insert_index is "  + insert_index);
+    let answers = this.#test_record[this.#current_test_category]["answers"];
+    let insert_index = this.#current_selected_test_index;
 
-    for (let i = 0; i < answers.length; i++) {
-      if (this.#current_selected_test_index < answers[i].index) {
-        insert_index = i;
-        break;
-      }
-    }
+    //let answers = this.#test_record[this.#current_test_category]["answers"].sort((a, b)=> a.index - b.index);
+    //console.log("IN ANSWER INSERTION: current selected index is "  + this.#current_selected_test_index);
+    //const new_answer = {index: this.#current_selected_test_index, answer: choice};
+    //let insert_index = answers.length - 1;
+    //console.log("IN ANSWER INSERTION: insert_index is "  + insert_index);
 
-    answers.splice(insert_index, 0, new_answer);
+    //for (let i = 0; i < answers.length; i++) {
+    //  if (this.#current_selected_test_index < answers[i].index) {
+    //    insert_index = i;
+    //    break;
+    //  }
+    //}
+
+    //answers.splice(insert_index, 0, new_answer);
+    answers.splice(insert_index, 0, choice);
   }
 
 }

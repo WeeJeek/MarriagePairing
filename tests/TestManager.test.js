@@ -31,7 +31,7 @@ describe("unit test testing for Test Manager class", () =>{
 
     let result_test_record = _sut.get_test_record();
     let result_status = result_test_record[expected_current_test_category]["status"];
-    let result_answer = result_test_record[expected_current_test_category]["answers"][expected_current_test_index]["answer"];
+    let result_answer = result_test_record[expected_current_test_category]["answers"][expected_current_test_index];
     expect(result_status).toEqual(expected_status);
     expect(result_answer).toEqual(expected_answer);
   })
@@ -47,7 +47,7 @@ describe("unit test testing for Test Manager class", () =>{
     _sut.answer_the_current_question(expected_answer);
 
     let result_test_record = _sut.get_test_record();
-    let result_answer = result_test_record[expected_current_test_category]["answers"][expected_current_test_index]["answer"]
+    let result_answer = result_test_record[expected_current_test_category]["answers"][expected_current_test_index]
     expect(result_answer).toEqual(expected_answer);
   })
 
