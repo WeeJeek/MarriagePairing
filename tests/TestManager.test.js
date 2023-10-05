@@ -142,17 +142,23 @@ describe("unit test testing for Test Manager class", () =>{
   })
 
   it("the answer of a question shall remain the same if user press a button to go to the previous question", ()=>{
-    let expected_answer = CHOICES.B;
-    let answer_for_first_question = CHOICES.A;
-    let answer_for_second_question = expected_answer;
+    let first_answer = CHOICES.B;
+    let second_answer = CHOICES.A;
+    let third_answer = CHOICES.B;
+    let _first_test_record;
+    let _second_test_record;
 
-    _sut.answer_the_current_question(answer_for_first_question);
-    _sut.answer_the_current_question(answer_for_second_question);
+    _sut.answer_the_current_question(first_answer);
+    _sut.answer_the_current_question(second_answer);
+    _sut.answer_the_current_question(third_answer);
+    _first_test_record = _sut.get_test_record();
+
     _sut.move_back_to_last_question();
-    _sut.answer_the_current_question(answer_for_first_question);
+    _sut.answer_the_current_question(third_answer);
+    _second_test_record = _sut.get_test_record();
+    //可能没有检查这题有没有重复答过，可以考虑加回index
 
-    let received_answer = _sut.get_selected_choice_of_question();
-    expect(received_answer).toEqual(expected_answer);
+    expect(_first_test_record).toEqual(_second_test_record);
   })
   
   afterEach(()=>{

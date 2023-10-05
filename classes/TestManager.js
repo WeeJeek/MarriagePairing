@@ -142,10 +142,8 @@ export default class TestManager{
 
   get_selected_choice_of_question(){
     let cur_index = this.get_current_question_index();
-    console.log("DEBUG: current index is " + cur_index);
     
     if(cur_index in this.#test_record[this.#current_test_category]["answers"]){
-      console.log("DEBUG: current selected answer is " + this.#test_record[this.#current_test_category]["answers"][cur_index]["answer"]);
       return this.#test_record[this.#current_test_category]["answers"][cur_index];
     }
     return null;
@@ -174,26 +172,32 @@ export default class TestManager{
     return false;
   }
 
+  #is_the_question_answered(existing_answers, insert_index){
+    if(existing_answers.length === 0){
+      return false;
+    }
+    return existing_answers.length > insert_index;
+  }
+
+  #update_the_question_with_new_answer(existing_answers, insert_index, choice){
+    existing_answers[insert_index] = choice;
+  }
+
+  #extend_test_record_with_new_answer(answers, insert_index, choice){
+    answers.splice(insert_index, 0, choice);
+  }
+
   #update_answer(choice)
   {
     let answers = this.#test_record[this.#current_test_category]["answers"];
     let insert_index = this.#current_selected_test_index;
 
-    //let answers = this.#test_record[this.#current_test_category]["answers"].sort((a, b)=> a.index - b.index);
-    //console.log("IN ANSWER INSERTION: current selected index is "  + this.#current_selected_test_index);
-    //const new_answer = {index: this.#current_selected_test_index, answer: choice};
-    //let insert_index = answers.length - 1;
-    //console.log("IN ANSWER INSERTION: insert_index is "  + insert_index);
-
-    //for (let i = 0; i < answers.length; i++) {
-    //  if (this.#current_selected_test_index < answers[i].index) {
-    //    insert_index = i;
-    //    break;
-    //  }
-    //}
-
-    //answers.splice(insert_index, 0, new_answer);
-    answers.splice(insert_index, 0, choice);
+    if(this.#is_the_question_answered(answers, insert_index)){
+      this.#update_the_question_with_new_answer(answers, insert_index, choice);
+    }
+    else{
+      this.#extend_test_record_with_new_answer(answers, insert_index, choice);
+    }
   }
 
 }

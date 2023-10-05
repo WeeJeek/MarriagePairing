@@ -16,11 +16,9 @@ Page({
     this.is_entry_page = false;
   },
   on_radio_change: function(event) {
-    console.log("Radio checked: " + event.detail.value);
     this.selected_choice = event.detail.value;
   },
   on_previous_question: function(event){
-    console.log("IN PREVIOUS button");
     app.global_data.test_manager.move_back_to_last_question()
     const current_question = app.global_data.test_manager.get_current_question();
     this.selected_choice = app.global_data.test_manager.get_selected_choice_of_question();
@@ -34,16 +32,12 @@ Page({
     });
   },
   on_next_question: function(event){
-    console.log("IN NEXT button");
-
     if (this.selected_choice) {//choice is selected
       app.global_data.test_manager.answer_the_current_question(this.selected_choice);
       app.global_data.test_manager.store_test_record();
 
       const next_question = app.global_data.test_manager.get_current_question();
       let selected_choice = app.global_data.test_manager.get_selected_choice_of_question();
-      console.log("")
-      console.log("Next button pressed, the selected choice is: " + selected_choice);
       if (next_question.ID != 1) {//not the starting of the next test category
         this.setData({
           current_question: next_question,
@@ -62,7 +56,6 @@ Page({
           });
         }
         else{
-          console.log("User has reached the last question of all questions.")
           //TODO this shall not shown, or switch to payment
           wx.navigateTo({
             url: '../payment/payment'
