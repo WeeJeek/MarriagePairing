@@ -1,0 +1,11 @@
+{
+    MBTI:{
+        status: "",
+        answers:[
+            {
+                MBTICategory: "dasf",
+                choice: "A"
+            }
+        ]
+    },
+}

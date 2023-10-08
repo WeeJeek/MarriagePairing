@@ -7,16 +7,23 @@ export default class MBTIResultCalculationStrategy extends ITestResultCalculatio
   #test_category_record;
 
   calculate_test_result(test_category_record){
-    let starting_indexes_of_categories = this.#find_first_index_of_categories(test_category_record);
+    console.log("DEBUG: TEST record history ", test_category_record)
+    let starting_indexes_of_categories = this.#find_first_index_of_categories(test_category_record);//现在starting indexes 是空的
+    console.log("stating index: ", starting_indexes_of_categories)
     let test_result = {};
     
     for(let i = 0; i < starting_indexes_of_categories.length; i++){
+        console.log("=============================")
       let end_of_this_category = this.#find_the_end_of_the_category(i, starting_indexes_of_categories);
+      console.log("ending index: ", end_of_this_category)
       let current_starting_index = starting_indexes_of_categories[i];
+      console.log("current starting index: ", current_starting_index)
       let current_mbti_category = this.#map_mbti_feature_category_to_category(MBTI["questions"][current_starting_index]["choices"][0]["category"]);
+      console.log("current MBTI cat: ", current_mbti_category)
       this.#start_a_category_in_test_result(test_result, current_mbti_category); 
       this.#sumarize_for_a_category(starting_indexes_of_categories[i], end_of_this_category, test_category_record, current_mbti_category);
     }
+    console.log("DEBUG: TEST record history AFTER ", test_category_record)
 
     return test_category_record;
   }
@@ -33,6 +40,7 @@ export default class MBTIResultCalculationStrategy extends ITestResultCalculatio
       let current_feature_category = this.#map_choice_to_feature_category(i, current_answer);
       test_category_record[current_feature_category]["score"] += this.#calculate_score_for_a_question(current_mbti_category, current_feature_category);
     }
+    //test_category_record['answers'] = 
     test_category_record[current_feature_category]["category"] = this.#calculate_letter_of_a_category(test_category_record[current_feature_category]);
   }
 
@@ -96,8 +104,6 @@ export default class MBTIResultCalculationStrategy extends ITestResultCalculatio
     let current_category;
 
     for (let i = 0; i < question_list.length; i++) {
-      console.log("DEBUG: question list" + question_list)
-      console.log("DEBUG: question list [i]" + question_list[i])
       let choice_category = this.#map_mbti_feature_category_to_category(question_list[i]["choices"][0]["category"])
       if(choice_category != current_category){
         current_category = choice_category;

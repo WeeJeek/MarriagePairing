@@ -20,10 +20,7 @@ const DUMMY_TEST_CASE_3 = {
     CHOICES.B, CHOICES.B, CHOICES.A, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.A,
     CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.A, CHOICES.B, CHOICES.B, CHOICES.B]
 };
-
-describe("testing rules of MBTI test", ()=>{
-  let _sut;
-  const _expected_result_for_case_1 = {
+const _expected_result_for_case_1 = {
     "EvI": {
       score: 7,
       trend: MBTIFeatureCategories.E
@@ -39,11 +36,10 @@ describe("testing rules of MBTI test", ()=>{
     "JvP": {
       score: 7,
       trend: MBTIFeatureCategories.J
-    }
+    },
+    "answers": [CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A]
   };
-
-
-  const _expected_result_for_case_2 = {
+const _expected_result_for_case_2 = {
     "EvI": {
       score: -7,
       trend: MBTIFeatureCategories.I
@@ -59,9 +55,10 @@ describe("testing rules of MBTI test", ()=>{
     "JvP": {
       score: -7,
       trend: MBTIFeatureCategories.P
-    }
+    },
+    "answers": [CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B]
   };
-  const _expected_result_for_case_3 = {
+const _expected_result_for_case_3 = {
     "EvI": {
       score: 1,
       trend: MBTIFeatureCategories.E
@@ -78,8 +75,13 @@ describe("testing rules of MBTI test", ()=>{
       score: -5,
       trend: MBTIFeatureCategories.P
     },
+    "answers": [
+        CHOICES.B, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.B, CHOICES.A, CHOICES.B,
+        CHOICES.A, CHOICES.B, CHOICES.A, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B,
+        CHOICES.B, CHOICES.B, CHOICES.A, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.A,
+        CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.A, CHOICES.B, CHOICES.B, CHOICES.B]
   };
-  const DUMMY_TEST_CASES = [
+const DUMMY_TEST_CASES = [
     [
       DUMMY_TEST_CASE_1, // given test data
       _expected_result_for_case_1 // expected result
@@ -94,6 +96,10 @@ describe("testing rules of MBTI test", ()=>{
     ]
   ];
 
+describe("testing rules of MBTI test", ()=>{
+  let _sut;
+
+
   beforeEach(() => {
     _sut = new MBTIResultCalculationStrategy();
   })//before each
@@ -101,7 +107,9 @@ describe("testing rules of MBTI test", ()=>{
   it.each(DUMMY_TEST_CASES)
     ("expected result should match the actual situation", (given_test_record, expected_result) => {
       let actual_result = _sut.calculate_test_result(given_test_record);//TODO strategy shall return the conclusion, not just list of answers
-      expect(actual_result).toBe(expected_result);
+      console.log("DEBUGING: EXPECTED result is  ", expected_result);
+      console.log("DEBUGING: ACTUAL result is  ", expected_result);
+      expect(actual_result).toEqual(expected_result);
   })
 })//describe
 

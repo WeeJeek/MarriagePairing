@@ -4,12 +4,14 @@ import TestCategories from "../enums/TestCategories"
 import TEST_LIST from "../src/tests_related/test_list"
 import DataStoreKeys from "../enums/DataStoreKeys"
 import TestReportGenerator from "./TestReportGenerator"
+import MBTITestRecordEditor from "./MBTITestRecordManager"
 
 export default class TestManager{
   #test_record;
   #current_test_category;
   #current_selected_test_index;
   #test_report_generator;
+  #current_test_record_manager;
 
   constructor(){
     //let data_storage = this.read_test_record();
@@ -89,7 +91,17 @@ export default class TestManager{
 
   get_amount_of_questions_of_current_test_category(){
     let cur_test_list = TEST_LIST[this.#current_test_category]
-    return cur_test_list['questions'].length;
+    var sum = 0;
+
+    if(this.#current_test_category == TestCategories.HAPPY_MARRIAGE_ASSESSMENT || this.#current_test_category == TestCategories.FAMILY_ADAPTABILITY_TEST){
+        for(let j = 0; j < cur_test_list['test_subset'].length; j++){
+            sum += cur_test_list['test_subset'][j]['questions'].length;
+        }
+    }
+    else{
+        sum += cur_test_list['questions'].length;
+    }
+    return sum;
   }
 
   get_test_record(){
@@ -99,6 +111,7 @@ export default class TestManager{
   answer_the_current_question(choice){
     this.#update_answer(choice);
     this.#test_record[this.#current_test_category]["status"] = TestStatus.IN_PROGRESS;
+    //TODO call record manager
     if(this.#is_end_of_a_test_list()){
       this.#current_selected_test_index = 0;
       this.#test_record[this.#current_test_category]["status"] = TestStatus.FINISHED;
@@ -142,15 +155,33 @@ export default class TestManager{
 
   get_selected_choice_of_question(){
     let cur_index = this.get_current_question_index();
-    
-    if(cur_index in this.#test_record[this.#current_test_category]["answers"]){
-      return this.#test_record[this.#current_test_category]["answers"][cur_index];
-    }
-    return null;
+    return this.#current_test_record_manager.get_selected_choice_of_question(cur_index);
   }
 
   generate_test_report(){
     return this.#test_report_generator.generate_test_report()
+  }
+
+  #switch_test_record_manager(test_name){
+    this.#update_test_record();
+    if(test_name == TestCategories.MBTI){
+         
+        this.#current_test_record_manager = new MBTITestRecordEditor(this.#test_record["MBTI"]);
+        
+      }
+      else if(test_name == TestCategories.FAMILY_ADAPTABILITY_TEST){
+        
+      }
+      else if(test_name == TestCategories.LIFE_PRESSURE_ANALYSIS){
+        
+      }
+      else if(test_name == TestCategories.HAPPY_MARRIAGE_ASSESSMENT){
+        
+      }
+  }
+
+  #update_test_record(test_name){
+    this.#test_record[test_name] = this.#current_test_record_manager.get_test_record();
   }
 
   #move_to_the_next_test_category(){
@@ -158,7 +189,9 @@ export default class TestManager{
     const index = test_category_values.indexOf(this.#current_test_category);
     if(index != test_category_values.length - 1){
       const next_index = (index + 1) % test_category_values.length;
+      var test_name = current_test_category;
       this.#current_test_category = test_category_values[next_index];
+      this.#switch_test_record_manager(test_name)
       return true;
     }
     return false;
@@ -172,16 +205,8 @@ export default class TestManager{
     return false;
   }
 
-  #is_the_question_answered(existing_answers, insert_index){
-    if(existing_answers.length === 0){
-      return false;
-    }
-    return existing_answers.length > insert_index;
-  }
+  
 
-  #update_the_question_with_new_answer(existing_answers, insert_index, choice){
-    existing_answers[insert_index] = choice;
-  }
 
   #extend_test_record_with_new_answer(answers, insert_index, choice){
     answers.splice(insert_index, 0, choice);
@@ -189,15 +214,7 @@ export default class TestManager{
 
   #update_answer(choice)
   {
-    let answers = this.#test_record[this.#current_test_category]["answers"];
-    let insert_index = this.#current_selected_test_index;
-
-    if(this.#is_the_question_answered(answers, insert_index)){
-      this.#update_the_question_with_new_answer(answers, insert_index, choice);
-    }
-    else{
-      this.#extend_test_record_with_new_answer(answers, insert_index, choice);
-    }
+      this.#current_test_record_manager.update_answer(this.#current_selected_test_index)
   }
 
 }
