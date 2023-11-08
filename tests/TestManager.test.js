@@ -1,12 +1,11 @@
 import TestManager from "../classes/TestManager.js"
-import TestCategories from "../enums/TestCategories.js"
+import TestCategories from "../enums/TestCategories"
 import TestStatus from "../enums/TestStatus.js"
 import CHOICES from "../enums/ChoiceCategories"
 import {answer_questions_with_dummy_answers, get_amount_of_all_questions} from "./TestManager.utils"
 
 describe("unit test testing for Test Manager class", () =>{
   let _sut;
-
 
   beforeEach(() => {
     _sut = new TestManager();

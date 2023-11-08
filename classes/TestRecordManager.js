@@ -9,17 +9,21 @@ export default class TestRecordManager{
         return this.#test_category_record;
     }
 
-    answer_the_current_question(){
+    answer_the_current_question(choice){
   
     }
 
     update_answer(selected_index){
     }
+    is_the_first_question(){
+    }
+    get_current_question(){
+      }
 
-    #is_the_question_answered(existing_answers, insert_index){
-        if(existing_answers.length === 0){
-          return false;
-        }
-        return existing_answers.length > insert_index;
+    get_current_question_index(){
+    
+    }
+
+    move_back_to_last_question(){
       }
 }

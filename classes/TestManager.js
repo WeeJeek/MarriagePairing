@@ -9,7 +9,6 @@ import MBTITestRecordEditor from "./MBTITestRecordManager"
 export default class TestManager{
   #test_record;
   #current_test_category;
-  #current_selected_test_index;
   #test_report_generator;
   #current_test_record_manager;
 
@@ -19,7 +18,6 @@ export default class TestManager{
     //if(!data_storage){
       this.reset_test_record();
       this.#current_test_category = TestCategories.MBTI;
-      this.#current_selected_test_index = 0;
       this.#test_report_generator = new TestReportGenerator();
     //}
     //else{
@@ -58,7 +56,7 @@ export default class TestManager{
   }
 
   is_the_first_question(){
-    return this.#current_selected_test_index == 0;
+    this.#current_test_record_manager.is_the_first_question();
   }
 
   is_the_last_question(){
@@ -70,7 +68,7 @@ export default class TestManager{
   }
 
   get_current_question(){
-    return TEST_LIST[this.#current_test_category]["questions"][this.#current_selected_test_index];
+    return this.#current_test_record_manager.get_current_question();
   }
 
   get_current_test_category(){
@@ -109,24 +107,13 @@ export default class TestManager{
   }
 
   answer_the_current_question(choice){
-    this.#update_answer(choice);
-    this.#test_record[this.#current_test_category]["status"] = TestStatus.IN_PROGRESS;
-    //TODO call record manager
-    if(this.#is_end_of_a_test_list()){
-      this.#current_selected_test_index = 0;
-      this.#test_record[this.#current_test_category]["status"] = TestStatus.FINISHED;
-      if(!this.are_all_tests_finished())
-      {
-        this.#move_to_the_next_test_category()//TODO do something if at the end of list
-      }
-    }
-    else{
-      this.#current_selected_test_index++;
+    if (!this.#current_test_record_manager.answer_the_current_question(choice)){
+        this.#move_to_the_next_test_category();//TODO do something if at the end of list
     }
   }
 
   get_current_question_index(){
-    return this.#current_selected_test_index;
+    return this.#current_test_record_manager.get_current_question_index();
   }
 
   reset_test_record(){
@@ -134,7 +121,7 @@ export default class TestManager{
   }
 
   move_back_to_last_question(){
-    this.#current_selected_test_index--;
+    this.#current_test_record_manager.move_back_to_last_question();
   }
 
   store_test_record(){
@@ -165,9 +152,7 @@ export default class TestManager{
   #switch_test_record_manager(test_name){
     this.#update_test_record();
     if(test_name == TestCategories.MBTI){
-         
         this.#current_test_record_manager = new MBTITestRecordEditor(this.#test_record["MBTI"]);
-        
       }
       else if(test_name == TestCategories.FAMILY_ADAPTABILITY_TEST){
         
@@ -196,25 +181,4 @@ export default class TestManager{
     }
     return false;
   }
-
-  #is_end_of_a_test_list(){
-    let amount_test = this.get_amount_of_questions_of_current_test_category()
-    if(this.#current_selected_test_index == amount_test - 1){
-      return true;
-    }
-    return false;
-  }
-
-  
-
-
-  #extend_test_record_with_new_answer(answers, insert_index, choice){
-    answers.splice(insert_index, 0, choice);
-  }
-
-  #update_answer(choice)
-  {
-      this.#current_test_record_manager.update_answer(this.#current_selected_test_index)
-  }
-
 }
