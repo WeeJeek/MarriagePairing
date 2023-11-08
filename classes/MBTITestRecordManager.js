@@ -7,7 +7,7 @@ export default class MBTITestRecordManager extends TestRecordManager{
 
     constructor(mbti_test_record){
         super();
-        this.#test_record = test_record;
+        this.#test_record = mbti_test_record;
     }
     is_the_first_question(){
         return this.#current_selected_test_index == 0;
@@ -54,7 +54,7 @@ export default class MBTITestRecordManager extends TestRecordManager{
           return true;
         }
         return false;
-      }
+    }
 
     #update_answer(selected_index){
         let answers = this.#test_record["answers"];

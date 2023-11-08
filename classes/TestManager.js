@@ -20,7 +20,7 @@ export default class TestManager{
       this.reset_test_record();
       this.#current_test_category = TestCategories.MBTI;
       this.#test_report_generator = new TestReportGenerator();
-      this.#current_test_record_manager = new MBTITestRecordManager();
+      this.#current_test_record_manager = new MBTITestRecordManager(this.#test_record["MBTI"]);
     //}
     //else{
       //this.#test_record = data_storage;
