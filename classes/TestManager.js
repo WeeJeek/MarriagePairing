@@ -5,6 +5,7 @@ import TEST_LIST from "../src/tests_related/test_list"
 import DataStoreKeys from "../enums/DataStoreKeys"
 import TestReportGenerator from "./TestReportGenerator"
 import MBTITestRecordEditor from "./MBTITestRecordManager"
+import MBTITestRecordManager from "./MBTITestRecordManager"
 
 export default class TestManager{
   #test_record;
@@ -19,6 +20,7 @@ export default class TestManager{
       this.reset_test_record();
       this.#current_test_category = TestCategories.MBTI;
       this.#test_report_generator = new TestReportGenerator();
+      this.#current_test_record_manager = new MBTITestRecordManager();
     //}
     //else{
       //this.#test_record = data_storage;

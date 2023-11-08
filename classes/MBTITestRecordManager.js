@@ -6,6 +6,7 @@ export default class MBTITestRecordManager extends TestRecordManager{
     #current_selected_test_index = 0;
 
     constructor(mbti_test_record){
+        super();
         this.#test_record = test_record;
     }
     is_the_first_question(){
