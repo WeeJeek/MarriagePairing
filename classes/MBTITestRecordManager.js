@@ -32,16 +32,15 @@ export default class MBTITestRecordManager extends TestRecordManager{
     }
     
     answer_the_current_question(choice){
-        this.#update_answer(choice);
+        var index = this.get_current_question_index();
+        this.#update_answer(index, choice);
         this.#test_record[TestCategories.MBTI]["status"] = TestStatus.IN_PROGRESS;
         //TODO
         if(this.#is_end_of_a_test_list()){
           this.#current_selected_test_index = 0;
           this.#test_record[TestCategories.MBTI]["status"] = TestStatus.FINISHED;
           if(!this.are_all_tests_finished())
-          {
             return false;
-          }
         }
         else{
           return true;
@@ -56,7 +55,7 @@ export default class MBTITestRecordManager extends TestRecordManager{
         return false;
     }
 
-    #update_answer(selected_index){
+    #update_answer(selected_index, choice){//somewhere should update the selectede_index to user selected one, not current one
         let answers = this.#test_record["answers"];
         let insert_index = selected_index;
     
