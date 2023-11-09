@@ -1,5 +1,6 @@
 import TestRecordManager from "./TestRecordManager"
 import TestCategories from "../enums/TestCategories"
+import TestStatus from "../enums/TestStatus"
 
 export default class MBTITestRecordManager extends TestRecordManager{
     #test_record;
@@ -34,11 +35,11 @@ export default class MBTITestRecordManager extends TestRecordManager{
     answer_the_current_question(choice){
         var index = this.get_current_question_index();
         this.#update_answer(index, choice);
-        this.#test_record[TestCategories.MBTI]["status"] = TestStatus.IN_PROGRESS;
+        this.#test_record["status"] = TestStatus.IN_PROGRESS;
         //TODO
         if(this.#is_end_of_a_test_list()){
           this.#current_selected_test_index = 0;
-          this.#test_record[TestCategories.MBTI]["status"] = TestStatus.FINISHED;
+          this.#test_record["status"] = TestStatus.FINISHED;
           if(!this.are_all_tests_finished())
             return false;
         }
@@ -46,6 +47,21 @@ export default class MBTITestRecordManager extends TestRecordManager{
           return true;
         }
     }
+
+    get_amount_of_questions_of_current_test_category(){//This is just added. Fix it here
+        let cur_test_list = TEST_LIST[this.#current_test_category]
+        var sum = 0;
+    
+        if(this.#current_test_category == TestCategories.HAPPY_MARRIAGE_ASSESSMENT || this.#current_test_category == TestCategories.FAMILY_ADAPTABILITY_TEST){
+            for(let j = 0; j < cur_test_list['test_subset'].length; j++){
+                sum += cur_test_list['test_subset'][j]['questions'].length;
+            }
+        }
+        else{
+            sum += cur_test_list['questions'].length;
+        }
+        return sum;
+      }
 
     #is_end_of_a_test_list(){
         let amount_test = this.get_amount_of_questions_of_current_test_category()
