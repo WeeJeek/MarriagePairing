@@ -30,9 +30,12 @@ Page({
       total_amount: app.global_data.test_manager.get_amount_of_questions_of_current_test_category(),
       selected_choice: this.selected_choice
     });
+    console.log(this.is_the_first_question)
   },
   on_next_question: function(event){
+      console.log("next botton is pressed")
     if (this.selected_choice) {//choice is selected
+        console.log("entered if")
       app.global_data.test_manager.answer_the_current_question(this.selected_choice);
       app.global_data.test_manager.store_test_record();
 
@@ -50,6 +53,7 @@ Page({
         this.selected_choice = selected_choice;
       } 
       else {
+        console.log("entered else")
         if(!app.global_data.test_manager.are_all_tests_finished()){
           wx.navigateTo({
             url: '../test_description/test_description'

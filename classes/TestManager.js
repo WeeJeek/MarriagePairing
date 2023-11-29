@@ -6,12 +6,14 @@ import DataStoreKeys from "../enums/DataStoreKeys"
 import TestReportGenerator from "./TestReportGenerator"
 import MBTITestRecordEditor from "./MBTITestRecordManager"
 import MBTITestRecordManager from "./MBTITestRecordManager"
+import FamilyAdaptabilityRecordManager from "./FamilyAdaptabilityRecordManager"
 
 export default class TestManager{
   #test_record;
   #current_test_category;
   #test_report_generator;
   #current_test_record_manager;
+  #DEFAULT_TEST_CATEGORY = TestCategories.MBTI;
 
   constructor(){
     //let data_storage = this.read_test_record();
@@ -20,7 +22,7 @@ export default class TestManager{
       this.reset_test_record();
       this.#current_test_category = TestCategories.MBTI;
       this.#test_report_generator = new TestReportGenerator();
-      this.#current_test_record_manager = new MBTITestRecordManager(this.#test_record["MBTI"]);
+      this.#current_test_record_manager = new MBTITestRecordManager(this.#test_record[this.#DEFAULT_TEST_CATEGORY]);
     //}
     //else{
       //this.#test_record = data_storage;
@@ -31,7 +33,9 @@ export default class TestManager{
     const test_category_values = Object.values(TestCategories);
     let all_finished = true;
     for (let i = 0; i < test_category_values.length; i++) {
+        console.log("DEBUG: In TEST MANAGER: Current Category is " + test_category_values[i])
       let cur_test_list = this.#test_record[test_category_values[i]]
+      console.log("DEBUG: In TEST MANAGER: Current status is " + cur_test_list["status"])
       if(cur_test_list["status"] != TestStatus.FINISHED){
         all_finished = false;
         break;
@@ -58,6 +62,7 @@ export default class TestManager{
   }
 
   is_the_first_question(){
+    console.log("DEBUG: TestManager: current selected index == " + this.#current_test_record_manager.is_the_first_question())
     this.#current_test_record_manager.is_the_first_question();
   }
 
@@ -109,8 +114,14 @@ export default class TestManager{
   }
 
   answer_the_current_question(choice){
-    if (!this.#current_test_record_manager.answer_the_current_question(choice)){
+    this.#current_test_record_manager.answer_the_current_question(choice);
+    
+    if (this.#current_test_record_manager.is_end_of_a_test_list()){
+        this.#current_test_record_manager.close_test_category();
         this.#move_to_the_next_test_category();//TODO do something if at the end of list
+    }
+    else{
+        this.#current_test_record_manager.move_to_next_question();
     }
   }
 
@@ -154,10 +165,10 @@ export default class TestManager{
   #switch_test_record_manager(test_name){
     this.#update_test_record();
     if(test_name == TestCategories.MBTI){
-        this.#current_test_record_manager = new MBTITestRecordEditor(this.#test_record["MBTI"]);
+        this.#current_test_record_manager = new MBTITestRecordEditor(this.#test_record[TestCategories.MBTI]);
       }
       else if(test_name == TestCategories.FAMILY_ADAPTABILITY_TEST){
-        
+        this.#current_test_record_manager = new FamilyAdaptabilityRecordManager(this.#test_record[TestCategories.FAMILY_ADAPTABILITY_TEST]);
       }
       else if(test_name == TestCategories.LIFE_PRESSURE_ANALYSIS){
         
@@ -176,8 +187,8 @@ export default class TestManager{
     const index = test_category_values.indexOf(this.#current_test_category);
     if(index != test_category_values.length - 1){
       const next_index = (index + 1) % test_category_values.length;
-      var test_name = current_test_category;
       this.#current_test_category = test_category_values[next_index];
+      var test_name = this.#current_test_category;
       this.#switch_test_record_manager(test_name)
       return true;
     }
