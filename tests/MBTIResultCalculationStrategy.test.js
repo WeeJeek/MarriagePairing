@@ -91,7 +91,7 @@ const DUMMY_TEST_CASES = [
     [
       DUMMY_TEST_CASE_1, // given test data
       _expected_result_for_case_1 // expected result
-    ] /*,
+    ],
     [
       DUMMY_TEST_CASE_2, // given test data
       _expected_result_for_case_2 // expected result
@@ -99,7 +99,7 @@ const DUMMY_TEST_CASES = [
     [
       DUMMY_TEST_CASE_3, // given test data
       _expected_result_for_case_3 // expected result
-    ]*/
+    ]
   ];
 
 describe("testing rules of MBTI test", ()=>{
@@ -113,8 +113,6 @@ describe("testing rules of MBTI test", ()=>{
   it.each(DUMMY_TEST_CASES)
     ("expected result should match the actual situation", (given_test_record, expected_result) => {
       let actual_result = _sut.calculate_test_result(given_test_record);//TODO strategy shall return the conclusion, not just list of answers
-      console.log("DEBUGING: EXPECTED result is  ", expected_result);
-      console.log("DEBUGING: ACTUAL result is  ", actual_result);
       expect(actual_result).toEqual(expected_result);
   })
 })//describe

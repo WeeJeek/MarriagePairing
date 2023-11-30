@@ -5,5 +5,4 @@ const MBTICategories = Object.freeze({
   JvP: "JvP"
 });
 
-
 export default MBTICategories;

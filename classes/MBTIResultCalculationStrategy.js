@@ -17,7 +17,7 @@ export default class MBTIResultCalculationStrategy extends ITestResultCalculatio
       
       let current_mbti_category = this.#map_mbti_feature_category_to_category(MBTI["questions"][current_starting_index]["choices"][0]["category"]);
 
-      this.#start_a_category_in_test_result(category_result, current_mbti_category, answers.slice(current_starting_index, end_index_of_this_category)); 
+      this.#start_a_category_in_test_result(category_result, current_mbti_category, answers.slice(current_starting_index, end_index_of_this_category+1)); 
       this.#sumarize_for_a_category(starting_indexes_of_categories[i], end_index_of_this_category, answers, current_mbti_category, category_result);
     }
 
@@ -128,46 +128,46 @@ export default class MBTIResultCalculationStrategy extends ITestResultCalculatio
   #calculate_trend_of_a_category(score, current_mbti_category){
     if(current_mbti_category === MBTICategories.EvI){
       if(score > 0){
-        return MBTICategories.E;
+        return MBTIFeatureCategories.E;
       }
       else if(score < 0){
-        return MBTICategories.I;
+        return MBTIFeatureCategories.I;
       }
       else{
-        return MBTICategories.Neutral;
+        return MBTIFeatureCategories.Neutral;
       }
     }
     else if(current_mbti_category === MBTICategories.NvS){
       if(score > 0){
-        return MBTICategories.N;
+        return MBTIFeatureCategories.N;
       }
       else if(score < 0){
-        return MBTICategories.S;
+        return MBTIFeatureCategories.S;
       }
       else{
-        return MBTICategories.Neutral;
+        return MBTIFeatureCategories.Neutral;
       }
     }
     else if(current_mbti_category === MBTICategories.FvT){
       if(score > 0){
-        return MBTICategories.F;
+        return MBTIFeatureCategories.F;
       }
-      else if(feature_category["score"] < 0){
-        return MBTICategories.T;
+      else if(score < 0){
+        return MBTIFeatureCategories.T;
       }
       else{
-        return MBTICategories.Neutral;
+        return MBTIFeatureCategories.Neutral;
       }
     }
     else if(current_mbti_category === MBTICategories.JvP){
       if(score > 0){
-        return MBTICategories.J;
+        return MBTIFeatureCategories.J;
       }
       else if(score < 0){
-        return MBTICategories.P;
+        return MBTIFeatureCategories.P;
       }
       else{
-        return MBTICategories.Neutral;
+        return MBTIFeatureCategories.Neutral;
       }
     }
     else{
