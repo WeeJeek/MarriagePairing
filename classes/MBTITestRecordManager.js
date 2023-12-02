@@ -15,7 +15,6 @@ export default class MBTITestRecordManager extends TestRecordManager{
         this.#enum_mapper = new EnumValueMapper();
     }
     is_the_first_question(){
-        console.log("DEBUG: MBTITestRecordManager: current selected index == " + this.#current_selected_test_index)
         return this.#current_selected_test_index == 0;
       }
     get_current_question(){
@@ -54,6 +53,10 @@ export default class MBTITestRecordManager extends TestRecordManager{
           return true;
         }
         return false;
+    }
+
+    move_to_next_question(){
+        this.#current_selected_test_index++;//make this common to other managers
     }
 
     get_amount_of_questions_of_current_test_category(){//This is just added. Fix it here

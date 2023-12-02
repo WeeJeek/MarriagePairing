@@ -40,6 +40,7 @@ Page({
       app.global_data.test_manager.store_test_record();
 
       const next_question = app.global_data.test_manager.get_current_question();
+      console.log("Next question: " + JSON.stringify(next_question))
       let selected_choice = app.global_data.test_manager.get_selected_choice_of_question();
       if (next_question.ID != 1) {//not the starting of the next test category
         this.setData({

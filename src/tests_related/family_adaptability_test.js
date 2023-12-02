@@ -1,6 +1,3 @@
-import FamilyAdaptabilityCategories from "../../enums/FamilyAdaptabilityCategories"
-import FamilyAdaptabilityFeature from "../../enums/FamilyAdaptabilityFeature"
-
 var FAMILY_ADAPTABILITY_TEST = {
   "title": "家庭适应力和向心力的评分表",
   "rule": "1=几乎没有；2=偶尔；3=有时；4=经常；5=一向如此",
@@ -96,8 +93,7 @@ var FAMILY_ADAPTABILITY_TEST = {
         },
         {
             "ID": 27,
-            "description": "我希望家人间的关系应该比外人来得亲密",
-            "feature": FamilyAdaptabilityFeature.Closeness
+            "description": "我希望家人间的关系应该比外人来得亲密"
         },
         {
             "ID": 28,

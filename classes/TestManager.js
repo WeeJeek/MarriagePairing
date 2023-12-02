@@ -4,7 +4,6 @@ import TestCategories from "../enums/TestCategories"
 import TEST_LIST from "../src/tests_related/test_list"
 import DataStoreKeys from "../enums/DataStoreKeys"
 import TestReportGenerator from "./TestReportGenerator"
-import MBTITestRecordEditor from "./MBTITestRecordManager"
 import MBTITestRecordManager from "./MBTITestRecordManager"
 import FamilyAdaptabilityRecordManager from "./FamilyAdaptabilityRecordManager"
 
@@ -62,8 +61,7 @@ export default class TestManager{
   }
 
   is_the_first_question(){
-    console.log("DEBUG: TestManager: current selected index == " + this.#current_test_record_manager.is_the_first_question())
-    this.#current_test_record_manager.is_the_first_question();
+    return this.#current_test_record_manager.is_the_first_question();
   }
 
   is_the_last_question(){

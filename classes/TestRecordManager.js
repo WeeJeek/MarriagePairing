@@ -36,6 +36,6 @@ export default class TestRecordManager{
         this.#test_record["status"] = TestStatus.FINISHED;//make this common to other managers
     }
     move_to_next_question(){
-        this.#current_selected_test_index++;//make this common to other managers
+        //this.#current_selected_test_index++;//make this common to other managers
     }
 }
