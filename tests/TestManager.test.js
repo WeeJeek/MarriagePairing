@@ -80,7 +80,6 @@ describe("unit test testing for Test Manager class", () =>{
   it("a test manager should show all tests are finished when all tests are answered", ()=>{
     let expected_all_finished = true;
     let sum = get_amount_of_all_questions();
-    console.log("sum is " + sum);
     
     answer_questions_with_dummy_answers(_sut, sum);
 
@@ -122,7 +121,7 @@ describe("unit test testing for Test Manager class", () =>{
       },
       "HAPPY_MARRIAGE_ASSESSMENT":{
         "status": TestStatus.UNTOUCHED,
-        "answers":[]
+        "answers":{}
       }
     }
 

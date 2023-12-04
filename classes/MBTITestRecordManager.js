@@ -2,21 +2,22 @@ import TestRecordManager from "./TestRecordManager"
 import TestCategories from "../enums/TestCategories"
 import TestStatus from "../enums/TestStatus"
 import TEST_LIST from "../src/tests_related/test_list"
-import EnumValueMapper from "./EnumValueMapper"
 
 export default class MBTITestRecordManager extends TestRecordManager{
     #test_record;
     #current_selected_test_index = 0;
-    #enum_mapper;
 
     constructor(mbti_test_record){
         super();
         this.#test_record = mbti_test_record;
-        this.#enum_mapper = new EnumValueMapper();
     }
     is_the_first_question(){
         return this.#current_selected_test_index == 0;
-      }
+    }
+
+    close_test_category(){
+        this.#test_record["status"] = TestStatus.FINISHED;//make this common to other managers
+    }
     get_current_question(){
         return TEST_LIST[TestCategories.MBTI]["questions"][this.#current_selected_test_index];
     }
@@ -93,7 +94,7 @@ export default class MBTITestRecordManager extends TestRecordManager{
     }
 
     #update_the_question_with_new_answer(existing_answers, insert_index, choice){
-        existing_answers[insert_index] = choice;//this.#enum_mapper.map_choice_value(choice);
+        existing_answers[insert_index] = choice;
     }
   
     #extend_test_record_with_new_answer(answers, insert_index, choice){

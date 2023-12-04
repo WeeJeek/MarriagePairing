@@ -1,9 +1,11 @@
+import HappyMarriageCategories from "../../enums/HappyMarriageCategories"
+
 var HAPPY_MARRIAGE_ASSESSMENT = {
   "title": "幸福婚姻评测",
   "rule": "这是幸福婚姻评测的规则",
   "description": "这是幸福婚姻评测的描述",
   "test_subset": [{
-    "category": "沟通质量",
+    "category": HappyMarriageCategories.CommQuality,
     "questions": [
     {
       "ID": 1,
@@ -57,7 +59,7 @@ var HAPPY_MARRIAGE_ASSESSMENT = {
     }]
   },
   {
-    "category": "冲突处理",
+    "category": HappyMarriageCategories.ConflitionHandling,
     "questions": [
         {
             "ID": 1,
@@ -112,7 +114,7 @@ var HAPPY_MARRIAGE_ASSESSMENT = {
       ]
   },
   {
-    "category": "个性习惯",
+    "category": HappyMarriageCategories.PersonalityHabits,
     "questions": [
         {
             "ID": 1,
@@ -167,7 +169,7 @@ var HAPPY_MARRIAGE_ASSESSMENT = {
       ]
   },
   {
-    "category": "理财观念",
+    "category": HappyMarriageCategories.FinancialManagement,
     "questions": [
         {
             "ID": 1,
@@ -222,7 +224,7 @@ var HAPPY_MARRIAGE_ASSESSMENT = {
       ]
   },
   {
-    "category": "娱乐生活",
+    "category": HappyMarriageCategories.EntertainmentLife,
     "questions": [
         {
             "ID": 1,
@@ -277,7 +279,7 @@ var HAPPY_MARRIAGE_ASSESSMENT = {
       ]
   },
   {
-    "category": "性爱认知",
+    "category": HappyMarriageCategories.SexualAwareness,
     "questions": [
         {
             "ID": 1,
@@ -332,7 +334,7 @@ var HAPPY_MARRIAGE_ASSESSMENT = {
       ]
   },
   {
-    "category": "亲友关系",
+    "category": HappyMarriageCategories.ReletivesFriends,
     "questions": [
         {
             "ID": 1,
@@ -387,7 +389,7 @@ var HAPPY_MARRIAGE_ASSESSMENT = {
       ]
   },
   {
-    "category": "夫妻角色",
+    "category": HappyMarriageCategories.CoupleRole,
     "questions": [
         {
             "ID": 1,
@@ -442,7 +444,7 @@ var HAPPY_MARRIAGE_ASSESSMENT = {
       ]
   },
   {
-    "category": "婚姻期待",
+    "category": HappyMarriageCategories.MarriageExpectation,
     "questions": [
         {
             "ID": 1,
@@ -497,7 +499,7 @@ var HAPPY_MARRIAGE_ASSESSMENT = {
       ]
   },
   {
-    "category": "教养期待",
+    "category": HappyMarriageCategories.EducationExpectation,
     "questions": [
         {
             "ID": 1,

@@ -32,9 +32,7 @@ export default class TestManager{
     const test_category_values = Object.values(TestCategories);
     let all_finished = true;
     for (let i = 0; i < test_category_values.length; i++) {
-        console.log("DEBUG: In TEST MANAGER: Current Category is " + test_category_values[i])
       let cur_test_list = this.#test_record[test_category_values[i]]
-      console.log("DEBUG: In TEST MANAGER: Current status is " + cur_test_list["status"])
       if(cur_test_list["status"] != TestStatus.FINISHED){
         all_finished = false;
         break;
