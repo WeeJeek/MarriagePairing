@@ -61,7 +61,6 @@ export default class TestManager{
   }
 
   is_the_first_question(){
-    //return this.#current_test_record_manager.is_the_first_question();
     return this.#current_selected_test_index == 0;
   }
 
@@ -74,7 +73,6 @@ export default class TestManager{
   }
 
   get_current_question(){
-    //return this.#current_test_record_manager.get_current_question();
     return TEST_LIST[TestCategories.MBTI]["questions"][this.#current_selected_test_index];
   }
 
@@ -122,15 +120,6 @@ export default class TestManager{
   }
 
   answer_the_current_question(choice){
-    /*his.#current_test_record_manager.answer_the_current_question(choice);
-    
-    if (this.#current_test_record_manager.is_end_of_a_test_list()){
-        this.#current_test_record_manager.close_test_category();
-        this.#move_to_the_next_test_category();//TODO do something if at the end of list
-    }
-    else{
-        this.#current_test_record_manager.move_to_next_question();
-    }*/
     var index = this.get_current_question_index();
 
     let answers = this.#test_record[this.#current_test_category]["answers"];
@@ -216,22 +205,6 @@ export default class TestManager{
     return this.#test_report_generator.generate_test_report()
   }
 
-  /*#switch_test_record_manager(test_name){
-    this.#update_test_record();
-    if(test_name == TestCategories.MBTI){
-        this.#current_test_record_manager = new MBTITestRecordEditor(this.#test_record[TestCategories.MBTI]);
-      }
-      else if(test_name == TestCategories.FAMILY_ADAPTABILITY_TEST){
-        this.#current_test_record_manager = new FamilyAdaptabilityRecordManager(this.#test_record[TestCategories.FAMILY_ADAPTABILITY_TEST]);
-      }
-      else if(test_name == TestCategories.LIFE_PRESSURE_ANALYSIS){
-        
-      }
-      else if(test_name == TestCategories.HAPPY_MARRIAGE_ASSESSMENT){
-        
-      }
-  }*/
-
   #update_test_record(test_name){
     this.#test_record[test_name] = this.#current_test_record_manager.get_test_record();
   }
@@ -253,7 +226,7 @@ export default class TestManager{
   }
 
   get_amount_of_questions_of_current_test_category(){//This is just added. Fix it here
-    let cur_test_list = TEST_LIST[TestCategories.MBTI];
+    let cur_test_list = TEST_LIST[this.#current_test_category];
     /*if(this.#current_test_category == TestCategories.HAPPY_MARRIAGE_ASSESSMENT || this.#current_test_category == TestCategories.FAMILY_ADAPTABILITY_TEST){
         for(let j = 0; j < cur_test_list['test_subset'].length; j++){
             sum += cur_test_list['test_subset'][j]['questions'].length;
