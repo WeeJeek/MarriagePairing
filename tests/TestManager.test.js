@@ -51,7 +51,7 @@ describe("unit test testing for Test Manager class", () =>{
     //expect(result_answer).toEqual(expected_answer);
   })
 
-  it("a test manager should not be able to switch to the next test category while it reaches the end of the question list and test status will be changed", ()=>{
+  it("a test manager should be able to switch to the next test category while it reaches the end of the question list and test status will be changed", ()=>{
     let current_test_category = TestCategories.MBTI;
     let expected_test_category = TestCategories.FAMILY_ADAPTABILITY_TEST;
     let expected_test_status = TestStatus.FINISHED;
@@ -77,7 +77,7 @@ describe("unit test testing for Test Manager class", () =>{
     expect(expected_all_finished).toEqual(_sut.are_all_tests_finished());
   })
 
-  it("a test manager should show all tests are finished when all tests are answered", ()=>{
+it("a test manager should show all tests are finished when all tests are answered", ()=>{
     let expected_all_finished = true;
     let sum = get_amount_of_all_questions();
     
@@ -121,7 +121,7 @@ describe("unit test testing for Test Manager class", () =>{
       },
       "HAPPY_MARRIAGE_ASSESSMENT":{
         "status": TestStatus.UNTOUCHED,
-        "answers":{}
+        "answers":[]
       }
     }
 

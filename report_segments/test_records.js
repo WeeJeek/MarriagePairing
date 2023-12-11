@@ -15,7 +15,7 @@ var test_records = {
     },
     "HAPPY_MARRIAGE_ASSESSMENT":{
       "status": TestStatus.UNTOUCHED,
-      "answers":{}
+      "answers":[]
     }
 }
 

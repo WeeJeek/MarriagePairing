@@ -12,6 +12,7 @@ export default class TestManager{
   #current_test_category;
   #test_report_generator;
   #current_test_record_manager;
+  #current_selected_test_index; 
   #DEFAULT_TEST_CATEGORY = TestCategories.MBTI;
 
   constructor(){
@@ -20,6 +21,7 @@ export default class TestManager{
     //if(!data_storage){
       this.reset_test_record();
       this.#current_test_category = TestCategories.MBTI;
+      this.#current_selected_test_index = 0;
       this.#test_report_generator = new TestReportGenerator();
       this.#current_test_record_manager = new MBTITestRecordManager(this.#test_record[this.#DEFAULT_TEST_CATEGORY]);
     //}
@@ -59,10 +61,11 @@ export default class TestManager{
   }
 
   is_the_first_question(){
-    return this.#current_test_record_manager.is_the_first_question();
+    //return this.#current_test_record_manager.is_the_first_question();
+    return this.#current_selected_test_index == 0;
   }
 
-  is_the_last_question(){
+  is_the_last_question(){//OF a category?
     return this.are_all_tests_finished();
   }
 
@@ -71,7 +74,8 @@ export default class TestManager{
   }
 
   get_current_question(){
-    return this.#current_test_record_manager.get_current_question();
+    //return this.#current_test_record_manager.get_current_question();
+    return TEST_LIST[TestCategories.MBTI]["questions"][this.#current_selected_test_index];
   }
 
   get_current_test_category(){
@@ -105,12 +109,20 @@ export default class TestManager{
     return sum;
   }
 
+  get_current_question(){
+    return TEST_LIST[TestCategories.MBTI]["questions"][this.#current_selected_test_index];
+}
+
+  #close_test_category(){
+    this.#test_record[this.#current_test_category]["status"] = TestStatus.FINISHED;
+  }
+
   get_test_record(){
     return this.#test_record;
   }
 
   answer_the_current_question(choice){
-    this.#current_test_record_manager.answer_the_current_question(choice);
+    /*his.#current_test_record_manager.answer_the_current_question(choice);
     
     if (this.#current_test_record_manager.is_end_of_a_test_list()){
         this.#current_test_record_manager.close_test_category();
@@ -118,11 +130,52 @@ export default class TestManager{
     }
     else{
         this.#current_test_record_manager.move_to_next_question();
+    }*/
+    var index = this.get_current_question_index();
+
+    let answers = this.#test_record[this.#current_test_category]["answers"];
+
+    if(this.#is_the_question_answered(answers, index)){
+        this.#update_the_question_with_new_answer(answers, index, choice,);
     }
+    else{
+        this.#extend_test_record_with_new_answer(answers, index, choice);
+    }
+
+    if (this.is_end_of_a_test_list()){
+        this.#close_test_category();
+        this.#move_to_the_next_test_category();//TODO do something if at the end of list
+    }
+    else{
+        this.move_to_next_question();
+    }
+
+    this.#test_record["status"] = TestStatus.IN_PROGRESS;
+  }
+
+  is_end_of_a_test_list(){
+    let amount_test = this.get_amount_of_questions_of_current_test_category()
+    if(this.#current_selected_test_index == amount_test - 1){
+      return true;
+    }
+    return false;
+}
+
+  get_amount_of_questions_of_current_test_category(){//This is just added. Fix it here
+    let cur_test_list = TEST_LIST[this.#current_test_category];
+    /*if(this.#current_test_category == TestCategories.HAPPY_MARRIAGE_ASSESSMENT || this.#current_test_category == TestCategories.FAMILY_ADAPTABILITY_TEST){
+        for(let j = 0; j < cur_test_list['test_subset'].length; j++){
+            sum += cur_test_list['test_subset'][j]['questions'].length;
+        }
+    }
+    else{*/
+    return cur_test_list['questions'].length;
+    //}
   }
 
   get_current_question_index(){
-    return this.#current_test_record_manager.get_current_question_index();
+    //return this.#current_test_record_manager.get_current_question_index();
+    return this.#current_selected_test_index;
   }
 
   reset_test_record(){
@@ -130,7 +183,8 @@ export default class TestManager{
   }
 
   move_back_to_last_question(){
-    this.#current_test_record_manager.move_back_to_last_question();
+    //this.#current_test_record_manager.move_back_to_last_question();
+    this.#current_selected_test_index--;
   }
 
   store_test_record(){
@@ -151,14 +205,18 @@ export default class TestManager{
 
   get_selected_choice_of_question(){
     let cur_index = this.get_current_question_index();
-    return this.#current_test_record_manager.get_selected_choice_of_question(cur_index);
+    /*return this.#current_test_record_manager.get_selected_choice_of_question(cur_index);*/
+    if(cur_index in this.#test_record[this.#current_test_category]["answers"]){
+        return this.#test_record[this.#current_test_category]["answers"][cur_index]["choice"]
+    }
+    return null;
   }
 
   generate_test_report(){
     return this.#test_report_generator.generate_test_report()
   }
 
-  #switch_test_record_manager(test_name){
+  /*#switch_test_record_manager(test_name){
     this.#update_test_record();
     if(test_name == TestCategories.MBTI){
         this.#current_test_record_manager = new MBTITestRecordEditor(this.#test_record[TestCategories.MBTI]);
@@ -172,10 +230,14 @@ export default class TestManager{
       else if(test_name == TestCategories.HAPPY_MARRIAGE_ASSESSMENT){
         
       }
-  }
+  }*/
 
   #update_test_record(test_name){
     this.#test_record[test_name] = this.#current_test_record_manager.get_test_record();
+  }
+
+  move_to_next_question(){
+    this.#current_selected_test_index++;//make this common to other managers
   }
 
   #move_to_the_next_test_category(){
@@ -184,10 +246,50 @@ export default class TestManager{
     if(index != test_category_values.length - 1){
       const next_index = (index + 1) % test_category_values.length;
       this.#current_test_category = test_category_values[next_index];
-      var test_name = this.#current_test_category;
-      this.#switch_test_record_manager(test_name)
+      this.#current_selected_test_index = 0;
       return true;
     }
     return false;
   }
+
+  get_amount_of_questions_of_current_test_category(){//This is just added. Fix it here
+    let cur_test_list = TEST_LIST[TestCategories.MBTI];
+    /*if(this.#current_test_category == TestCategories.HAPPY_MARRIAGE_ASSESSMENT || this.#current_test_category == TestCategories.FAMILY_ADAPTABILITY_TEST){
+        for(let j = 0; j < cur_test_list['test_subset'].length; j++){
+            sum += cur_test_list['test_subset'][j]['questions'].length;
+        }
+    }
+    else{*/
+    var sum = cur_test_list['questions'].length;
+    //}
+    return sum;
+  }
+
+#is_the_question_answered(existing_answers, insert_index){
+    if(existing_answers.length === 0){
+      return false;
+    }
+    return existing_answers.length > insert_index;
+}
+
+#get_mbti_category(choice, insert_index){
+    let choices = TEST_LIST[TestCategories.MBTI]["questions"][insert_index]["choices"]
+    let category;
+    
+    if(choices[0]["index"] == choice){
+        category = choices[0]["category"];
+    }else{
+        category = choices[1]["category"];
+    }
+    
+    return category;
+}
+
+#update_the_question_with_new_answer(existing_answers, insert_index, choice){
+    existing_answers[insert_index] = choice;
+}
+
+#extend_test_record_with_new_answer(answers, insert_index, choice){
+    answers.splice(insert_index, 0, choice);
+}
 }

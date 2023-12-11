@@ -11,29 +11,29 @@ export default class MBTITestRecordManager extends TestRecordManager{
         super();
         this.#test_record = mbti_test_record;
     }
-    is_the_first_question(){
+    /**is_the_first_question(){
         return this.#current_selected_test_index == 0;
-    }
+    }*/
 
-    close_test_category(){
+    /*close_test_category(){
         this.#test_record["status"] = TestStatus.FINISHED;//make this common to other managers
-    }
-    get_current_question(){
+    }*/
+    /*get_current_question(){
         return TEST_LIST[TestCategories.MBTI]["questions"][this.#current_selected_test_index];
-    }
-    get_current_question_index(){
+    }*/
+    /**get_current_question_index(){
         return this.#current_selected_test_index;
-    }
-    move_back_to_last_question(){
+    }*/
+    /**move_back_to_last_question(){
         this.#current_selected_test_index--;
-    }
-    get_selected_choice_of_question(index){
+    }*/
+    /*get_selected_choice_of_question(index){
         if(index in this.#test_record["answers"]){
             return this.#test_record["answers"][index]["choice"]
         }
         return null;
-    }  
-    answer_the_current_question(choice){//can this be common?
+    }*/
+    /*answer_the_current_question(choice){//can this be common?
         var index = this.get_current_question_index();
 
         let answers = this.#test_record["answers"];
@@ -46,19 +46,19 @@ export default class MBTITestRecordManager extends TestRecordManager{
           this.#extend_test_record_with_new_answer(answers, index, choice);
         }
         this.#test_record["status"] = TestStatus.IN_PROGRESS;
-    }
+    }*/
 
-    is_end_of_a_test_list(){
+    /**is_end_of_a_test_list(){
         let amount_test = this.get_amount_of_questions_of_current_test_category()
         if(this.#current_selected_test_index == amount_test - 1){
           return true;
         }
         return false;
-    }
+    }*/
 
-    move_to_next_question(){
+    /*move_to_next_question(){
         this.#current_selected_test_index++;//make this common to other managers
-    }
+    }*/
 
     get_amount_of_questions_of_current_test_category(){//This is just added. Fix it here
         let cur_test_list = TEST_LIST[TestCategories.MBTI];

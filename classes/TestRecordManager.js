@@ -17,6 +17,7 @@ export default class TestRecordManager{
     update_answer(selected_index){
     }
     is_the_first_question(){
+        return this.#current_selected_test_index == 0;
     }
     get_current_question(){
       }
@@ -28,9 +29,14 @@ export default class TestRecordManager{
     move_back_to_last_question(){
       }
 
-      is_end_of_a_test_list(){
-          
-      }
+    is_end_of_a_test_list(){
+        console.log("=== Test Reocord Manager Called ====")
+        let amount_test = this.get_amount_of_questions_of_current_test_category()
+        if(this.#current_selected_test_index == amount_test - 1){
+          return true;
+        }
+        return false;
+    }
 
     close_test_category(){
         this.#test_record["status"] = TestStatus.FINISHED;//make this common to other managers
