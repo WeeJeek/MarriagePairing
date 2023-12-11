@@ -188,7 +188,7 @@ const DUMMY_TEST_CASES = [
     ]
   ];
 
-describe("testing rules of MBTI test", ()=>{
+describe("testing rules of Happy Marriage Assessment test", ()=>{
   let _sut;
 
   beforeEach(() => {

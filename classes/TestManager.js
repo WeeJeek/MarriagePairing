@@ -73,7 +73,7 @@ export default class TestManager{
   }
 
   get_current_question(){
-    return TEST_LIST[TestCategories.MBTI]["questions"][this.#current_selected_test_index];
+    return TEST_LIST[this.#current_test_category]["questions"][this.#current_selected_test_index];
   }
 
   get_current_test_category(){
@@ -108,7 +108,7 @@ export default class TestManager{
   }
 
   get_current_question(){
-    return TEST_LIST[TestCategories.MBTI]["questions"][this.#current_selected_test_index];
+    return TEST_LIST[this.#current_test_category]["questions"][this.#current_selected_test_index];
 }
 
   #close_test_category(){
@@ -246,7 +246,7 @@ export default class TestManager{
 }
 
 #get_mbti_category(choice, insert_index){
-    let choices = TEST_LIST[TestCategories.MBTI]["questions"][insert_index]["choices"]
+    let choices = TEST_LIST[this.#current_test_category]["questions"][insert_index]["choices"]
     let category;
     
     if(choices[0]["index"] == choice){
