@@ -11,7 +11,7 @@ describe("unit test testing for Test Manager class", () =>{
     _sut = new TestManager();
   })
 
-  it("a test manager should return test progress not exist if user never did test before", ()=>
+ it("a test manager should return test progress not exist if user never did test before", ()=>
   {
     let expected_result = false;
     
@@ -31,8 +31,8 @@ describe("unit test testing for Test Manager class", () =>{
     let result_test_record = _sut.get_test_record();
     let result_status = result_test_record[expected_current_test_category]["status"];
     let result_answer = result_test_record[expected_current_test_category]["answers"][expected_current_test_index];
-    expect(result_status).toEqual(expected_status);
     expect(result_answer).toEqual(expected_answer);
+    expect(result_status).toEqual(expected_status);
   })
 
   it("a test manager should able to update the same question with different answer", ()=>{
@@ -92,6 +92,7 @@ it("a test manager should show all tests are finished when all tests are answere
     let expected_previous_test_status = TestStatus.FINISHED;
     let expected_updated_test_status = TestStatus.UNTOUCHED;
     const amount_of_question_in_test = _sut.get_amount_of_questions_of_current_test_category();
+    console.log("the amount of total test is " + amount_of_question_in_test)
 
     answer_questions_with_dummy_answers(_sut, amount_of_question_in_test);
     _sut.move_back_to_last_question();
