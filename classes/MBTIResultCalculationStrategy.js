@@ -14,6 +14,7 @@ export default class MBTIResultCalculationStrategy extends ITestResultCalculatio
       let current_mbti_category = MBTI["test_subset"][i]["category"];
       let starting_index_of_this_category = this.#find_starting_index_of_a_category(i);
       let ending_index_of_this_category= this.#find_ending_index_of_a_category(starting_index_of_this_category, i);
+      
       this.#start_a_category_in_test_result(category_result, current_mbti_category, answers.slice(starting_index_of_this_category, ending_index_of_this_category+1)); 
       this.#sumarize_for_a_category(starting_index_of_this_category, ending_index_of_this_category, answers, current_mbti_category, category_result);
     }

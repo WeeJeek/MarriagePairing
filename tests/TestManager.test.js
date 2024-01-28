@@ -92,7 +92,6 @@ it("a test manager should show all tests are finished when all tests are answere
     let expected_previous_test_status = TestStatus.FINISHED;
     let expected_updated_test_status = TestStatus.UNTOUCHED;
     const amount_of_question_in_test = _sut.get_amount_of_questions_of_current_test_category();
-    console.log("the amount of total test is " + amount_of_question_in_test)
 
     answer_questions_with_dummy_answers(_sut, amount_of_question_in_test);
     _sut.move_back_to_last_question();
