@@ -101,8 +101,28 @@ export default class TestManager{
   }
 
   get_current_question(){
-    return TEST_LIST[this.#current_test_category]["questions"][this.#current_selected_test_index];
-}
+    let cat_index_que_index = this.#convert_index_within_category(this.#current_selected_test_index);
+    let cat_index = cat_index_que_index[0];
+    let que_index = cat_index_que_index[1];
+
+    return TEST_LIST[this.#current_test_category]["test_subset"][cat_index]["questions"][que_index];
+  }
+
+  #convert_index_within_category(overal_index){
+    let remaining_index = overal_index;
+    let cat_index = 0;
+
+    for(let i = 0; i < TEST_LIST[this.#current_test_category]["test_subset"].length; i++){
+        if(remaining_index > TEST_LIST[this.#current_test_category]["test_subset"][i].length){
+            cat_index++;
+            remaining_index = remaining_index - TEST_LIST[this.#current_test_category]["test_subset"][i].length;
+        }else{
+            break;
+        }
+    }
+
+    return [cat_index, remaining_index];
+  }
 
   #close_test_category(){
     this.#test_record[this.#current_test_category]["status"] = TestStatus.FINISHED;
@@ -220,22 +240,12 @@ export default class TestManager{
   get_amount_of_questions_of_current_test_category(){//This is just added. Fix it here
     let sum = 0;
     let cur_test_list = TEST_LIST[this.#current_test_category];
-    if(this.#current_test_category == TestCategories.MBTI || 
-        this.#current_test_category == TestCategories.LIFE_PRESSURE_ANALYSIS){
-        sum = cur_test_list['questions'].length;
+
+    for(let i = 0; i < cur_test_list["test_subset"].length; i++){
+        sum += cur_test_list["test_subset"][i]['questions'].length;
     }
-    else{
-        sum = cur_test_list["test_subset"][0]['questions'].length;
-    }
+
     return sum;
-    
-    /*if(this.#current_test_category == TestCategories.HAPPY_MARRIAGE_ASSESSMENT || this.#current_test_category == TestCategories.FAMILY_ADAPTABILITY_TEST){
-        for(let j = 0; j < cur_test_list['test_subset'].length; j++){
-            sum += cur_test_list['test_subset'][j]['questions'].length;
-        }
-    }
-    else{*/
-    
   }
 
 #is_the_question_answered(existing_answers, insert_index){

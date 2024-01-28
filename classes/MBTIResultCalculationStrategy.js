@@ -8,34 +8,29 @@ export default class MBTIResultCalculationStrategy extends ITestResultCalculatio
   #test_category_record;
 
   calculate_test_result(answers){
-    let starting_indexes_of_categories = this.#find_first_index_of_categories(MBTI["questions"]);
     let category_result = {};
     
-    for(let i = 0; i < starting_indexes_of_categories.length; i++){
-      let current_starting_index = starting_indexes_of_categories[i];
-      let end_index_of_this_category = this.#find_the_end_of_the_category(i, starting_indexes_of_categories, answers);
-      
-      let current_mbti_category = this.#map_mbti_feature_category_to_category(MBTI["questions"][current_starting_index]["choices"][0]["category"]);
-
-      this.#start_a_category_in_test_result(category_result, current_mbti_category, answers.slice(current_starting_index, end_index_of_this_category+1)); 
-      this.#sumarize_for_a_category(starting_indexes_of_categories[i], end_index_of_this_category, answers, current_mbti_category, category_result);
+    for(let i = 0; i < MBTI["test_subset"].length; i++){  
+      let current_mbti_category = MBTI["test_subset"][i]["category"];
+      let starting_index_of_this_category = this.#find_starting_index_of_a_category(i);
+      let ending_index_of_this_category= this.#find_ending_index_of_a_category(starting_index_of_this_category, i);
+      this.#start_a_category_in_test_result(category_result, current_mbti_category, answers.slice(starting_index_of_this_category, ending_index_of_this_category+1)); 
+      this.#sumarize_for_a_category(starting_index_of_this_category, ending_index_of_this_category, answers, current_mbti_category, category_result);
     }
 
     return category_result;
   }
 
-  #find_first_index_of_categories(question_list) {
-    let category_indexes = [];
-    let current_category;
-
-    for (let i = 0; i < question_list.length; i++) {
-        let choice_category = this.#map_mbti_feature_category_to_category(question_list[i]["choices"][0]["category"]);
-        if(choice_category != current_category){
-            current_category = choice_category;
-            category_indexes.push(i);
-        }
+  #find_starting_index_of_a_category(index_of_target_category){
+    let sum = 0;
+    for(let i = 0; i < index_of_target_category; i++){
+        sum += MBTI["test_subset"][i].length;
     }
-    return category_indexes;
+    return sum;
+  }
+
+  #find_ending_index_of_a_category(sum_of_prev_cat, index_of_target_category){
+    return sum_of_prev_cat + MBTI["test_subset"][index_of_target_category].length;
   }
 
   #map_choice_to_feature_category(index_of_question, choice){
@@ -100,14 +95,6 @@ export default class MBTIResultCalculationStrategy extends ITestResultCalculatio
     throw new Error("wrong MBTI category or feature category");
   }
 
-  #find_the_end_of_the_category(current_index_of_category, starting_indexes_of_categories, test_category_record){
-    if(current_index_of_category == starting_indexes_of_categories.length -1){
-      return test_category_record.length - 1;
-    }
-    else{
-      return starting_indexes_of_categories[current_index_of_category+1] - 1;
-    }
-  }
 
   #map_mbti_feature_category_to_category(feature_category){
       if(feature_category == MBTIFeatureCategories.E || feature_category == MBTIFeatureCategories.I){

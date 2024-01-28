@@ -14,14 +14,8 @@ export function get_amount_of_all_questions() {
   
   for (let i = 0; i < test_category_values.length; i++) {
     let cur_test_list = TEST_LIST[test_category_values[i]]
-
-    if(test_category_values[i] == TestCategories.HAPPY_MARRIAGE_ASSESSMENT || test_category_values[i] == TestCategories.FAMILY_ADAPTABILITY_TEST){
-        for(let j = 0; j < cur_test_list['test_subset'].length; j++){
-            sum += cur_test_list['test_subset'][j]['questions'].length;
-        }
-    }
-    else{
-        sum += cur_test_list['questions'].length;
+    for(let j = 0; j < cur_test_list['test_subset'].length; j++){
+        sum += cur_test_list['test_subset'][j]['questions'].length;
     }
   }
   return sum;
