@@ -7,14 +7,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    test_record: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    app.global_data.test_manager.generate_test_report();
+    this.data.test_record = app.global_data.test_manager.get_test_record();//TODO maybe from cloud
   },
 
   /**

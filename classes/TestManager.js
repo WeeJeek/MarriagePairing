@@ -3,17 +3,12 @@ import TestStatus from "../enums/TestStatus"
 import TestCategories from "../enums/TestCategories"
 import TEST_LIST from "../src/tests_related/test_list"
 import DataStoreKeys from "../enums/DataStoreKeys"
-import TestReportGenerator from "./TestReportGenerator"
-import MBTITestRecordManager from "./MBTITestRecordManager"
 
 export default class TestManager{
   #test_record;
   #current_test_category;
-  #test_report_generator;
-  #current_test_record_manager;
   #current_selected_test_index; 
   #DEFAULT_TEST_CATEGORY = TestCategories.MBTI;
-  #counter = 0;
 
   constructor(){
     //let data_storage = this.read_test_record();
@@ -22,9 +17,6 @@ export default class TestManager{
       this.reset_test_record();
       this.#current_test_category = TestCategories.MBTI;
       this.#current_selected_test_index = 0;
-      this.#test_report_generator = new TestReportGenerator();
-      this.#current_test_record_manager = new MBTITestRecordManager(this.#test_record[this.#DEFAULT_TEST_CATEGORY]);
-      this.#counter = 0;
     //}
     //else{
       //this.#test_record = data_storage;
@@ -135,7 +127,7 @@ export default class TestManager{
 
     if (this.is_end_of_a_test_list()){
         this.#close_test_category();
-        this.#move_to_the_next_test_category();//TODO do something if at the end of list
+        this.#move_to_the_next_test_category();//TODO do something if at the end of list f
     }
     else{
         this.move_to_next_question();
@@ -157,7 +149,6 @@ export default class TestManager{
 
     }
     else{
-        
         result = cur_test_list['questions'].length;
     }
     
@@ -210,14 +201,6 @@ export default class TestManager{
     return null;
   }
 
-  generate_test_report(){
-    return this.#test_report_generator.generate_test_report()
-  }
-
-  #update_test_record(test_name){
-    this.#test_record[test_name] = this.#current_test_record_manager.get_test_record();
-  }
-
   move_to_next_question(){
     this.#current_selected_test_index++;//make this common to other managers
   }
@@ -260,19 +243,6 @@ export default class TestManager{
       return false;
     }
     return existing_answers.length > insert_index;
-}
-
-#get_mbti_category(choice, insert_index){
-    let choices = TEST_LIST[this.#current_test_category]["questions"][insert_index]["choices"]
-    let category;
-    
-    if(choices[0]["index"] == choice){
-        category = choices[0]["category"];
-    }else{
-        category = choices[1]["category"];
-    }
-    
-    return category;
 }
 
 #update_the_question_with_new_answer(existing_answers, insert_index, choice){

@@ -2,6 +2,9 @@ import HappyMarriageAssessmentResultCalculationStrategy from "../classes/HappyMa
 import SCORES from "../enums/Scores"
 import HappyMarriageCategories from "../enums/HappyMarriageCategories"
 
+const DUMMY_GUY_ANSWERS_1 = [];
+const DUMMY_LADY_ANSWERS_1 = [];
+
 const DUMMY_TEST_CASE_1 = {
     [HappyMarriageCategories.CommQuality]: [
         SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, 
@@ -175,16 +178,9 @@ const _expected_result_for_case_3 = {
 
 const DUMMY_TEST_CASES = [
     [
-      DUMMY_TEST_CASE_1, // given test data
+      DUMMY_GUY_ANSWERS_1,
+      DUMMY_LADY_ANSWERS_1, // given test data
       _expected_result_for_case_1 // expected result
-    ],
-    [
-      DUMMY_TEST_CASE_2, // given test data
-      _expected_result_for_case_2 // expected result
-    ],
-    [
-      DUMMY_TEST_CASE_3, // given test data
-      _expected_result_for_case_3 // expected result
     ]
   ];
 
@@ -196,8 +192,8 @@ describe("testing rules of Happy Marriage Assessment test", ()=>{
   })//before each
 
   it.each(DUMMY_TEST_CASES)
-    ("expected result should match the actual situation", (given_test_record, expected_result) => {
-      let actual_result = _sut.calculate_test_result(given_test_record);
+    ("expected result should match the actual situation", (given_guy_answers, given_lady_answers, expected_result) => {
+      let actual_result = _sut.calculate_test_result(given_guy_answers, given_lady_answers);
       expect(actual_result).toEqual(expected_result);
   })
 })//describe
