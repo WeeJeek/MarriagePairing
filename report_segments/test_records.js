@@ -7,6 +7,14 @@ import LifePressureAnalysisCategories from "../enums/LifePressureAnalysisCategor
 import SCORES from "../enums/Scores"
 
 var test_records = {
+    [TestCategories.PERSONAL]:{
+        status: TestStatus.UNTOUCHED,
+        result: {
+            personal_info:{
+                answers:[]
+            }
+        }
+    },
     [TestCategories.MBTI]:{
         status: TestStatus.UNTOUCHED,
         result: {

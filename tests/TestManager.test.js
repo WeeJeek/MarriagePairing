@@ -143,6 +143,14 @@ describe("unit test testing for Test Manager class", () =>{
 
   it("test manager shall clean everything in its test record if it reset it", ()=>{
     let expected_test_record = {
+      "PERSONAL_INFO":{
+        status: TestStatus.UNTOUCHED,
+        result: {
+            personal_info:{
+                answers:[]
+            }
+        }
+    },
       "MBTI":{
         "status": TestStatus.UNTOUCHED,
         "result": {
@@ -235,6 +243,14 @@ describe("unit test testing for Test Manager class", () =>{
 
   it("test manager shall generate test record in a right format", ()=>{
       let expected_test_record = {
+        PERSONAL_INFO:{
+            status: TestStatus.UNTOUCHED,
+            result: {
+                personal_info:{
+                    answers:[]
+                }
+            }
+        },
         MBTI:{
             status: TestStatus.FINISHED,
             result: {
