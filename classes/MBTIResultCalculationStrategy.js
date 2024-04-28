@@ -14,9 +14,19 @@ export default class MBTIResultCalculationStrategy extends ITestResultCalculatio
       let current_mbti_category = MBTI["test_subset"][i]["category"];
       let starting_index_of_this_category = this.#find_starting_index_of_a_category(i);
       let ending_index_of_this_category= this.#find_ending_index_of_a_category(starting_index_of_this_category, i);
-      
-      this.#start_a_category_in_test_result(category_result, current_mbti_category, answers.slice(starting_index_of_this_category, ending_index_of_this_category+1)); 
-      this.#sumarize_for_a_category(starting_index_of_this_category, ending_index_of_this_category, answers, current_mbti_category, category_result);
+
+      this.#start_a_category_in_test_result(category_result, current_mbti_category, answers.splice(starting_index_of_this_category, ending_index_of_this_category+1)); 
+
+      let starting_index_within_cat = this.#convert_index_within_category(starting_index_of_this_category);
+      let ending_index_within_cat = this.#convert_index_within_category(ending_index_of_this_category);
+
+      this.#sumarize_for_a_category(
+          MBTI["test_subset"][i], 
+          starting_index_within_cat, 
+          ending_index_within_cat, 
+          answers, 
+          current_mbti_category, 
+          category_result);
     }
 
     return category_result;
@@ -25,22 +35,13 @@ export default class MBTIResultCalculationStrategy extends ITestResultCalculatio
   #find_starting_index_of_a_category(index_of_target_category){
     let sum = 0;
     for(let i = 0; i < index_of_target_category; i++){
-        sum += MBTI["test_subset"][i].length;
+        sum += MBTI["test_subset"][i]["questions"].length;
     }
     return sum;
   }
 
   #find_ending_index_of_a_category(sum_of_prev_cat, index_of_target_category){
-    return sum_of_prev_cat + MBTI["test_subset"][index_of_target_category].length;
-  }
-
-  #map_choice_to_feature_category(index_of_question, choice){
-    let choices = MBTI["questions"][index_of_question]["choices"];
-    if(choices[0]["index"] == choice){
-      return choices[0]["category"];
-    }else{
-      return choices[1]["category"];
-    }
+    return sum_of_prev_cat + MBTI["test_subset"][index_of_target_category]["questions"].length - 1;
   }
 
   #start_a_category_in_test_result(test_result, category, answers){
@@ -50,15 +51,40 @@ export default class MBTIResultCalculationStrategy extends ITestResultCalculatio
     };
   }
 
-  #sumarize_for_a_category(starting_index, ending_index, answers, current_mbti_category, category_result){
-    for(let i = starting_index; i <= ending_index; i++){//TODO be careful for this, Maybe shoudl not include ending index
+  #sumarize_for_a_category(categoty_list, starting_index, ending_index, answers, current_mbti_category, category_result){
+    for(let i = starting_index; i <= ending_index; i++){
       let current_answer = answers[i];
-      let current_feature_category = this.#map_choice_to_feature_category(i, current_answer);
+      let current_feature_category = this.#map_choice_to_feature_category(categoty_list, i, current_answer);
       category_result[current_mbti_category]["score"] += this.#calculate_score_for_a_question(current_mbti_category, current_feature_category);
     }
 
     category_result[current_mbti_category]["trend"] = this.#calculate_trend_of_a_category(category_result[current_mbti_category]["score"], current_mbti_category);
   }
+
+  #convert_index_within_category(overal_index){
+    let remaining_index = overal_index;
+
+    for(let i = 0; i < MBTI["test_subset"].length; i++){
+        if(remaining_index > MBTI["test_subset"][i]["questions"].length || remaining_index == MBTI["test_subset"][i]["questions"].length){
+            remaining_index = remaining_index - MBTI["test_subset"][i]["questions"].length;
+        }else{
+            break;
+        }
+    }
+
+    return remaining_index;
+  }
+
+  #map_choice_to_feature_category(category, index_of_question_in_cat, choice){
+    let choices = category["questions"][index_of_question_in_cat]["choices"];
+    if(choices[0]["index"] == choice){
+        return choices[0]["category"];
+    }else{
+        return choices[1]["category"];
+    }
+    //later also update writing method with categories
+    //in the page, choice is not loaded
+}
 
   #calculate_score_for_a_question(current_mbti_category, current_feature_category){
     if(current_mbti_category === MBTICategories.EvI){
@@ -169,7 +195,6 @@ export default class MBTIResultCalculationStrategy extends ITestResultCalculatio
 
     //store for each letter
     answers_of_a_category.forEach(element=>{
-        console.log("=====" + element)
       if(element === CHOICES.A){
         result++;
       }else{

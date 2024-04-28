@@ -3,9 +3,17 @@ import TestCategories from "../enums/TestCategories"
 import TEST_LIST from "../src/tests_related/test_list"
 
 export function answer_questions_with_dummy_answers(testManager, amountOfQuestions) {
-  for (let i = 0; i < amountOfQuestions; i++) {
-    testManager.answer_the_current_question(CHOICES.A);
-  }
+    for (let i = 0; i < amountOfQuestions; i++) {
+        if(i == 26){
+            testManager.answer_the_current_question(CHOICES.B);
+        }
+        else if(i == 27){
+            testManager.answer_the_current_question(CHOICES.C);
+        }
+        else{
+            testManager.answer_the_current_question(CHOICES.A);
+        } 
+    }
 }
 
 export function get_amount_of_all_questions() {

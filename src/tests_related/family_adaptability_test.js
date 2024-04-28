@@ -1,8 +1,12 @@
+import FamilyAdaptabilitySubCategories from "../../enums/FamilyAdaptabilitySubCategories"
+
 var FAMILY_ADAPTABILITY_TEST = {
   "title": "家庭适应力和向心力的评分表",
   "rule": "1=几乎没有；2=偶尔；3=有时；4=经常；5=一向如此",
   "description": "指示：请将下列的号码填入以下的两套问题之中：",
-  "test_subset": [{
+  "test_subset": [
+    {
+      "category": FamilyAdaptabilitySubCategories.FamilyCommunication,
       "questions": [{
         "ID": 1,
         "description": "我的家人会彼此寻求帮助"
@@ -66,6 +70,7 @@ var FAMILY_ADAPTABILITY_TEST = {
       }]
     },
     {
+      "category": FamilyAdaptabilitySubCategories.FamilyExpectation,
       "questions": [
         {
             "ID": 21,

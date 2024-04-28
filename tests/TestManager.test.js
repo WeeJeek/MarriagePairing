@@ -3,6 +3,11 @@ import TestCategories from "../enums/TestCategories"
 import TestStatus from "../enums/TestStatus.js"
 import CHOICES from "../enums/ChoiceCategories"
 import {answer_questions_with_dummy_answers, get_amount_of_all_questions} from "./TestManager.utils"
+import HappyMarriageCategories from "../enums/HappyMarriageCategories"
+import FamilyAdaptabilityCategories from "../enums/FamilyAdaptabilityCategories"
+import SCORES from "../enums/Scores"
+import MBTICategories from "../enums/MBTICategories.js"
+import LifePressureAnalysisCategories from "../enums/LifePressureAnalysisCategories.js"
 
 describe("unit test testing for Test Manager class", () =>{
   let _sut;
@@ -25,12 +30,13 @@ describe("unit test testing for Test Manager class", () =>{
     let expected_current_test_index = 0;
     let expected_status = TestStatus.IN_PROGRESS;
     let expected_answer = CHOICES.B;
+    let expected_sub_test_subcat = MBTICategories.EvI;
 
     _sut.answer_the_current_question(expected_answer);
 
     let result_test_record = _sut.get_test_record();
     let result_status = result_test_record[expected_current_test_category]["status"];
-    let result_answer = result_test_record[expected_current_test_category]["answers"][expected_current_test_index];
+    let result_answer = result_test_record[expected_current_test_category]["result"][expected_sub_test_subcat]["answers"][expected_current_test_index];
     expect(result_answer).toEqual(expected_answer);
     expect(result_status).toEqual(expected_status);
   })
@@ -40,15 +46,16 @@ describe("unit test testing for Test Manager class", () =>{
     let expected_current_test_category = TestCategories.MBTI;
     let expected_current_test_index = 0;
     let first_answer = CHOICES.A;
+    let expected_sub_test_subcat = MBTICategories.EvI;
 
     _sut.answer_the_current_question(first_answer);
     
     _sut.move_back_to_last_question();
     _sut.answer_the_current_question(expected_answer);
 
-    //let result_test_record = _sut.get_test_record();
-    //let result_answer = result_test_record[expected_current_test_category]["answers"][expected_current_test_index]
-    //expect(result_answer).toEqual(expected_answer);
+    let result_test_record = _sut.get_test_record();
+    let result_answer = result_test_record[expected_current_test_category]["result"][expected_sub_test_subcat]["answers"][expected_current_test_index]
+    expect(result_answer).toEqual(expected_answer);
   })
 
   it("a test manager should be able to switch to the next test category while it reaches the end of the question list and test status will be changed", ()=>{
@@ -77,10 +84,10 @@ describe("unit test testing for Test Manager class", () =>{
     expect(expected_all_finished).toEqual(_sut.are_all_tests_finished());
   })
 
-it("a test manager should show all tests are finished when all tests are answered", ()=>{
+  it("a test manager should show all tests are finished when all tests are answered", ()=>{
     let expected_all_finished = true;
     let sum = get_amount_of_all_questions();
-    
+
     answer_questions_with_dummy_answers(_sut, sum);
 
     expect(_sut.are_all_tests_finished()).toEqual(expected_all_finished);
@@ -103,33 +110,6 @@ it("a test manager should show all tests are finished when all tests are answere
     expect(result_category).toEqual(expected_test_category);
     expect(previous_result_test_status).toEqual(expected_previous_test_status)
     expect(updated_result_test_status).toEqual(expected_updated_test_status)
-  })
-
-  it("test manager shall clean everything in its test record if it reset it", ()=>{
-    let expected_test_record = {
-      "MBTI":{
-        "status": TestStatus.UNTOUCHED,
-        "answers":[]
-      },
-      "FAMIL_ADAPTABILITY_TEST":{
-        "status": TestStatus.UNTOUCHED,
-        "answers":[]
-      },
-      "LIFE_PRESSURE_ANALYSIS":{
-        "status": TestStatus.UNTOUCHED,
-        "answers":[]
-      },
-      "HAPPY_MARRIAGE_ASSESSMENT":{
-        "status": TestStatus.UNTOUCHED,
-        "answers":[]
-      }
-    }
-
-    answer_questions_with_dummy_answers(_sut, CHOICES.A);
-    _sut.reset_test_record()
-
-    let result_test_record = _sut.get_test_record()
-    expect(result_test_record).toEqual(expected_test_record)
   })
 
   it("test manager shall return current test with correct content", ()=>{
@@ -160,7 +140,233 @@ it("a test manager should show all tests are finished when all tests are answere
 
     expect(_first_test_record).toEqual(_second_test_record);
   })
-  
+
+  it("test manager shall clean everything in its test record if it reset it", ()=>{
+    let expected_test_record = {
+      "MBTI":{
+        "status": TestStatus.UNTOUCHED,
+        "result": {
+            EvI: {
+                answers:[]
+            },
+            NvS: {
+                answers:[]
+            },
+            FvT: {
+                answers:[]
+            },
+            JvP: {
+                answers:[]
+            }
+        }
+      },
+      "FAMILY_ADAPTABILITY_TEST":{
+        "status": TestStatus.UNTOUCHED,
+        "result":{
+            [FamilyAdaptabilityCategories.FamilySituation]:{
+                answers:[]
+            },
+            [FamilyAdaptabilityCategories.FamilyWish]:{
+                answers:[]
+            }
+        }
+      },
+      "LIFE_PRESSURE_ANALYSIS":{
+        "status": TestStatus.UNTOUCHED,
+        result: {
+            [LifePressureAnalysisCategories.LifePressure]:{
+                answers:[]
+            }
+        }
+      },
+      "HAPPY_MARRIAGE_ASSESSMENT":{
+        "status": TestStatus.UNTOUCHED,
+        "result":{
+            [HappyMarriageCategories.CommQuality]: {
+                score: 0,
+                answers:[]
+            },
+            [HappyMarriageCategories.ConflitionHandling]:{
+                score: 0,
+                answers:[]
+            },
+            [HappyMarriageCategories.PersonalityHabits]:{
+                score: 0,
+                answers:[]
+            },
+            [HappyMarriageCategories.FinancialManagement]:{
+                score:0,
+                answers:[]
+            },
+            [HappyMarriageCategories.EntertainmentLife]:{
+                score:0,
+                answers:[]
+            },
+            [HappyMarriageCategories.SexualAwareness]:{
+                score:0,
+                answers:[]
+            },
+            [HappyMarriageCategories.ReletivesFriends]:{
+                score:0,
+                answers:[]
+            },
+            [HappyMarriageCategories.CoupleRole]:{
+                score:0,
+                answers:[]
+            },
+            [HappyMarriageCategories.MarriageExpectation]:{
+                score:0,
+                answers:[]
+            },
+            [HappyMarriageCategories.EducationExpectation]:{
+                score:0,
+                answers:[]
+            }
+        }
+      }
+    }
+
+    answer_questions_with_dummy_answers(_sut, CHOICES.A);
+    _sut.reset_test_record()
+
+    let result_test_record = _sut.get_test_record()
+    expect(result_test_record).toEqual(expected_test_record)
+  })
+
+  it("test manager shall generate test record in a right format", ()=>{
+      let expected_test_record = {
+        MBTI:{
+            status: TestStatus.FINISHED,
+            result: {
+                EvI: {
+                    answers:[CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A]
+                },
+                NvS: {
+                    answers:[CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A]
+                },
+                FvT: {
+                    answers:[CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A]
+                },
+                JvP: {
+                    answers:[CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.B, CHOICES.C]
+                }
+            }
+          },
+        FAMILY_ADAPTABILITY_TEST:{
+            status: TestStatus.FINISHED,
+            result:{
+                [FamilyAdaptabilityCategories.FamilySituation]:{
+                    answers:[
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A,
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A,
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A,
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A
+                    ]
+             },
+            [FamilyAdaptabilityCategories.FamilyWish]:{
+                answers:[
+                    CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A,
+                    CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A,
+                    CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A,
+                    CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A
+                ]
+            }
+        }
+        },
+          LIFE_PRESSURE_ANALYSIS:{
+            status: TestStatus.FINISHED,
+            result: {
+                [LifePressureAnalysisCategories.LifePressure]:{
+                    answers:[
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A,
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A
+                    ]
+                }
+            }
+          },
+          HAPPY_MARRIAGE_ASSESSMENT:{
+            status: TestStatus.FINISHED,
+            result:{
+                [HappyMarriageCategories.CommQuality]: {
+                    score: 0,
+                    answers:[
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A,
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A
+                    ]
+                },
+                [HappyMarriageCategories.ConflitionHandling]:{
+                    score: 0,
+                    answers:[
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A,
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A
+                    ]
+                },
+                [HappyMarriageCategories.PersonalityHabits]:{
+                    score: 0,
+                    answers:[
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A,
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A
+                    ]
+                },
+                [HappyMarriageCategories.FinancialManagement]:{
+                    score:0,
+                    answers:[
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A,
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A
+                    ]
+                },
+                [HappyMarriageCategories.EntertainmentLife]:{
+                    score:0,
+                    answers:[
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A,
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A
+                    ]
+                },
+                [HappyMarriageCategories.SexualAwareness]:{
+                    score:0,
+                    answers:[
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A,
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A
+                    ]
+                },
+                [HappyMarriageCategories.ReletivesFriends]:{
+                    score:0,
+                    answers:[
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A,
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A
+                    ]
+                },
+                [HappyMarriageCategories.CoupleRole]:{
+                    score:0,
+                    answers:[
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A,
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A
+                    ]
+                },
+                [HappyMarriageCategories.MarriageExpectation]:{
+                    score:0,
+                    answers:[
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A,
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A
+                    ]
+                },
+                [HappyMarriageCategories.EducationExpectation]:{
+                    score:0,
+                    answers:[
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A,
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A
+                    ]
+                }
+            }
+          }
+      };
+
+      answer_questions_with_dummy_answers(_sut, 178);
+
+      let actual_test_record = _sut.get_test_record();
+      expect(actual_test_record).toEqual(expected_test_record);
+  })
+
   afterEach(()=>{
     jest.restoreAllMocks()
   })
