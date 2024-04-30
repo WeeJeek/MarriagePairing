@@ -4,13 +4,14 @@ import FamilyAdaptabilityCategories from "../enums/FamilyAdaptabilityCategories"
 import MBTICategories from "../enums/MBTICategories"
 import TestCategories from "../enums/TestCategories"
 import LifePressureAnalysisCategories from "../enums/LifePressureAnalysisCategories"
+import PersonalInfoCategories from "../enums/PersonalInfoCategories.js"
 import SCORES from "../enums/Scores"
 
 var test_records = {
     [TestCategories.PERSONAL]:{
         status: TestStatus.UNTOUCHED,
         result: {
-            personal_info:{
+            [PersonalInfoCategories.PERSONAL_INFO]:{
                 answers:[]
             }
         }

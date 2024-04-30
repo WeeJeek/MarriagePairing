@@ -8,8 +8,6 @@ export default class MBTIResultCalculationStrategy extends ITestResultCalculatio
   #test_category_record;
 
   calculate_test_result(tests_result){
-
-    console.log("the input is " + JSON.stringify(tests_result))
     let category_result = {};
     
     for(let i = 0; i < MBTI["test_subset"].length; i++){  

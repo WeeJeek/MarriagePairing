@@ -15,7 +15,7 @@ export default class TestManager{
     
     //if(!data_storage){
       this.reset_test_record();
-      this.#current_test_category = TestCategories.MBTI;
+      this.#current_test_category = TestCategories.PERSONAL;
       this.#current_selected_test_index = 0;
       this.#init_current_sub_test_category();
     //}
@@ -34,6 +34,7 @@ export default class TestManager{
     let all_finished = true;
     for (let i = 0; i < test_category_values.length; i++) {
       let cur_test_list = this.#test_record[test_category_values[i]]
+
       if(cur_test_list["status"] != TestStatus.FINISHED){
         all_finished = false;
         break;
@@ -142,14 +143,28 @@ export default class TestManager{
   answer_the_current_question(choice){
     this.#test_record[this.#current_test_category]["result"][this.#current_sub_test_category]["answers"][this.#current_selected_test_index] = choice;
 
+    if(this.#current_test_category == TestCategories.PERSONAL){
+        console.log("===== in PERSONAL, the cat is upadted")
+        console.log(this.#test_record[this.#current_test_category]["result"][this.#current_sub_test_category]["answers"])
+    }
+
     if(this.#is_at_end_of_test_category()){
+        if(this.#current_test_category == TestCategories.PERSONAL){
+            console.log("===== in PERSONAL. Closing cat")
+        }
         this.#close_test_category();
         this.#move_to_the_next_test_category();
     }
     else if(this.#is_end_of_sub_category()){
+        if(this.#current_test_category == TestCategories.PERSONAL){
+            console.log("===== in PERSONAL. closing sub cat")
+        }
         this.#move_to_next_sub_category();
     }
     else{
+        if(this.#current_test_category == TestCategories.PERSONAL){
+            console.log("===== in PERSONAL. Last else")
+        }
         this.#update_status_of_subset_to_in_progress();
         this.#move_to_next_question();
     }
@@ -181,6 +196,9 @@ export default class TestManager{
       let subset = TEST_LIST[this.#current_test_category]["test_subset"];
 
       for(let i = 0; i < sub_categories.length; i++){
+        console.log("the sub cat is " + sub_categories[i])
+        console.log("the len is " + sub_categories.length)
+        console.log("current result in test cat is " + JSON.stringify(this.#test_record[this.#current_test_category]["result"][sub_categories[i]]))
         if(subset[i]["questions"].length != this.#test_record[this.#current_test_category]["result"][sub_categories[i]]["answers"].length){
             all_test_answered = false;
             break;

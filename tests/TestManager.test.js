@@ -5,6 +5,7 @@ import CHOICES from "../enums/ChoiceCategories"
 import {answer_questions_with_dummy_answers, get_amount_of_all_questions} from "./TestManager.utils"
 import HappyMarriageCategories from "../enums/HappyMarriageCategories"
 import FamilyAdaptabilityCategories from "../enums/FamilyAdaptabilityCategories"
+import PersonalInfoCategories from "../enums/PersonalInfoCategories"
 import SCORES from "../enums/Scores"
 import MBTICategories from "../enums/MBTICategories.js"
 import LifePressureAnalysisCategories from "../enums/LifePressureAnalysisCategories.js"
@@ -26,11 +27,11 @@ describe("unit test testing for Test Manager class", () =>{
   })
 
   it("a test manager should able to set the answer with given test info and update the current test reocrd", ()=>{
-    let expected_current_test_category = TestCategories.MBTI;
+    let expected_current_test_category = TestCategories.PERSONAL;
     let expected_current_test_index = 0;
     let expected_status = TestStatus.IN_PROGRESS;
     let expected_answer = CHOICES.B;
-    let expected_sub_test_subcat = MBTICategories.EvI;
+    let expected_sub_test_subcat = PersonalInfoCategories.PERSONAL_INFO;
 
     _sut.answer_the_current_question(expected_answer);
 
@@ -43,10 +44,10 @@ describe("unit test testing for Test Manager class", () =>{
 
   it("a test manager should able to update the same question with different answer", ()=>{
     let expected_answer = CHOICES.B;
-    let expected_current_test_category = TestCategories.MBTI;
+    let expected_current_test_category = TestCategories.PERSONAL;
     let expected_current_test_index = 0;
     let first_answer = CHOICES.A;
-    let expected_sub_test_subcat = MBTICategories.EvI;
+    let expected_sub_test_subcat = PersonalInfoCategories.PERSONAL_INFO;
 
     _sut.answer_the_current_question(first_answer);
     
@@ -59,8 +60,8 @@ describe("unit test testing for Test Manager class", () =>{
   })
 
   it("a test manager should be able to switch to the next test category while it reaches the end of the question list and test status will be changed", ()=>{
-    let current_test_category = TestCategories.MBTI;
-    let expected_test_category = TestCategories.FAMILY_ADAPTABILITY_TEST;
+    let current_test_category = TestCategories.PERSONAL;
+    let expected_test_category = TestCategories.MBTI;
     let expected_test_status = TestStatus.FINISHED;
     let expected_test_index = 0;
     const amount_of_question_in_test = _sut.get_amount_of_questions_of_current_test_category()
@@ -94,8 +95,8 @@ describe("unit test testing for Test Manager class", () =>{
   })
 
   it("a test manager should not able to move back the last category if it is at the first question of the category", ()=>{
-    let previous_test_category = TestCategories.MBTI;
-    let expected_test_category = TestCategories.FAMILY_ADAPTABILITY_TEST;
+    let previous_test_category = TestCategories.PERSONAL;
+    let expected_test_category = TestCategories.MBTI;
     let expected_previous_test_status = TestStatus.FINISHED;
     let expected_updated_test_status = TestStatus.UNTOUCHED;
     const amount_of_question_in_test = _sut.get_amount_of_questions_of_current_test_category();
@@ -143,15 +144,15 @@ describe("unit test testing for Test Manager class", () =>{
 
   it("test manager shall clean everything in its test record if it reset it", ()=>{
     let expected_test_record = {
-      "PERSONAL_INFO":{
+      [TestCategories.PERSONAL]:{
         status: TestStatus.UNTOUCHED,
         result: {
-            personal_info:{
+            [PersonalInfoCategories.PERSONAL_INFO]:{
                 answers:[]
             }
         }
     },
-      "MBTI":{
+    [TestCategories.MBTI]:{
         "status": TestStatus.UNTOUCHED,
         "result": {
             EvI: {
@@ -168,7 +169,7 @@ describe("unit test testing for Test Manager class", () =>{
             }
         }
       },
-      "FAMILY_ADAPTABILITY_TEST":{
+      [TestCategories.FAMILY_ADAPTABILITY_TEST]:{
         "status": TestStatus.UNTOUCHED,
         "result":{
             [FamilyAdaptabilityCategories.FamilySituation]:{
@@ -179,7 +180,7 @@ describe("unit test testing for Test Manager class", () =>{
             }
         }
       },
-      "LIFE_PRESSURE_ANALYSIS":{
+      [TestCategories.LIFE_PRESSURE_ANALYSIS]:{
         "status": TestStatus.UNTOUCHED,
         result: {
             [LifePressureAnalysisCategories.LifePressure]:{
@@ -187,7 +188,7 @@ describe("unit test testing for Test Manager class", () =>{
             }
         }
       },
-      "HAPPY_MARRIAGE_ASSESSMENT":{
+      [TestCategories.HAPPY_MARRIAGE_ASSESSMENT]:{
         "status": TestStatus.UNTOUCHED,
         "result":{
             [HappyMarriageCategories.CommQuality]: {
@@ -244,10 +245,14 @@ describe("unit test testing for Test Manager class", () =>{
   it("test manager shall generate test record in a right format", ()=>{
       let expected_test_record = {
         PERSONAL_INFO:{
-            status: TestStatus.UNTOUCHED,
+            status: TestStatus.FINISHED,
             result: {
-                personal_info:{
-                    answers:[]
+                [PersonalInfoCategories.PERSONAL_INFO]:{
+                    answers:[
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A,
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A,
+                        CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, 
+                        CHOICES.A]
                 }
             }
         },
@@ -264,7 +269,7 @@ describe("unit test testing for Test Manager class", () =>{
                     answers:[CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A]
                 },
                 JvP: {
-                    answers:[CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.B, CHOICES.C]
+                    answers:[CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A, CHOICES.A]
                 }
             }
           },
@@ -377,9 +382,12 @@ describe("unit test testing for Test Manager class", () =>{
           }
       };
 
-      answer_questions_with_dummy_answers(_sut, 178);
+      let amount = get_amount_of_all_questions();
+      answer_questions_with_dummy_answers(_sut, amount);
 
       let actual_test_record = _sut.get_test_record();
+      console.log("the ACTUAL is " + JSON.stringify(actual_test_record))
+      console.log("the EXPECTED is " + JSON.stringify(expected_test_record))
       expect(actual_test_record).toEqual(expected_test_record);
   })
 

@@ -4,15 +4,7 @@ import TEST_LIST from "../src/tests_related/test_list"
 
 export function answer_questions_with_dummy_answers(testManager, amountOfQuestions) {
     for (let i = 0; i < amountOfQuestions; i++) {
-        if(i == 26){
-            testManager.answer_the_current_question(CHOICES.B);
-        }
-        else if(i == 27){
-            testManager.answer_the_current_question(CHOICES.C);
-        }
-        else{
-            testManager.answer_the_current_question(CHOICES.A);
-        } 
+        testManager.answer_the_current_question(CHOICES.A);
     }
 }
 
