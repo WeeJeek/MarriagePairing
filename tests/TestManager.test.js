@@ -386,8 +386,6 @@ describe("unit test testing for Test Manager class", () =>{
       answer_questions_with_dummy_answers(_sut, amount);
 
       let actual_test_record = _sut.get_test_record();
-      console.log("the ACTUAL is " + JSON.stringify(actual_test_record))
-      console.log("the EXPECTED is " + JSON.stringify(expected_test_record))
       expect(actual_test_record).toEqual(expected_test_record);
   })
 
