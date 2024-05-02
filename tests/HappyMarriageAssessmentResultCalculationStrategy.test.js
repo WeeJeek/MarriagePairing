@@ -4,22 +4,36 @@ import HappyMarriageCategories from "../enums/HappyMarriageCategories"
 import CHOICES from "../enums/ChoiceCategories";
 
 const GIVEN_SUB_CATEGORY = HappyMarriageCategories.EntertainmentLife;
+
 const HAPPY_MALE_CASE = [
     SCORES.E, SCORES.A, SCORES.B, SCORES.A, SCORES.A,
     SCORES.A, SCORES.C, SCORES.D, SCORES.A, SCORES.B
-];
-const SAD_MALE_CASE = [
-    SCORES.A, SCORES.A, SCORES.D, SCORES.E, SCORES.E,
-    SCORES.B, SCORES.D, SCORES.A, SCORES.E, SCORES.C
 ];
 const HAPPY_FEMALE_CASE = [
     SCORES.D, SCORES.B, SCORES.C, SCORES.B, SCORES.A,
     SCORES.D, SCORES.E, SCORES.B, SCORES.C, SCORES.E
 ];
+const EXPECTED_HAPPY_RESULT = {
+    satisfaction_male: 97.5,//(5+5+4+5+5+1+3+2+5+4)/40,
+    satisfaction_female:92.5,//(4+4+3+4+5+4+5+4+3+1)/40,
+    consistency:70//(1+1+1+1+1+0+1+0+1+0)/10
+};
+
+
+const SAD_MALE_CASE = [
+    SCORES.A, SCORES.A, SCORES.D, SCORES.E, SCORES.E,
+    SCORES.B, SCORES.D, SCORES.A, SCORES.E, SCORES.C
+];
 const SAD_FEMALE_CASE = [
     SCORES.E, SCORES.B, SCORES.C, SCORES.E, SCORES.E,
     SCORES.A, SCORES.B, SCORES.D, SCORES.E, SCORES.C
 ];
+const EXPECTED_SAD_RESULT = {
+    satisfaction_male:62.5,//(1+5+2+1+1+2+4+5+1+3)/40,
+    satisfaction_female:57.5,//(5+4+3+1+1+1+2+2+1+3)/40,
+    consistency:20//0+1+0+0+0+0+0+0+0+1
+};
+
 const REALITY_MALE_CASE = [
     SCORES.E, SCORES.A, SCORES.C, SCORES.C, SCORES.B,
     SCORES.A, SCORES.B, SCORES.E, SCORES.A, SCORES.D
@@ -28,32 +42,20 @@ const REALITY_FEMALE_CASE = [
     SCORES.C, SCORES.B, SCORES.A, SCORES.A, SCORES.E,
     SCORES.D, SCORES.D, SCORES.E, SCORES.C, SCORES.B
 ];
-
-const EXPECTED_HAPPY_RESULT = {
-    satisfaction_male:0,
-    satisfaction_female:0,
-    consistency:0
+const EXPECTED_REALITY_RESULT = {
+    satisfaction_male:77.5,//(5+5+3+3+4+1+2+1+5+2)/40
+    satisfaction_female:85,//(3+4+5+5+1+4+4+1+3+4)/40
+    consistency:50//1+1+1+1+0+0+0+0+1+0
 };
+
 const GOOD_COUPLE_CASE = [
     HAPPY_MALE_CASE, 
     HAPPY_FEMALE_CASE, 
     EXPECTED_HAPPY_RESULT];
-
-const EXPECTED_SAD_RESULT = {
-    satisfaction_male:0,
-    satisfaction_female:0,
-    consistency:0
-};
 const SAD_COUPLE_CASE = [
     SAD_MALE_CASE, 
     SAD_FEMALE_CASE, 
     EXPECTED_SAD_RESULT];
-
-const EXPECTED_REALITY_RESULT = {
-    satisfaction_male:0,
-    satisfaction_female:0,
-    consistency:0
-};
 const REALITY_COUPLE_CASE = [
     REALITY_MALE_CASE, 
     REALITY_FEMALE_CASE, 
