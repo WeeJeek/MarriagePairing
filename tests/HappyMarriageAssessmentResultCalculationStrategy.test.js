@@ -1,155 +1,69 @@
 import HappyMarriageAssessmentResultCalculationStrategy from "../classes/HappyMarriageAssessmentResultCalculationStrategy";
 import SCORES from "../enums/Scores"
 import HappyMarriageCategories from "../enums/HappyMarriageCategories"
+import CHOICES from "../enums/ChoiceCategories";
 
-const DUMMY_GUY_ANSWERS_1 = [];
-const DUMMY_LADY_ANSWERS_1 = [];
+const GIVEN_SUB_CATEGORY = HappyMarriageCategories.EntertainmentLife;
+const HAPPY_MALE_CASE = [
+    SCORES.E, SCORES.A, SCORES.B, SCORES.A, SCORES.A,
+    SCORES.A, SCORES.C, SCORES.D, SCORES.A, SCORES.B
+];
+const SAD_MALE_CASE = [
+    SCORES.A, SCORES.A, SCORES.D, SCORES.E, SCORES.E,
+    SCORES.B, SCORES.D, SCORES.A, SCORES.E, SCORES.C
+];
+const HAPPY_FEMALE_CASE = [
+    SCORES.D, SCORES.B, SCORES.C, SCORES.B, SCORES.A,
+    SCORES.D, SCORES.E, SCORES.B, SCORES.C, SCORES.E
+];
+const SAD_FEMALE_CASE = [
+    SCORES.E, SCORES.B, SCORES.C, SCORES.E, SCORES.E,
+    SCORES.A, SCORES.B, SCORES.D, SCORES.E, SCORES.C
+];
+const REALITY_MALE_CASE = [
+    SCORES.E, SCORES.A, SCORES.C, SCORES.C, SCORES.B,
+    SCORES.A, SCORES.B, SCORES.E, SCORES.A, SCORES.D
+];
+const REALITY_FEMALE_CASE = [
+    SCORES.C, SCORES.B, SCORES.A, SCORES.A, SCORES.E,
+    SCORES.D, SCORES.D, SCORES.E, SCORES.C, SCORES.B
+];
 
-const DUMMY_TEST_CASE_MALE = {
-    [HappyMarriageCategories.CommQuality]: [
-        SCORES.ONE, SCORES.TWO, SCORES.FIVE, SCORES.TWO, SCORES.THREE, 
-        SCORES.FIVE, SCORES.ONE, SCORES.TWO, SCORES.TWO, SCORES.FOUR],
-    [HappyMarriageCategories.ConflitionHandling]:[
-        SCORES.THREE, SCORES.FOUR, SCORES.FIVE, SCORES.THREE, SCORES.TWO, 
-        SCORES.FOUR, SCORES.ONE, SCORES.FIVE, SCORES.THREE, SCORES.ONE],
-    [HappyMarriageCategories.PersonalityHabits]:[
-        SCORES.THREE, SCORES.FOUR, SCORES.FIVE, SCORES.THREE, SCORES.TWO, 
-        SCORES.FOUR, SCORES.ONE, SCORES.FIVE, SCORES.THREE, SCORES.ONE],
-    [HappyMarriageCategories.FinancialManagement]:[
-        SCORES.THREE, SCORES.FOUR, SCORES.FIVE, SCORES.THREE, SCORES.TWO, 
-        SCORES.FOUR, SCORES.ONE, SCORES.FIVE, SCORES.THREE, SCORES.ONE],
-    [HappyMarriageCategories.EntertainmentLife]:[
-        SCORES.ONE, SCORES.THREE, SCORES.FIVE, SCORES.TWO, SCORES.TWO, 
-        SCORES.FIVE, SCORES.ONE, SCORES.ONE, SCORES.TWO, SCORES.FOUR],
-    [HappyMarriageCategories.SexualAwareness]:[
-        SCORES.ONE, SCORES.TWO, SCORES.FIVE, SCORES.TWO, SCORES.THREE, 
-        SCORES.FIVE, SCORES.ONE, SCORES.TWO, SCORES.TWO, SCORES.FOUR],
-    [HappyMarriageCategories.ReletivesFriends]:[
-        SCORES.THREE, SCORES.FOUR, SCORES.FIVE, SCORES.TWO, SCORES.TWO, 
-        SCORES.TWO, SCORES.ONE, SCORES.FOUR, SCORES.THREE, SCORES.ONE],
-    [HappyMarriageCategories.CoupleRole]:[
-        SCORES.ONE, SCORES.ONE, SCORES.FIVE, SCORES.TWO, SCORES.THREE, 
-        SCORES.FIVE, SCORES.ONE, SCORES.TWO, SCORES.TWO, SCORES.FOUR],
-    [HappyMarriageCategories.MarriageExpectation]:[
-        SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, 
-        SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE],
-    [HappyMarriageCategories.EducationExpectation]:[
-        SCORES.ONE, SCORES.TWO, SCORES.FIVE, SCORES.TWO, SCORES.THREE, 
-        SCORES.FIVE, SCORES.ONE, SCORES.TWO, SCORES.TWO, SCORES.FOUR]
-}
-
-const DUMMY_TEST_CASE_FEMALE = {
-    [HappyMarriageCategories.CommQuality]: [
-        SCORES.ONE, SCORES.THREE, SCORES.FOUR, SCORES.ONE, SCORES.THREE, 
-        SCORES.FIVE, SCORES.ONE, SCORES.ONE, SCORES.TWO, SCORES.TWO],
-    [HappyMarriageCategories.ConflitionHandling]:[
-        SCORES.THREE, SCORES.FOUR, SCORES.FIVE, SCORES.THREE, SCORES.TWO, 
-        SCORES.THREE, SCORES.ONE, SCORES.FOUR, SCORES.THREE, SCORES.ONE],
-    [HappyMarriageCategories.PersonalityHabits]:[
-        SCORES.THREE, SCORES.FOUR, SCORES.FIVE, SCORES.THREE, SCORES.TWO, 
-        SCORES.FOUR, SCORES.TWO, SCORES.FIVE, SCORES.THREE, SCORES.FIVE],
-    [HappyMarriageCategories.FinancialManagement]:[
-        SCORES.THREE, SCORES.FOUR, SCORES.FIVE, SCORES.THREE, SCORES.TWO, 
-        SCORES.FOUR, SCORES.ONE, SCORES.FIVE, SCORES.THREE, SCORES.ONE],
-    [HappyMarriageCategories.EntertainmentLife]:[
-        SCORES.TWO, SCORES.THREE, SCORES.FIVE, SCORES.THREE, SCORES.TWO, 
-        SCORES.FIVE, SCORES.THREE, SCORES.ONE, SCORES.FOUR, SCORES.FOUR],
-    [HappyMarriageCategories.SexualAwareness]:[
-        SCORES.ONE, SCORES.TWO, SCORES.TWO, SCORES.TWO, SCORES.ONE, 
-        SCORES.ONE, SCORES.TWO, SCORES.TWO, SCORES.TWO, SCORES.FOUR],
-    [HappyMarriageCategories.ReletivesFriends]:[
-        SCORES.THREE, SCORES.TWO, SCORES.FIVE, SCORES.TWO, SCORES.TWO, 
-        SCORES.TWO, SCORES.FIVE, SCORES.FOUR, SCORES.THREE, SCORES.ONE],
-    [HappyMarriageCategories.CoupleRole]:[
-        SCORES.ONE, SCORES.FIVE, SCORES.FIVE, SCORES.TWO, SCORES.THREE, 
-        SCORES.FIVE, SCORES.ONE, SCORES.TWO, SCORES.TWO, SCORES.FOUR],
-    [HappyMarriageCategories.MarriageExpectation]:[
-        SCORES.ONE, SCORES.TWO, SCORES.ONE, SCORES.ONE, SCORES.ONE, 
-        SCORES.ONE, SCORES.ONE, SCORES.THREE, SCORES.ONE, SCORES.ONE],
-    [HappyMarriageCategories.EducationExpectation]:[
-        SCORES.ONE, SCORES.TWO, SCORES.FIVE, SCORES.FOUR, SCORES.THREE, 
-        SCORES.ONE, SCORES.ONE, SCORES.THREE, SCORES.TWO, SCORES.FOUR]
-}
-
-const _expected_result_for_case_1 = {
-    [HappyMarriageCategories.CommQuality]: {
-        score: -4,
-        answers:[
-            SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, 
-            SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE]
-    },
-    [HappyMarriageCategories.ConflitionHandling]:{
-        score: -6,
-        answers:[
-            SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, 
-            SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE]
-    },
-    [HappyMarriageCategories.PersonalityHabits]:{
-        score: -10,
-        answers:[
-            SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, 
-            SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE]
-    },
-    [HappyMarriageCategories.FinancialManagement]:{
-        score:1,
-        answers:[
-            SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, 
-            SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE]
-    },
-    [HappyMarriageCategories.EntertainmentLife]:{
-        score:1,
-        answers:[
-            SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, 
-            SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE]
-    },
-    [HappyMarriageCategories.SexualAwareness]:{
-        score:1,
-        answers:[
-            SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, 
-            SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE]
-    },
-    [HappyMarriageCategories.ReletivesFriends]:{
-        score:1,
-        answers:[
-            SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, 
-            SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE]
-    },
-    [HappyMarriageCategories.CoupleRole]:{
-        score:1,
-        answers:[
-            SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, 
-            SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE]
-    },
-    [HappyMarriageCategories.MarriageExpectation]:{
-        score:1,
-        answers:[
-            SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, 
-            SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE]
-    },
-    [HappyMarriageCategories.EducationExpectation]:{
-        score:1,
-        answers:[
-            SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, 
-            SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE, SCORES.ONE]
-    }
+const EXPECTED_HAPPY_RESULT = {
+    satisfaction_male:0,
+    satisfaction_female:0,
+    consistency:0
 };
-const _expected_result_for_case_2 = {
-    score: {},
-    answers: {}
-};
+const GOOD_COUPLE_CASE = [
+    HAPPY_MALE_CASE, 
+    HAPPY_FEMALE_CASE, 
+    EXPECTED_HAPPY_RESULT];
 
-const _expected_result_for_case_3 = {
-    score: {},
-    answers: {}
+const EXPECTED_SAD_RESULT = {
+    satisfaction_male:0,
+    satisfaction_female:0,
+    consistency:0
 };
+const SAD_COUPLE_CASE = [
+    SAD_MALE_CASE, 
+    SAD_FEMALE_CASE, 
+    EXPECTED_SAD_RESULT];
+
+const EXPECTED_REALITY_RESULT = {
+    satisfaction_male:0,
+    satisfaction_female:0,
+    consistency:0
+};
+const REALITY_COUPLE_CASE = [
+    REALITY_MALE_CASE, 
+    REALITY_FEMALE_CASE, 
+    EXPECTED_REALITY_RESULT];
 
 const DUMMY_TEST_CASES = [
-    [
-      DUMMY_GUY_ANSWERS_1,
-      DUMMY_LADY_ANSWERS_1, // given test data
-      _expected_result_for_case_1 // expected result
-    ]
-  ];
+    GOOD_COUPLE_CASE,
+    SAD_COUPLE_CASE,
+    REALITY_COUPLE_CASE
+];
 
 describe("testing rules of Happy Marriage Assessment test", ()=>{
   let _sut;
@@ -159,10 +73,17 @@ describe("testing rules of Happy Marriage Assessment test", ()=>{
   })//before each
 
   it.each(DUMMY_TEST_CASES)
-    ("expected result should match the actual situation", (given_guy_answers, given_lady_answers, expected_result) => {
-      let actual_result = _sut.calculate_test_result(given_guy_answers, given_lady_answers);
-      expect(actual_result).toEqual(expected_result);
-  })
+        ("for one test case, the relationship satisfaction shall be caluclated as expected", 
+        (male_input, female_input, expected_result)
+  =>{
+    let actual_consistency = _sut.calculate_relationship_consistency(male_input, female_input, GIVEN_SUB_CATEGORY);
+    let actual_male_satisfaction = _sut.calculate_satisfaction(male_input, GIVEN_SUB_CATEGORY);
+    let actual_female_satisfaction = _sut.calculate_satisfaction(female_input, GIVEN_SUB_CATEGORY);
+
+    expect(actual_consistency).toEqual(expected_result.consistency);
+    expect(actual_male_satisfaction).toEqual(expected_result.satisfaction_male);
+    expect(actual_female_satisfaction).toEqual(expected_result.satisfaction_female);
+  })//end of test
 })//describe
 
 
