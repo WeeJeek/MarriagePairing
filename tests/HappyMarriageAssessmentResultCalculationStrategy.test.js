@@ -6,12 +6,12 @@ import CHOICES from "../enums/ChoiceCategories";
 const GIVEN_SUB_CATEGORY = HappyMarriageCategories.EntertainmentLife;
 
 const HAPPY_MALE_CASE = [
-    SCORES.E, SCORES.A, SCORES.B, SCORES.A, SCORES.A,
-    SCORES.A, SCORES.C, SCORES.D, SCORES.A, SCORES.B
+    SCORES.FIVE, SCORES.ONE, SCORES.TWO, SCORES.ONE, SCORES.ONE,
+    SCORES.ONE, SCORES.THREE, SCORES.FOUR, SCORES.ONE, SCORES.TWO
 ];
 const HAPPY_FEMALE_CASE = [
-    SCORES.D, SCORES.B, SCORES.C, SCORES.B, SCORES.A,
-    SCORES.D, SCORES.E, SCORES.B, SCORES.C, SCORES.E
+    SCORES.FOUR, SCORES.TWO, SCORES.THREE, SCORES.TWO, SCORES.ONE,
+    SCORES.FOUR, SCORES.FIVE, SCORES.TWO, SCORES.THREE, SCORES.FIVE
 ];
 const HAPPY_COUPLE_TEST_CASE = {
     subcategory: GIVEN_SUB_CATEGORY,
@@ -20,17 +20,17 @@ const HAPPY_COUPLE_TEST_CASE = {
 };
 const EXPECTED_HAPPY_RESULT = {
     satisfaction_male: 97.5,//(5+5+4+5+5+1+3+2+5+4)/40,
-    satisfaction_female:92.5,//(4+4+3+4+5+4+5+4+3+1)/40,
-    consistency:70//(1+1+1+1+1+0+1+0+1+0)/10
+    satisfaction_female:72.5,
+    consistency:50//(1+1+1+1+0+0+0+0+1+0)/10
 };
 
 const SAD_MALE_CASE = [
-    SCORES.A, SCORES.A, SCORES.D, SCORES.E, SCORES.E,
-    SCORES.B, SCORES.D, SCORES.A, SCORES.E, SCORES.C
+    SCORES.ONE, SCORES.ONE, SCORES.FOUR, SCORES.FIVE, SCORES.FIVE,
+    SCORES.TWO, SCORES.FOUR, SCORES.ONE, SCORES.FIVE, SCORES.THREE
 ];
 const SAD_FEMALE_CASE = [
-    SCORES.E, SCORES.B, SCORES.C, SCORES.E, SCORES.E,
-    SCORES.A, SCORES.B, SCORES.D, SCORES.E, SCORES.C
+    SCORES.FIVE, SCORES.TWO, SCORES.THREE, SCORES.FIVE, SCORES.FIVE,
+    SCORES.ONE, SCORES.TWO, SCORES.FOUR, SCORES.FIVE, SCORES.THREE
 ];
 const SAD_COUPLE_TEST_CASE = {
     subcategory: GIVEN_SUB_CATEGORY,
@@ -39,17 +39,17 @@ const SAD_COUPLE_TEST_CASE = {
 };
 const EXPECTED_SAD_RESULT = {
     satisfaction_male:62.5,//(1+5+2+1+1+2+4+5+1+3)/40,
-    satisfaction_female:57.5,//(5+4+3+1+1+1+2+2+1+3)/40,
-    consistency:20//0+1+0+0+0+0+0+0+0+1
+    satisfaction_female:87.5,//(5+4+3+1+1+1+2+2+1+3)/40,
+    consistency:30//0+1+0+0+1+1+0+0+0+0 //最后一对是33
 };
 
 const REALITY_MALE_CASE = [
-    SCORES.E, SCORES.A, SCORES.C, SCORES.C, SCORES.B,
-    SCORES.A, SCORES.B, SCORES.E, SCORES.A, SCORES.D
+    SCORES.FIVE, SCORES.ONE, SCORES.THREE, SCORES.THREE, SCORES.TWO,
+    SCORES.ONE, SCORES.TWO, SCORES.FIVE, SCORES.ONE, SCORES.FOUR
 ];
 const REALITY_FEMALE_CASE = [
-    SCORES.C, SCORES.B, SCORES.A, SCORES.A, SCORES.E,
-    SCORES.D, SCORES.D, SCORES.E, SCORES.C, SCORES.B
+    SCORES.THREE, SCORES.TWO, SCORES.ONE, SCORES.ONE, SCORES.FIVE,
+    SCORES.FOUR, SCORES.FOUR, SCORES.FIVE, SCORES.THREE, SCORES.TWO
 ];
 const REALITY_COUPLE_TEST_CASE = {
     subcategory: GIVEN_SUB_CATEGORY,
@@ -59,7 +59,7 @@ const REALITY_COUPLE_TEST_CASE = {
 const EXPECTED_REALITY_RESULT = {
     satisfaction_male:77.5,//(5+5+3+3+4+1+2+1+5+2)/40
     satisfaction_female:85,//(3+4+5+5+1+4+4+1+3+4)/40
-    consistency:50//1+1+1+1+0+0+0+0+1+0
+    consistency:60//1+1+1+1+0+0+0+1+1+0
 };
 
 const GOOD_COUPLE_CASE = [
@@ -85,19 +85,21 @@ describe("testing rules of Happy Marriage Assessment test", ()=>{
     _sut = new HappyMarriageAssessmentResultCalculationStrategy();
   })//before each
 
-  it.each(DUMMY_TEST_CASES)
-        ("for one test case, the relationship satisfaction shall be caluclated as expected", 
-        (test_input, expected_result)
-  =>{
-    let result = _sut.calculate_test_result(test_input)
-    let actual_consistency = result[GIVEN_SUB_CATEGORY].consistency;//_sut.calculate_relationship_consistency(male_input, female_input, GIVEN_SUB_CATEGORY);
-    let actual_male_satisfaction = result[GIVEN_SUB_CATEGORY].satisfaction.male;//_sut.calculate_satisfaction(male_input, GIVEN_SUB_CATEGORY);
-    let actual_female_satisfaction = result[GIVEN_SUB_CATEGORY].satisfaction.female;//_sut.calculate_satisfaction(female_input, GIVEN_SUB_CATEGORY);
+  it.each(DUMMY_TEST_CASES)(
+    "for one test case, the relationship satisfaction shall be caluclated as expected", 
+    (test_input, expected_result) => {
+        console.log("==== test started =====")
+        let result = _sut.calculate_test_result([test_input]);
+        let actual_consistency = result[GIVEN_SUB_CATEGORY].consistency;
+        let actual_male_satisfaction = result[GIVEN_SUB_CATEGORY].satisfaction.male;
+        let actual_female_satisfaction = result[GIVEN_SUB_CATEGORY].satisfaction.female;
 
-    expect(actual_consistency).toEqual(expected_result.consistency);
-    expect(actual_male_satisfaction).toEqual(expected_result.satisfaction_male);
-    expect(actual_female_satisfaction).toEqual(expected_result.satisfaction_female);
-  })//end of test
+        expect(actual_consistency).toEqual(expected_result.consistency);
+        expect(actual_male_satisfaction).toEqual(expected_result.satisfaction_male);
+        expect(actual_female_satisfaction).toEqual(expected_result.satisfaction_female);
+    }
+);
+
 })//describe
 
 
