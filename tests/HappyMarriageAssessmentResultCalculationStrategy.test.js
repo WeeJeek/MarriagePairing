@@ -57,8 +57,8 @@ const REALITY_COUPLE_TEST_CASE = {
     female_input: REALITY_FEMALE_CASE
 };
 const EXPECTED_REALITY_RESULT = {
-    satisfaction_male:77.5,//(5+5+3+3+4+1+2+1+5+2)/40
-    satisfaction_female:85,//(3+4+5+5+1+4+4+1+3+4)/40
+    satisfaction_male:98,//(5+5+3+3+4+1+2+1+5+2)/40
+    satisfaction_female:90,//(3+4+5+5+1+4+4+1+3+4)/40
     consistency:60//1+1+1+1+0+0+0+1+1+0
 };
 

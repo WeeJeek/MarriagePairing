@@ -18,9 +18,7 @@ export default class HappyMarriageAssessmentResultCalculationStrategy extends IT
     {
         let result = STRUCTURE;
         result.consistency = this.#calculate_consistency(answers[i]["male_input"], answers[i]["female_input"], answers[i].subcategory);
-        console.log("male satisfaction started +++++++")
         result.satisfaction.male = this.#calculate_satisfaction(answers[i]["male_input"], answers[i].subcategory);
-        console.log("female satisfaction started +++++++")
         result.satisfaction.female = this.#calculate_satisfaction(answers[i]["female_input"], answers[i].subcategory);
 
         results[answers[i].subcategory] = result;
@@ -57,7 +55,6 @@ export default class HappyMarriageAssessmentResultCalculationStrategy extends IT
   }
 
   #convert_score(score, is_positive){
-      console.log("the input positive is " + is_positive)
       if(is_positive){
           return score;
       }
@@ -69,15 +66,10 @@ export default class HappyMarriageAssessmentResultCalculationStrategy extends IT
   #calculate_satisfaction(input, subcategory){
     let question_list = this.#parse_question_list_with_category(subcategory);
 
-    console.log("question list is " + JSON.stringify(question_list))
     let total = 0;
 
     for(let i = 0; i < input.length; i++){
-        console.log("index i question list is " + JSON.stringify(question_list[i]))
-        console.log("Original score is " + input[i])
-        console.log("converted score " + this.#convert_score(input[i], question_list[i]["questions"]))
         total += this.#convert_score(input[i], question_list[i]["positive"]);
-        console.log("total is " + total)
     }
 
     let satisfaction_ratio = total/40*100;
