@@ -88,7 +88,6 @@ describe("testing rules of Happy Marriage Assessment test", ()=>{
   it.each(DUMMY_TEST_CASES)(
     "for one test case, the relationship satisfaction shall be caluclated as expected", 
     (test_input, expected_result) => {
-        console.log("==== test started =====")
         let result = _sut.calculate_test_result([test_input]);
         let actual_consistency = result[GIVEN_SUB_CATEGORY].consistency;
         let actual_male_satisfaction = result[GIVEN_SUB_CATEGORY].satisfaction.male;
