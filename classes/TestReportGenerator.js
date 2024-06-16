@@ -3,6 +3,7 @@ import LifePressureAnalysisResultCalculationStrategy from "./LifePressureAnalysi
 import HappyMarriageAssessmentResultCalculationStrategy from "./HappyMarriageAssessmentResultCalculationStrategy"
 import FamilyAdaptabilityResultCalculationStrategy from "./FamilyAdaptabilityResultCalculationStrategy"
 import TestCategories  from "../enums/TestCategories"
+import TestReportTranslator from "./TestReportTranslator"
 
 export default class TestReportCalculator{
   #calculation_strategy = null;
@@ -89,14 +90,17 @@ export default class TestReportCalculator{
 
   #collect_independent_test_report(test_category, result_of_male, result_of_female){
     //TODO: add translator here
+    let translator = new TestReportTranslator();
+
     this.#test_report["INDEPENDENT_TESTS"][test_category] = {};
-    this.#test_report["INDEPENDENT_TESTS"][test_category]["MALE"] = result_of_male;
-    this.#test_report["INDEPENDENT_TESTS"][test_category]["MALE"] = result_of_female;
+    this.#test_report["INDEPENDENT_TESTS"][test_category]["MALE"] = translator.translate(result_of_male);
+    this.#test_report["INDEPENDENT_TESTS"][test_category]["FEMALE"] = translator.translate(result_of_female);
   }
 
   #collect_dependent_test_report(test_category, test_result){
     //TODO: add translator here
-    this.#test_report["DEPENDENT_TESTS"][test_category] = test_result;
+    let translator = new TestReportTranslator();
+    this.#test_report["DEPENDENT_TESTS"][test_category] = translator.translate(test_result);
   }
 
   #set_strategy(strategy){

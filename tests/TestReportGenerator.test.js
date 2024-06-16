@@ -245,20 +245,20 @@ describe("unit test testing for Test Result Calculator class", () =>{
     let EXPECTED_TEST_RESULT = {
         "INDEPENDENT_TESTS":{
             [TestCategories.PERSONAL]:{
-                "MALE": PERSONAL_INFO_MALE,
-                "FEMALE": PERSONAL_INFO_FEMALE
+                "男方": PERSONAL_INFO_MALE,
+                "女方": PERSONAL_INFO_FEMALE
             },
             [TestCategories.MBTI]:{
-                "MALE": MBTI_RESULT_MALE,
-                "FEMALE": MBTI_RESULT_FEMALE
+                "男方": MBTI_RESULT_MALE,
+                "女方": MBTI_RESULT_FEMALE
             },
             [TestCategories.FAMILY_ADAPTABILITY_TEST]:{
-                "MALE": FAMILY_ADAPTABILITY_RESULT_MALE,
-                "FEMALE": FAMILY_ADAPTABILITY_RESULT_FEMALE, 
+                "男方": FAMILY_ADAPTABILITY_RESULT_MALE,
+                "女方": FAMILY_ADAPTABILITY_RESULT_FEMALE, 
             },
             [TestCategories.LIFE_PRESSURE_ANALYSIS]:{
-                "MALE": LIFE_PRESSURE_RESULT_MALE,
-                "FEMALE": LIFE_PRESSURE_RESULT_FEMALE
+                "男方": LIFE_PRESSURE_RESULT_MALE,
+                "女方": LIFE_PRESSURE_RESULT_FEMALE
             }
         },
         "DEPENDENT_TESTS":{
@@ -268,6 +268,11 @@ describe("unit test testing for Test Result Calculator class", () =>{
 
     let result_test_result = _sut.generate_test_report(GIVEN_TEST_RECORD);
 
+    console.log("DEBUGGING: EXPECTED Test: " + JSON.stringify(EXPECTED_TEST_RESULT));
+    
+    console.log("========" );
+    console.log("DEBUGGING: ACTUAL Test: " + JSON.stringify(result_test_result));
+    
     expect(result_test_result).toEqual(EXPECTED_TEST_RESULT);
   })
   afterEach(()=>{
