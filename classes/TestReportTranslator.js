@@ -1,4 +1,8 @@
 export default class TestReportTranslator{
+    constructor(){
+        this.translate = this.translate.bind(this);
+    }
+
     #translation_map = {
         "INDEPENDENT_TESTS": "双方独立测试",
         "MBTI": "MBTI",
@@ -8,7 +12,7 @@ export default class TestReportTranslator{
         "FvT": "FvT",
         "JvP": "JvP",
         "NvS": "NvS",
-        "answers": "答案",
+        "answers": "具体选项",
         "score": "得分",
         "trend": "倾向",
         "Introversion": "Introversion",
@@ -29,17 +33,19 @@ export default class TestReportTranslator{
         if (typeof obj !== 'object' || obj === null) {
             return obj;
         }
-    
+
         if (Array.isArray(obj)) {
             return obj.map(this.translate);
         }
-    
+
         const translated_report = {};
         for (const key in obj) {
-            const translated_key = this.#translation_map[key] || key;
-            translated_report[translated_key] = this.translate(obj[key]);
+            if (obj.hasOwnProperty(key)) {
+                const translated_key = this.#translation_map[key] || key;
+                translated_report[translated_key] = this.translate(obj[key]);
+            }
         }
-    
+
         return translated_report;
     }
     

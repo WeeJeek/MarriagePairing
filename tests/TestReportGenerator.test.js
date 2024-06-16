@@ -243,37 +243,37 @@ describe("unit test testing for Test Result Calculator class", () =>{
     };
 
     let EXPECTED_TEST_RESULT = {
-        "INDEPENDENT_TESTS":{
-            [TestCategories.PERSONAL]:{
+        "双方独立测试":{
+            "个人信息":{
                 "男方": PERSONAL_INFO_MALE,
                 "女方": PERSONAL_INFO_FEMALE
             },
-            [TestCategories.MBTI]:{
+            "MBTI":{
                 "男方": MBTI_RESULT_MALE,
                 "女方": MBTI_RESULT_FEMALE
             },
-            [TestCategories.FAMILY_ADAPTABILITY_TEST]:{
+            "家庭适应性测试":{
                 "男方": FAMILY_ADAPTABILITY_RESULT_MALE,
                 "女方": FAMILY_ADAPTABILITY_RESULT_FEMALE, 
             },
-            [TestCategories.LIFE_PRESSURE_ANALYSIS]:{
+            "生活压力分析":{
                 "男方": LIFE_PRESSURE_RESULT_MALE,
                 "女方": LIFE_PRESSURE_RESULT_FEMALE
             }
         },
-        "DEPENDENT_TESTS":{
+        "双方关联测试":{
             [TestCategories.HAPPY_MARRIAGE_ASSESSMENT]: HAPPY_MARRIAGE_RESULT
         }
     };
 
-    let result_test_result = _sut.generate_test_report(GIVEN_TEST_RECORD);
+    let actual_report = _sut.generate_test_report(GIVEN_TEST_RECORD);
 
     console.log("DEBUGGING: EXPECTED Test: " + JSON.stringify(EXPECTED_TEST_RESULT));
     
     console.log("========" );
-    console.log("DEBUGGING: ACTUAL Test: " + JSON.stringify(result_test_result));
+    console.log("DEBUGGING: ACTUAL Test: " + JSON.stringify(actual_report));
     
-    expect(result_test_result).toEqual(EXPECTED_TEST_RESULT);
+    expect(actual_report).toEqual(EXPECTED_TEST_RESULT);
   })
   afterEach(()=>{
     jest.restoreAllMocks()
