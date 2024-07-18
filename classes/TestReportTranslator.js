@@ -26,7 +26,11 @@ export default class TestReportTranslator{
         "Closeness": "答案相似性",
         "Elasticity": "相互包容性",
         "LIFE_PRESSURE_ANALYSIS": "生活压力分析",
-        "DEPENDENT_TESTS": "双方关联测试"
+        "HAPPY_MARRIAGE_ASSESSMENT": "幸福婚姻测试",
+        "DEPENDENT_TESTS": "双方关联测试",
+        "subcategory": "子类别",
+        "consistency": "契合度",
+        "satisfaction": "满意度"
     };
     
     translate(obj) {

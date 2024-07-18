@@ -19,9 +19,13 @@ Page({
     this.selected_choice = event.detail.value;
   },
   on_previous_question: function(event){
+      console.log("in GUI: ON PREVIOUS QUESTION");
+      console.log("the question before move is " + JSON.stringify(app.global_data.test_manager.get_current_question()));
     app.global_data.test_manager.move_back_to_last_question()
     const current_question = app.global_data.test_manager.get_current_question();
+    console.log("the question after move is " + JSON.stringify(app.global_data.test_manager.get_current_question()));
     this.selected_choice = app.global_data.test_manager.get_selected_choice_of_question();
+    console.log("the selected choice is " + this.selected_choice);
     this.setData({
       current_question: current_question,
       is_the_first_question: app.global_data.test_manager.is_the_first_question(),
@@ -51,6 +55,7 @@ Page({
           total_amount: app.global_data.test_manager.get_amount_of_questions_of_current_test_category()
         });
         this.selected_choice = selected_choice;
+        console.log("the selected choice is " + this.selected_choice);
       } 
       else {
         console.log("entered else")

@@ -70,24 +70,24 @@ describe("unit test testing for Test Result Calculator class", () =>{
     };
     let MBTI_RESULT_FEMALE = {
         "EvI": {
-          score: -7,
-          trend: MBTIFeatureCategories.I,
-          answers:[CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B]
+          "得分": -7,
+          "倾向": MBTIFeatureCategories.I,
+          "具体选项":[CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B]
         },
         "NvS": {
-          score: -7,
-          trend: MBTIFeatureCategories.S,
-          answers:[CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B]
+          "得分": -7,
+          "倾向": MBTIFeatureCategories.S,
+          "具体选项":[CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B]
         },
         "FvT": {
-          score: -7,
-          trend: MBTIFeatureCategories.T,
-          answers:[CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B]
+          "得分": -7,
+          "倾向": MBTIFeatureCategories.T,
+          "具体选项":[CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B]
         },
         "JvP": {
-          score: -7,
-          trend: MBTIFeatureCategories.P,
-          answers:[CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B]
+          "得分": -7,
+          "倾向": MBTIFeatureCategories.P,
+          "具体选项":[CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B, CHOICES.B]
         }
     };
 
@@ -129,13 +129,13 @@ describe("unit test testing for Test Result Calculator class", () =>{
             "相似性":15,
             "差异性":17//Elasticity
         },
-        "Ideal Relationship": {
+        "理想关系": {
             "相似性":15,
             "差异性":17
         }
     },
     "得分": {
-        "Original Family": {
+        "原生家庭": {
             "相似性":[
                 SCORES.TWO, SCORES.THREE, SCORES.FIVE, SCORES.FOUR, SCORES.ONE, 
                 SCORES.TWO, SCORES.THREE, SCORES.FIVE, SCORES.FOUR, SCORES.ONE],
@@ -143,7 +143,7 @@ describe("unit test testing for Test Result Calculator class", () =>{
                 SCORES.ONE, SCORES.FOUR, SCORES.FIVE, SCORES.FOUR, SCORES.ONE, 
                 SCORES.ONE, SCORES.FOUR, SCORES.FIVE, SCORES.FOUR, SCORES.FIVE]
         },
-        "Ideal Relationship": {
+        "理想关系": {
             "相似性":[
                 SCORES.TWO, SCORES.THREE, SCORES.FIVE, SCORES.FOUR, SCORES.ONE, 
                 SCORES.TWO, SCORES.THREE, SCORES.FIVE, SCORES.FOUR, SCORES.ONE],
@@ -211,7 +211,7 @@ describe("unit test testing for Test Result Calculator class", () =>{
     ];
     let HAPPY_MARRIAGE_RESULT = [
         {
-            "subcategory": GIVEN_SUB_CATEGORY,
+            "子类别": GIVEN_SUB_CATEGORY,
             "男方满意度": 98,//(5+5+3+3+4+1+2+1+5+2)/40
             "女方满意度": 90,//(3+4+5+5+1+4+4+1+3+4)/40
             "一致性": 60//1+1+1+1+0+0+0+1+1+0
@@ -262,7 +262,7 @@ describe("unit test testing for Test Result Calculator class", () =>{
             }
         },
         "双方关联测试":{
-            [TestCategories.HAPPY_MARRIAGE_ASSESSMENT]: HAPPY_MARRIAGE_RESULT
+            "幸福婚姻测试": HAPPY_MARRIAGE_RESULT
         }
     };
 
