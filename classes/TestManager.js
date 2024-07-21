@@ -73,8 +73,6 @@ export default class TestManager{
   }
 
   get_current_question(){
-    console.log("IN GET CURRENT QUESTION:");
-    console.log("the current index is " + this.#current_selected_test_index);
     return TEST_LIST[this.#current_test_category]["test_subset"][this.#current_sub_test_category]["questions"][this.#current_selected_test_index];
   }
 
@@ -169,12 +167,7 @@ export default class TestManager{
   }
 
   #move_to_next_question(){
-    console.log("IN MOVE_TO_NEXT_QUESTION:");
-    console.log("current selected test index ++");
       this.#current_selected_test_index++;
-      console.log("current selected test index is " + this.#current_selected_test_index);
-
-    console.log("the current test log is " + JSON.stringify(this.get_test_record()));
   }
 
   #move_to_next_sub_category(){
@@ -272,11 +265,7 @@ export default class TestManager{
 
   move_back_to_last_question(){
     if(!this.is_the_first_question()){
-        console.log("current selected test index --");
         this.#current_selected_test_index--;
-
-        console.log("current selected test index is " + this.#current_selected_test_index);
-        console.log("the current test log is " + JSON.stringify(this.get_test_record()));
     }
   }
 
@@ -297,11 +286,9 @@ export default class TestManager{
   }
 
   get_selected_choice_of_question(){
-    let cur_index = this.#convert_index_within_category(this.get_current_question_index());
-    /*return this.#current_test_record_manager.get_selected_choice_of_question(cur_index);*/
-    console.log("IN GET_SELECTED_CHOICE_OF_QUESTION")
-    console.log("the current index is " + cur_index)
-    console.log("the answers in test records is " + this.#test_record[this.#current_test_category]["result"][this.#current_sub_test_category]["answers"])
+    let cat_index_que_index = this.#convert_index_within_category(this.get_current_question_index());
+    let cur_index = cat_index_que_index[1];
+    
     if(cur_index in this.#test_record[this.#current_test_category]["result"][this.#current_sub_test_category]["answers"]){
         return this.#test_record[this.#current_test_category]["result"][this.#current_sub_test_category]["answers"][cur_index]//["choice"] Maybe this choice is not needed
     }
