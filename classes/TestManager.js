@@ -119,11 +119,9 @@ export default class TestManager{
 
     //TODO: 1. what is the purpose of this this function?
     //2. the line calling this function is expecting converting index to a ENUM, which is not done
-      console.log("In CONVERT INDEX WITHIN CATEGORY")
     let remaining_index = overal_index;
     let cat_index = 0;
 
-    console.log("the ")
     for(let i = 0; i < TEST_LIST[this.#current_test_category]["test_subset"].length; i++){
         if(remaining_index > TEST_LIST[this.#current_test_category]["test_subset"][i].length){
             cat_index++;
