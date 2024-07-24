@@ -28,7 +28,7 @@
     "karma-dirname-preprocessor": "^0.0.4",
     "karma-filemap-preprocessor": "^0.2.0",
     "karma-webpack": "^5.0.0",
-    "miniprogram-simulate": "^1.5.8"
+    "miniprogram-simulate": "^0.0.1"
   },
   "type": "module"
 }
