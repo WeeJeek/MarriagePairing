@@ -37,17 +37,12 @@ Page({
     console.log(this.is_the_first_question)
   },
   on_next_question: function(event){
-      console.log("next botton is pressed")
-      console.log("the selected choice is " + this.selected_choice);
     if (this.selected_choice) {//choice is selected
-        console.log("entered if")
       app.global_data.test_manager.answer_the_current_question(this.selected_choice);
       app.global_data.test_manager.store_test_record();
 
       const next_question = app.global_data.test_manager.get_current_question();
-      console.log("selected choice before answer " + this.selected_choice);
       let selected_choice = app.global_data.test_manager.get_selected_choice_of_question();
-      console.log("selected choice after answer " + this.selected_choice);
       if (next_question.ID != 1) {//not the starting of the next test category
         this.setData({
           current_question: next_question,
@@ -58,10 +53,8 @@ Page({
           total_amount: app.global_data.test_manager.get_amount_of_questions_of_current_test_category()
         });
         this.selected_choice = selected_choice;
-        console.log("the selected choice is " + this.selected_choice);
       } 
       else {
-        console.log("entered else")
         if(!app.global_data.test_manager.are_all_tests_finished()){
           wx.navigateTo({
             url: '../test_description/test_description'
